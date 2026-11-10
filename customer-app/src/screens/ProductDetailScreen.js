@@ -3,11 +3,12 @@ import { View, Text, ScrollView, Pressable, StyleSheet, TextInput, } from 'react
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ProductImage from '../components/ProductImage';
+import ProductVideo from '../components/ProductVideo';
 import ProductCard from '../components/ProductCard';
 import { Button, RatingChip, Card, Chip, Divider } from '../components/ui';
 import { colors, font, radius } from '../theme';
 import { getProductById } from '../services/api';
-import { products, offers, sampleReviews } from '../data/catalog';
+import { products, offers, sampleReviews, DEMO_VIDEO } from '../data/catalog';
 import { formatPrice, discountPct, formatDate, addDays } from '../utils/format';
 import { region } from '../config/tax';
 import { DELIVERY } from '../config/app';
@@ -21,6 +22,8 @@ export default function ProductDetailScreen({ route, navigation }) {
   const { addToCart, cart, wishlist, toggleWishlist, addRecentlyViewed } = useApp();
   const [variant, setVariant] = useState(product.variants ? product.variants.options[0] : null);
   const [slide, setSlide] = useState(0);
+  const [media, setMedia] = useState('photos'); // 'photos' | 'video'
+  const videoUri = product.video || DEMO_VIDEO;
   const [pin, setPin] = useState('');
   const [pinMsg, setPinMsg] = useState('');
   const liked = wishlist.includes(product.id);
@@ -66,18 +69,24 @@ export default function ProductDetailScreen({ route, navigation }) {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Gallery */}
         <View style={{ backgroundColor: colors.white }}>
-          <ScrollView
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onMomentumScrollEnd={(e) => setSlide(Math.round(e.nativeEvent.contentOffset.x / width))}
-          >
-            {product.images.map((u) => (
-              <View key={u} style={{ width, padding: 12 }}>
-                <ProductImage product={product} uri={u} size={Math.round(width * 0.78)} rounded={radius.xl} />
-              </View>
-            ))}
-          </ScrollView>
+          {media === 'photos' ? (
+            <ScrollView
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onMomentumScrollEnd={(e) => setSlide(Math.round(e.nativeEvent.contentOffset.x / width))}
+            >
+              {product.images.map((u) => (
+                <View key={u} style={{ width, padding: 12 }}>
+                  <ProductImage product={product} uri={u} size={Math.round(width * 0.78)} rounded={radius.xl} />
+                </View>
+              ))}
+            </ScrollView>
+          ) : (
+            <View style={{ padding: 12 }}>
+              <ProductVideo uri={videoUri} width={width - 24} height={Math.round(width * 0.78)} radius={radius.xl} />
+            </View>
+          )}
           <View style={styles.galleryActions}>
             <Pressable style={styles.roundBtn} onPress={() => toggleWishlist(product.id)}>
               <Ionicons name={liked ? 'heart' : 'heart-outline'} size={20} color={liked ? colors.danger : colors.black} />
@@ -87,7 +96,17 @@ export default function ProductDetailScreen({ route, navigation }) {
             </Pressable>
           </View>
           <View style={styles.dots}>
-            {product.images.length > 1 ? product.images.map((u, i) => <View key={u} style={[styles.dot, i === slide && styles.dotOn]} />) : null}
+            {media === 'photos' && product.images.length > 1 ? product.images.map((u, i) => <View key={u} style={[styles.dot, i === slide && styles.dotOn]} />) : null}
+          </View>
+
+          {/* Gallery 2 parts: Photos | Video */}
+          <View style={styles.mediaTabs}>
+            {[['photos', 'images-outline', `Photos (${product.images.length})`], ['video', 'play-circle-outline', 'Video']].map(([k, ic, label]) => (
+              <Pressable key={k} style={[styles.mediaTab, media === k && styles.mediaTabOn]} onPress={() => setMedia(k)}>
+                <Ionicons name={ic} size={15} color={media === k ? colors.white : colors.ink} />
+                <Text style={[styles.mediaTabText, media === k && { color: colors.white }]}>{label}</Text>
+              </Pressable>
+            ))}
           </View>
 
           <View style={{ padding: 16, paddingTop: 4 }}>
@@ -237,6 +256,10 @@ const styles = StyleSheet.create({
   dots: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8 },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.border, marginHorizontal: 3 },
   dotOn: { backgroundColor: colors.black, width: 16 },
+  mediaTabs: { flexDirection: 'row', alignSelf: 'center', backgroundColor: colors.mist, borderRadius: 999, padding: 3, marginBottom: 10 },
+  mediaTab: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 16, paddingVertical: 7, borderRadius: 999 },
+  mediaTabOn: { backgroundColor: colors.black },
+  mediaTabText: { fontSize: 12.5, fontWeight: '600', color: colors.ink },
   brand: { fontSize: 13, fontWeight: '600', color: colors.accent },
   title: { fontSize: 20, fontFamily: 'PlusJakartaSans_700Bold', color: colors.black, marginTop: 4, lineHeight: 25, letterSpacing: -0.3 },
   reviews: { marginLeft: 8, color: colors.muted, fontSize: 12 },

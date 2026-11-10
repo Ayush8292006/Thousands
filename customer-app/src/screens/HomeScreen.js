@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import HomeHeader from '../components/HomeHeader';
 import HeroCarousel from '../components/HeroCarousel';
+import ShopTiles from '../components/ShopTiles';
 import HomeProductCard from '../components/HomeProductCard';
 import ProductImage from '../components/ProductImage';
 import { fonts, pastels, lightBlueTheme } from '../theme';
@@ -140,6 +141,9 @@ export default function HomeScreen({ navigation }) {
           banners={banners}
           onPress={(b) => openCat(b.link.category, b.title.replace('\n', ' '))}
         />
+
+        {/* Shop by category — arch tiles, 2 rows */}
+        <ShopTiles navigation={navigation} />
 
         {/* Bank & Customer Privilege Perks */}
         <ScrollView

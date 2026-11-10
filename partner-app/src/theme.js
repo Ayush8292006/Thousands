@@ -7,11 +7,11 @@ export const colors = {
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F2F3F5', // inner screens ka base; Home white rehta hai
-  mist: '#F2F3F5', // surfaces, image backdrops
-  soft: '#F2F3F5',
+  bg: '#FFF8E7', // warm cream (client palette) // inner screens ka base; Home white rehta hai
+  mist: '#FDF3DC', // surfaces, image backdrops
+  soft: '#FDF3DC',
   card: '#FFFFFF',
-  border: '#E4E6EA',
+  border: '#EEE4CC',
   muted: '#6B6F76',
   faint: '#A0A4AB',
   accent: '#2B50E0', // commercial blue — CTAs, active tab, links

@@ -2,6 +2,9 @@
 // Images: Unsplash (free license) — production mein seller ki apni
 // product photos backend se aayengi (product.images = [url, url, ...]).
 
+// Demo product video (seller apni video upload karega -> product.video)
+export const DEMO_VIDEO = 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+
 const U = (id, w = 600) => `https://images.unsplash.com/photo-${id}?w=${w}&q=75&fm=jpg&fit=crop`;
 
 export const categories = [

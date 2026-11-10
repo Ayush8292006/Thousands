@@ -22,7 +22,7 @@ export function TopBar({ title, subtitle, right, back }) {
             <Ionicons name="arrow-back" size={22} color={colors.white} />
           </Pressable>
         ) : (
-          <Image source={require('../../assets/logo-white.png')} style={s.logo} resizeMode="contain" />
+          <View style={s.logoBadge}><Image source={require('../../assets/logo-white.png')} style={s.logo} resizeMode="contain" /></View>
         )}
         <View style={{ flex: 1 }}>
           <Text style={s.topTitle} numberOfLines={1}>{title}</Text>
@@ -129,7 +129,8 @@ export function ListRow({ icon, title, subtitle, onPress, right, last }) {
 const s = StyleSheet.create({
   topBar: { paddingHorizontal: 16, paddingBottom: 14 },
   topRow: { flexDirection: 'row', alignItems: 'center', minHeight: 40 },
-  logo: { width: 22, height: 26, marginRight: 10 },
+  logoBadge: { width: 32, height: 32, borderRadius: 9, backgroundColor: '#FFF8E7', alignItems: 'center', justifyContent: 'center', marginRight: 10 },
+  logo: { width: 21, height: 23 },
   topTitle: { fontFamily: fonts.display, fontSize: 18, color: colors.white },
   topSub: { fontSize: 12, color: 'rgba(255,255,255,0.8)', marginTop: 1 },
 

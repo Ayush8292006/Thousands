@@ -24,7 +24,7 @@ export default function CategoriesScreen({ navigation }) {
   }, [active]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
         <Text style={styles.title}>All Categories</Text>
         <Pressable onPress={() => navigation.navigate('Search')} hitSlop={8}>

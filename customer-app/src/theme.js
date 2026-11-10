@@ -7,11 +7,11 @@ export const colors = {
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F2F3F5', // inner screens ka base; Home white rehta hai
-  mist: '#F2F3F5', // surfaces, image backdrops
-  soft: '#F2F3F5',
+  bg: '#FFF8E7', // warm cream (client palette) // inner screens ka base; Home white rehta hai
+  mist: '#FDF3DC', // surfaces, image backdrops
+  soft: '#FDF3DC',
   card: '#FFFFFF',
-  border: '#E4E6EA',
+  border: '#EEE4CC',
   muted: '#6B6F76',
   faint: '#A0A4AB',
   accent: '#2B50E0', // commercial blue — CTAs, active tab, links
@@ -31,14 +31,14 @@ export const lightBlueTheme = {
   primary: '#A9CFF5',      // Soft Premium Blue
   secondary: '#DCEEFF',    // Light Sky Blue
   bg: '#FFFFFF',           // Clean White
-  softBg: '#F4F9FF',       // Ice Blue
+  softBg: '#FFF8E7',       // Ice Blue
   text: '#172B45',         // Deep Navy
   textMuted: '#5C728A',    // Slate Navy Muted
   accent: '#397FC1',       // Accent Blue
   accentDark: '#1E5A96',   // Rich Blue
   border: '#E4EDF6',       // Soft Blue Grey
   darkBg: '#0F1D30',       // Deep Navy Obsidian
-  darkLogoBg: '#000000',   // Black background for original geometric logo
+  darkLogoBg: '#FFF8E7',   // Black background for original geometric logo
   shadow: 'rgba(57, 127, 193, 0.08)',
 };
 

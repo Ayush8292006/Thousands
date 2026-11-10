@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/logo-white.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0A0A0A"
+      "backgroundColor": "#FCF6D2"
     },
     "ios": {
       "supportsTablet": false,
@@ -18,8 +18,8 @@
     "android": {
       "package": "com.thousands.shop",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo-white.png",
-        "backgroundColor": "#0A0A0A"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FCF6D2"
       }
     },
     "plugins": [
