@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { noOutline } from '../utils/platform';
 import { colors, radius } from '../theme';
 import { useApp } from '../context/AppContext';
 import { products, categories } from '../data/catalog';
@@ -38,7 +39,7 @@ export default function SearchScreen({ navigation }) {
             autoFocus
             placeholder="Search for products, brands and more"
             placeholderTextColor={colors.faint}
-            style={styles.input}
+            style={[styles.input, noOutline]}
             returnKeyType="search"
             onSubmitEditing={() => submit()}
           />

@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Pressable, TextInput, StyleSheet, KeyboardAvoid
 import { Ionicons } from '@expo/vector-icons';
 import { useApp } from '../context/AppContext';
 import { Button, Chip } from '../components/ui';
+import { noOutline } from '../utils/platform';
 import { colors, radius } from '../theme';
 
 const empty = { name: '', phone: '', pincode: '', state: '', city: '', house: '', area: '', type: 'Home' };
@@ -93,7 +94,7 @@ function Field({ label, style, ...rest }) {
   return (
     <View style={[{ marginBottom: 12 }, style]}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput style={styles.input} placeholderTextColor={colors.faint} {...rest} />
+      <TextInput style={[styles.input, noOutline]} placeholderTextColor={colors.faint} {...rest} />
     </View>
   );
 }

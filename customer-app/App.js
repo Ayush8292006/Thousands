@@ -13,6 +13,13 @@ import { AppProvider } from './src/context/AppContext';
 import RootNavigator from './src/navigation/RootNavigator';
 import { colors } from './src/theme';
 
+// Web: browser ka default focus outline (black border) saare inputs se hatao
+if (Platform.OS === 'web' && typeof document !== 'undefined') {
+  const st = document.createElement('style');
+  st.textContent = 'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }';
+  document.head.appendChild(st);
+}
+
 const navTheme = {
   ...DefaultTheme,
   colors: { ...DefaultTheme.colors, background: colors.bg, primary: colors.accent, card: colors.white, text: colors.black },

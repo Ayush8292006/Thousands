@@ -12,7 +12,7 @@ import { formatPrice, discountPct, formatDate, addDays } from '../utils/format';
 import { region } from '../config/tax';
 import { DELIVERY } from '../config/app';
 import { useApp } from '../context/AppContext';
-import { useAppWidth, shareText } from '../utils/platform';
+import { useAppWidth, shareText, noOutline } from '../utils/platform';
 
 export default function ProductDetailScreen({ route, navigation }) {
   const product = getProductById(route.params.id);
@@ -149,7 +149,7 @@ export default function ProductDetailScreen({ route, navigation }) {
               placeholder="Enter delivery pincode"
               placeholderTextColor={colors.faint}
               keyboardType="number-pad"
-              style={styles.pinInput}
+              style={[styles.pinInput, noOutline]}
             />
             <Pressable onPress={checkPin}><Text style={styles.check}>Check</Text></Pressable>
           </View>

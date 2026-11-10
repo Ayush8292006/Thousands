@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Image, StyleSheet, KeyboardAvoidingView, Platform, Pressable, Modal, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { countries, isValidMobile } from '../data/countries';
+import { noOutline } from '../utils/platform';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius, font } from '../theme';
 import { Button } from '../components/ui';
@@ -150,8 +151,7 @@ export default function LoginScreen() {
   );
 }
 
-// Web browser ka default focus border hatao
-const noOutline = Platform.OS === 'web' ? { outlineStyle: 'none', outlineWidth: 0 } : null;
+
 
 const styles = StyleSheet.create({
   hero: { flex: 1, alignItems: 'center', justifyContent: 'center' },

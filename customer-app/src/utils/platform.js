@@ -3,6 +3,9 @@ import { Platform, Alert, Share, useWindowDimensions } from 'react-native';
 export const isWeb = Platform.OS === 'web';
 export const WEB_MAX_WIDTH = 480;
 
+// Web pe TextInput ka focus border (outline) hatane ke liye — inline style sabse strong hota hai
+export const noOutline = isWeb ? { outlineStyle: 'none', outlineWidth: 0, outlineColor: 'transparent', boxShadow: 'none' } : null;
+
 // Web pe app phone-frame (max 480px) mein chalti hai, isliye layout width bhi wahi
 export function useAppWidth() {
   const { width, height } = useWindowDimensions();
