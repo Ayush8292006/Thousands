@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors, fonts } from '../theme';
+import { fonts, lightBlueTheme } from '../theme';
 import { BRAND } from '../config/app';
 import { useApp } from '../context/AppContext';
 
@@ -16,43 +16,89 @@ export default function HomeHeader() {
   const { selectedAddress, cartCount } = useApp();
 
   return (
-    <LinearGradient colors={[colors.accentDark, colors.accent]} style={[styles.wrap, { paddingTop: insets.top + 6 }]}>
-      {focused ? <StatusBar style="light" /> : null}
+    <LinearGradient
+      colors={['#FFFFFF', lightBlueTheme.softBg]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1 }}
+      style={[styles.wrap, { paddingTop: insets.top + 8 }]}
+    >
+      {focused ? <StatusBar style="dark" /> : null}
+
+      {/* Brand & Action Bar */}
       <View style={styles.top}>
-        <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
-        <View style={{ marginLeft: 8 }}>
-          <Text style={styles.brand}>{BRAND.name}</Text>
-          <View style={styles.plusRow}>
-            <Text style={styles.plus}>Explore</Text>
-            <Text style={styles.plusGold}> Plus</Text>
-            <Ionicons name="add-circle" size={11} color={colors.yellow} style={{ marginLeft: 2 }} />
+        {/* Premium Dark Logo Container */}
+        <View style={styles.logoBadge}>
+          <Image
+            source={require('../../assets/brand-logo.jpg')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Clean Typography Brand Identity */}
+        <View style={styles.brandInfo}>
+          <Text style={styles.brandTitle}>{BRAND.name.toUpperCase()}</Text>
+          <View style={styles.tagBadge}>
+            <View style={styles.tagDot} />
+            <Text style={styles.tagText}>PREMIUM FASHION</Text>
           </View>
         </View>
+
         <View style={{ flex: 1 }} />
-        <Pressable hitSlop={8} onPress={() => nav.navigate('Support')} style={styles.iconBtn} accessibilityLabel="Help">
-          <Ionicons name="notifications-outline" size={22} color={colors.white} />
+
+        {/* Action Icons */}
+        <Pressable
+          hitSlop={8}
+          onPress={() => nav.navigate('Tabs', { screen: 'Wishlist' })}
+          style={styles.iconBtn}
+          accessibilityLabel="Wishlist"
+        >
+          <Ionicons name="heart-outline" size={22} color={lightBlueTheme.text} />
         </Pressable>
-        <Pressable hitSlop={8} onPress={() => nav.navigate('Tabs', { screen: 'Cart' })} style={styles.iconBtn} accessibilityLabel="Cart">
-          <Ionicons name="cart-outline" size={24} color={colors.white} />
-          {cartCount > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{cartCount}</Text></View> : null}
+
+        <Pressable
+          hitSlop={8}
+          onPress={() => nav.navigate('Support')}
+          style={styles.iconBtn}
+          accessibilityLabel="Support"
+        >
+          <Ionicons name="notifications-outline" size={22} color={lightBlueTheme.text} />
+        </Pressable>
+
+        <Pressable
+          hitSlop={8}
+          onPress={() => nav.navigate('Tabs', { screen: 'Cart' })}
+          style={styles.iconBtn}
+          accessibilityLabel="Cart"
+        >
+          <Ionicons name="bag-handle-outline" size={23} color={lightBlueTheme.text} />
+          {cartCount > 0 ? (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{cartCount}</Text>
+            </View>
+          ) : null}
         </Pressable>
       </View>
 
+      {/* Elegant Search Bar */}
       <Pressable onPress={() => nav.navigate('Search')} style={styles.search} accessibilityRole="search">
-        <Ionicons name="search" size={19} color={colors.accent} />
-        <Text style={styles.searchText} numberOfLines={1}>Search for products, brands and more</Text>
-        <Ionicons name="mic-outline" size={20} color={colors.muted} />
+        <Ionicons name="search" size={18} color={lightBlueTheme.accent} />
+        <Text style={styles.searchText} numberOfLines={1}>Search collections, designer wear & accessories...</Text>
+        <Ionicons name="mic-outline" size={19} color={lightBlueTheme.accent} />
         <View style={styles.sep} />
-        <Ionicons name="camera-outline" size={20} color={colors.muted} />
+        <Ionicons name="camera-outline" size={19} color={lightBlueTheme.accent} />
       </Pressable>
 
+      {/* Address / Delivery Strip */}
       {selectedAddress ? (
         <Pressable style={styles.addr} onPress={() => nav.navigate('Addresses', { selectMode: true })}>
-          <Ionicons name="location-outline" size={15} color={colors.white} />
+          <View style={styles.addrIconWrap}>
+            <Ionicons name="location" size={13} color={lightBlueTheme.accent} />
+          </View>
           <Text style={styles.addrText} numberOfLines={1}>
-            Deliver to <Text style={{ fontWeight: '700' }}>{selectedAddress.name.split(' ')[0]} - {selectedAddress.city} {selectedAddress.pincode}</Text>
+            Deliver to <Text style={styles.addrBold}>{selectedAddress.name.split(' ')[0]} - {selectedAddress.city} {selectedAddress.pincode}</Text>
           </Text>
-          <Ionicons name="chevron-down" size={14} color={colors.white} />
+          <Ionicons name="chevron-down" size={13} color={lightBlueTheme.textMuted} />
         </Pressable>
       ) : null}
     </LinearGradient>
@@ -60,22 +106,150 @@ export default function HomeHeader() {
 }
 
 const styles = StyleSheet.create({
-  wrap: { paddingHorizontal: 14, paddingBottom: 10 },
-  top: { flexDirection: 'row', alignItems: 'center', height: 44 },
-  logo: { width: 24, height: 28 },
-  brand: { fontFamily: fonts.display, fontSize: 19, color: colors.white, fontStyle: 'italic', letterSpacing: -0.2 },
-  plusRow: { flexDirection: 'row', alignItems: 'center', marginTop: -2 },
-  plus: { color: 'rgba(255,255,255,0.85)', fontSize: 10, fontStyle: 'italic' },
-  plusGold: { color: colors.yellow, fontSize: 10, fontWeight: '700', fontStyle: 'italic' },
-  iconBtn: { marginLeft: 18 },
-  badge: { position: 'absolute', top: -5, right: -8, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: colors.yellow, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
-  badgeText: { fontSize: 9, fontWeight: '800', color: colors.black },
-  search: {
-    marginTop: 8, height: 44, borderRadius: 8, backgroundColor: colors.white,
-    flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12,
+  wrap: {
+    paddingHorizontal: 14,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: lightBlueTheme.border,
   },
-  searchText: { flex: 1, marginLeft: 10, color: colors.muted, fontSize: 14 },
-  sep: { width: 1, height: 20, backgroundColor: colors.border, marginHorizontal: 10 },
-  addr: { flexDirection: 'row', alignItems: 'center', marginTop: 9 },
-  addrText: { color: colors.white, fontSize: 12, marginHorizontal: 6, flexShrink: 1 },
+  top: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 48,
+  },
+  logoBadge: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    backgroundColor: lightBlueTheme.darkLogoBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(169, 207, 245, 0.45)',
+    shadowColor: '#172B45',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.12,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  logo: {
+    width: 36,
+    height: 36,
+  },
+  brandInfo: {
+    marginLeft: 10,
+    justifyContent: 'center',
+  },
+  brandTitle: {
+    fontFamily: fonts.display,
+    fontSize: 17,
+    color: lightBlueTheme.text,
+    letterSpacing: 1.8,
+    fontWeight: '800',
+  },
+  tagBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 1,
+    backgroundColor: lightBlueTheme.secondary,
+    paddingHorizontal: 6,
+    paddingVertical: 1.5,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+  },
+  tagDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: lightBlueTheme.accent,
+    marginRight: 4,
+  },
+  tagText: {
+    color: lightBlueTheme.accentDark,
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+  },
+  iconBtn: {
+    marginLeft: 14,
+    width: 34,
+    height: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 17,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: lightBlueTheme.border,
+  },
+  badge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
+    backgroundColor: lightBlueTheme.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 3,
+  },
+  badgeText: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#FFFFFF',
+  },
+  search: {
+    marginTop: 10,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1.2,
+    borderColor: lightBlueTheme.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    shadowColor: '#397FC1',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  searchText: {
+    flex: 1,
+    marginLeft: 9,
+    color: lightBlueTheme.textMuted,
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  sep: {
+    width: 1,
+    height: 18,
+    backgroundColor: lightBlueTheme.border,
+    marginHorizontal: 8,
+  },
+  addr: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 9,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: lightBlueTheme.border,
+    alignSelf: 'flex-start',
+  },
+  addrIconWrap: {
+    marginRight: 5,
+  },
+  addrText: {
+    color: lightBlueTheme.textMuted,
+    fontSize: 11,
+    marginRight: 6,
+  },
+  addrBold: {
+    fontWeight: '700',
+    color: lightBlueTheme.text,
+  },
 });

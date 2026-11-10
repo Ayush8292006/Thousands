@@ -21,6 +21,25 @@ export const colors = {
   success: '#0F9D58',
   successSoft: '#E3F5EC',
   danger: '#D32F2F',
+  yellow: '#FFB800',
+  dealSoft: '#F4F9FF',
+  dealInk: '#172B45',
+};
+
+// Premium Light Blue Palette (Homepage Aesthetic)
+export const lightBlueTheme = {
+  primary: '#A9CFF5',      // Soft Premium Blue
+  secondary: '#DCEEFF',    // Light Sky Blue
+  bg: '#FFFFFF',           // Clean White
+  softBg: '#F4F9FF',       // Ice Blue
+  text: '#172B45',         // Deep Navy
+  textMuted: '#5C728A',    // Slate Navy Muted
+  accent: '#397FC1',       // Accent Blue
+  accentDark: '#1E5A96',   // Rich Blue
+  border: '#E4EDF6',       // Soft Blue Grey
+  darkBg: '#0F1D30',       // Deep Navy Obsidian
+  darkLogoBg: '#000000',   // Black background for original geometric logo
+  shadow: 'rgba(57, 127, 193, 0.08)',
 };
 
 export const fonts = {
@@ -50,5 +69,5 @@ export const shadow = {};
 
 export const TAB_BAR_SPACE = 0; // standard tab bar apni jagah leta hai
 
-// Soft pastel backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#E8F0FF', '#FFF1E6', '#E9F8EF', '#FDECF1', '#F1EBFF', '#FFF8D6', '#E6F7F8', '#F3F4F6'];
+// Soft light-blue and ice-blue backgrounds for category tiles and brand circles (HomeScreen)
+export const pastels = ['#DCEEFF', '#F4F9FF', '#E5F1FC', '#EBF4FC', '#E3F0FC', '#F0F7FF', '#D6E8FA', '#E8F2FB'];

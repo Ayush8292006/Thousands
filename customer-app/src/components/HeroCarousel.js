@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import { useAppWidth } from '../utils/platform';
 import { LinearGradient } from 'expo-linear-gradient';
-import { colors, fonts } from '../theme';
+import { Ionicons } from '@expo/vector-icons';
+import { fonts, lightBlueTheme } from '../theme';
 
-// Full-width, edge-to-edge auto-sliding banner (professional storefront style)
-export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
+export default function HeroCarousel({ banners, onPress, interval = 4500 }) {
   const { width } = useAppWidth();
-  const height = Math.round(width * 0.52);
+  const carouselWidth = width - 24; // 12px margin each side for modern framed look
+  const height = Math.round(carouselWidth * 0.54);
   const listRef = useRef(null);
   const [index, setIndex] = useState(0);
   const touching = useRef(false);
@@ -25,10 +26,10 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
     return () => clearInterval(t);
   }, [banners.length, interval]);
 
-  if (!banners.length) return <View style={{ height, backgroundColor: colors.mist }} />;
+  if (!banners.length) return <View style={{ height, backgroundColor: lightBlueTheme.softBg }} />;
 
   return (
-    <View style={{ width, height }}>
+    <View style={[styles.wrap, { width, height }]}>
       <FlatList
         ref={listRef}
         data={banners}
@@ -43,23 +44,39 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
           setIndex(Math.round(e.nativeEvent.contentOffset.x / width));
         }}
         renderItem={({ item }) => (
-          <Pressable onPress={() => onPress(item)} accessibilityLabel={item.title.replace('\n', ' ')}>
-            <ImageBackground source={{ uri: item.image }} style={{ width, height, backgroundColor: colors.mist }} resizeMode="cover">
-              <LinearGradient
-                colors={['rgba(0,0,0,0.78)', 'rgba(0,0,0,0.45)', 'rgba(0,0,0,0)']}
-                start={{ x: 0, y: 0.5 }}
-                end={{ x: 0.85, y: 0.5 }}
-                style={StyleSheet.absoluteFill}
-              />
-              <View style={styles.content}>
-                <Text style={styles.sub} numberOfLines={1}>{item.subtitle}</Text>
-                <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-                <View style={styles.cta}>
-                  <Text style={styles.ctaText}>{item.cta}</Text>
+          <View style={{ width, paddingHorizontal: 12 }}>
+            <Pressable
+              onPress={() => onPress(item)}
+              accessibilityLabel={item.title.replace('\n', ' ')}
+              style={styles.card}
+            >
+              <ImageBackground
+                source={{ uri: item.image }}
+                style={{ width: carouselWidth, height }}
+                resizeMode="cover"
+              >
+                <LinearGradient
+                  colors={['rgba(15, 29, 48, 0.88)', 'rgba(23, 43, 69, 0.45)', 'rgba(23, 43, 69, 0.05)']}
+                  start={{ x: 0, y: 0.5 }}
+                  end={{ x: 0.82, y: 0.5 }}
+                  style={StyleSheet.absoluteFill}
+                />
+                <View style={styles.content}>
+                  {item.kicker ? (
+                    <View style={styles.kickerBadge}>
+                      <Text style={styles.kickerText}>{item.kicker}</Text>
+                    </View>
+                  ) : null}
+                  <Text style={styles.sub} numberOfLines={1}>{item.subtitle}</Text>
+                  <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+                  <View style={styles.cta}>
+                    <Text style={styles.ctaText}>{item.cta || 'Explore'}</Text>
+                    <Ionicons name="chevron-forward" size={13} color={lightBlueTheme.text} style={{ marginLeft: 3 }} />
+                  </View>
                 </View>
-              </View>
-            </ImageBackground>
-          </Pressable>
+              </ImageBackground>
+            </Pressable>
+          </View>
         )}
       />
       <View style={styles.dots} pointerEvents="none">
@@ -72,12 +89,96 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
 }
 
 const styles = StyleSheet.create({
-  content: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, maxWidth: '68%' },
-  sub: { color: 'rgba(255,255,255,0.85)', fontSize: 12, fontFamily: fonts.displayMedium },
-  title: { color: colors.white, fontSize: 21, lineHeight: 26, fontFamily: fonts.display, marginTop: 6, letterSpacing: -0.4 },
-  cta: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 8, paddingHorizontal: 18, paddingVertical: 9, marginTop: 14 },
-  ctaText: { color: colors.black, fontSize: 13, fontFamily: fonts.display },
-  dots: { position: 'absolute', bottom: 12, left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' },
-  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.5)', marginHorizontal: 3 },
-  dotOn: { width: 20, backgroundColor: colors.white },
+  wrap: {
+    marginTop: 10,
+    justifyContent: 'center',
+  },
+  card: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: lightBlueTheme.border,
+    shadowColor: '#397FC1',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    maxWidth: '72%',
+  },
+  kickerBadge: {
+    backgroundColor: 'rgba(169, 207, 245, 0.25)',
+    borderWidth: 0.8,
+    borderColor: lightBlueTheme.primary,
+    borderRadius: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    alignSelf: 'flex-start',
+    marginBottom: 6,
+  },
+  kickerText: {
+    color: lightBlueTheme.secondary,
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+  },
+  sub: {
+    color: lightBlueTheme.secondary,
+    fontSize: 12,
+    fontFamily: fonts.displayMedium,
+  },
+  title: {
+    color: '#FFFFFF',
+    fontSize: 21,
+    lineHeight: 26,
+    fontFamily: fonts.display,
+    marginTop: 4,
+    letterSpacing: -0.3,
+  },
+  cta: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 7,
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#172B45',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  ctaText: {
+    color: lightBlueTheme.text,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  dots: {
+    position: 'absolute',
+    bottom: 12,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.45)',
+    marginHorizontal: 3,
+  },
+  dotOn: {
+    width: 22,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: lightBlueTheme.primary,
+  },
 });
