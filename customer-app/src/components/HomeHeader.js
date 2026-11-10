@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
   logo: { width: 24, height: 27 },
   brand: { fontFamily: fonts.display, fontSize: 20, color: colors.black, marginLeft: 8, letterSpacing: -0.3 },
   iconBtn: { marginLeft: 18 },
-  outer: { marginTop: 6, borderWidth: 1, borderColor: colors.border, borderRadius: 12, backgroundColor: colors.white },
+  outer: { marginTop: 6, borderRadius: 12, backgroundColor: colors.mist },
   inner: {
-    height: 46, borderRadius: 12, backgroundColor: colors.white,
+    height: 46, borderRadius: 12, backgroundColor: colors.mist,
     flexDirection: 'row', alignItems: 'center', paddingLeft: 14, paddingRight: 10,
   },
   searchText: { flex: 1, marginLeft: 10, color: colors.muted, fontSize: 14 },

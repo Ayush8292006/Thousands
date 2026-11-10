@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12, color: colors.black },
   offer: { flexDirection: 'row', marginBottom: 8 },
   offerText: { flex: 1, marginLeft: 8, fontSize: 13, color: colors.ink, lineHeight: 18 },
-  pinRow: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: 10, height: 46 },
+  pinRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: radius.md, paddingHorizontal: 10, height: 46 },
   pinInput: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.black },
   check: { fontWeight: '800', color: colors.accent },
   feat: { flexDirection: 'row', justifyContent: 'space-between' },

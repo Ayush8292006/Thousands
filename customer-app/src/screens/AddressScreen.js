@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   form: { backgroundColor: colors.white, padding: 16 },
   formTitle: { fontSize: 16, fontWeight: '800', marginBottom: 14 },
   label: { fontSize: 12, color: colors.muted, marginBottom: 6, fontWeight: '600' },
-  input: { height: 46, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: 12, fontSize: 14, color: colors.black },
+  input: { height: 46, backgroundColor: colors.mist, borderRadius: radius.md, paddingHorizontal: 12, fontSize: 14, color: colors.black },
   err: { color: colors.danger, fontSize: 12, marginBottom: 10 },
   count: { fontSize: 12, fontWeight: '800', color: colors.muted, letterSpacing: 0.6, padding: 16, paddingBottom: 8 },
   card: {

@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   tag: { color: colors.faint, marginTop: 8, fontSize: 13 },
   sheet: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 },
   inputRow: {
-    marginTop: 22, height: 54, borderRadius: radius.md, borderWidth: 1.5, borderColor: colors.border,
+    marginTop: 22, height: 54, borderRadius: radius.md, backgroundColor: colors.mist,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14,
   },
   ccBtn: { flexDirection: 'row', alignItems: 'center', height: '100%', paddingRight: 4 },
