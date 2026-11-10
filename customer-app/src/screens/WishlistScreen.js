@@ -53,5 +53,5 @@ export default function WishlistScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   header: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 12 },
-  title: { color: colors.black, fontFamily: fonts.displayHeavy, fontSize: 26, letterSpacing: -0.6 },
+  title: { color: colors.black, fontFamily: fonts.display, fontSize: 20 },
 });

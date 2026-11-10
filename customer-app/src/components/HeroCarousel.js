@@ -74,8 +74,8 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
 const styles = StyleSheet.create({
   content: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, maxWidth: '68%' },
   sub: { color: 'rgba(255,255,255,0.85)', fontSize: 12, fontFamily: fonts.displayMedium },
-  title: { color: colors.white, fontSize: 24, lineHeight: 29, fontFamily: fonts.displayHeavy, marginTop: 6, letterSpacing: -0.4 },
-  cta: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 999, paddingHorizontal: 18, paddingVertical: 9, marginTop: 14 },
+  title: { color: colors.white, fontSize: 21, lineHeight: 26, fontFamily: fonts.display, marginTop: 6, letterSpacing: -0.4 },
+  cta: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 8, paddingHorizontal: 18, paddingVertical: 9, marginTop: 14 },
   ctaText: { color: colors.black, fontSize: 13, fontFamily: fonts.display },
   dots: { position: 'absolute', bottom: 12, left: 0, right: 0, flexDirection: 'row', justifyContent: 'center' },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.5)', marginHorizontal: 3 },

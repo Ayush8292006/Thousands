@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   priceRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 12, marginBottom: 2 },
   off: { color: colors.sale, fontSize: 18, fontWeight: '800', marginRight: 8 },
   mrp: { color: colors.faint, textDecorationLine: 'line-through', fontSize: 15, marginRight: 8 },
-  price: { fontSize: 28, fontFamily: 'PlusJakartaSans_800ExtraBold', color: colors.black, letterSpacing: -0.6 },
+  price: { fontSize: 28, fontFamily: 'PlusJakartaSans_700Bold', color: colors.black, letterSpacing: -0.6 },
   block: { marginHorizontal: 0, marginTop: 10, borderRadius: 0 },
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12, color: colors.black },
   offer: { flexDirection: 'row', marginBottom: 8 },

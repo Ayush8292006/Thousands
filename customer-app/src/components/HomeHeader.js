@@ -12,9 +12,9 @@ export function DoubleStrokeSearch({ onPress, placeholder = 'Search products, br
   return (
     <Pressable onPress={onPress} style={styles.outer} accessibilityRole="search">
       <View style={styles.inner}>
-        <Ionicons name="search" size={18} color={colors.black} />
+        <Ionicons name="search" size={19} color={colors.muted} />
         <Text style={styles.searchText} numberOfLines={1}>{placeholder}</Text>
-        <View style={styles.mic}><Ionicons name="mic" size={15} color={colors.white} /></View>
+        <Ionicons name="mic-outline" size={20} color={colors.muted} />
       </View>
     </Pressable>
   );
@@ -57,15 +57,15 @@ export default function HomeHeader() {
 }
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 10 },
+  wrap: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: colors.border },
   top: { flexDirection: 'row', alignItems: 'center', height: 44 },
   logo: { width: 24, height: 27 },
-  brand: { fontFamily: fonts.displayHeavy, fontSize: 22, color: colors.black, marginLeft: 8, letterSpacing: -0.6 },
+  brand: { fontFamily: fonts.display, fontSize: 20, color: colors.black, marginLeft: 8, letterSpacing: -0.3 },
   iconBtn: { marginLeft: 18 },
-  outer: { marginTop: 8, borderWidth: 1.5, borderColor: colors.black, borderRadius: 999, padding: 3 },
+  outer: { marginTop: 6, borderWidth: 1, borderColor: colors.border, borderRadius: 12, backgroundColor: colors.white },
   inner: {
-    height: 44, borderRadius: 999, backgroundColor: colors.mist,
-    flexDirection: 'row', alignItems: 'center', paddingLeft: 14, paddingRight: 4,
+    height: 46, borderRadius: 12, backgroundColor: colors.white,
+    flexDirection: 'row', alignItems: 'center', paddingLeft: 14, paddingRight: 10,
   },
   searchText: { flex: 1, marginLeft: 10, color: colors.muted, fontSize: 14 },
   mic: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },

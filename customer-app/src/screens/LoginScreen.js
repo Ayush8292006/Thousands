@@ -95,7 +95,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   hero: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   logo: { width: 84, height: 96 },
-  brand: { color: colors.white, fontSize: 40, fontFamily: 'PlusJakartaSans_800ExtraBold', letterSpacing: -1.2, marginTop: 18 },
+  brand: { color: colors.white, fontSize: 40, fontFamily: 'PlusJakartaSans_700Bold', letterSpacing: -1.2, marginTop: 18 },
   tag: { color: colors.faint, marginTop: 8, fontSize: 13 },
   sheet: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 },
   inputRow: {

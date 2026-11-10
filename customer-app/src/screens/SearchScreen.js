@@ -91,7 +91,7 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
   bar: { backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingBottom: 12 },
   inputWrap: {
-    flex: 1, marginLeft: 12, height: 48, backgroundColor: colors.mist, borderRadius: 999, borderWidth: 1.5, borderColor: colors.black,
+    flex: 1, marginLeft: 12, height: 46, backgroundColor: colors.white, borderRadius: 12, borderWidth: 1, borderColor: colors.border,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10,
   },
   input: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.black },

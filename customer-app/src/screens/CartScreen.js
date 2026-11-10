@@ -110,7 +110,7 @@ export default function CartScreen({ navigation }) {
         </View>
       </ScrollView>
 
-      <View style={[styles.bottom, { bottom: TAB_BAR_SPACE - 8 }]}>
+      <View style={styles.bottom}>
         <View style={{ flex: 1 }}>
           <Text style={styles.mrpSmall}>{formatPrice(totals.mrpTotal)}</Text>
           <Text style={styles.total}>{formatPrice(totals.grandTotal)}</Text>
@@ -123,7 +123,7 @@ export default function CartScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   header: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 12 },
-  headerTitle: { color: colors.black, fontFamily: fonts.displayHeavy, fontSize: 26, letterSpacing: -0.6 },
+  headerTitle: { color: colors.black, fontFamily: fonts.display, fontSize: 20 },
   addr: { backgroundColor: colors.white, padding: 14, flexDirection: 'row', alignItems: 'center' },
   addrLine: { fontSize: 12, color: colors.muted, marginTop: 2 },
   changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
@@ -144,9 +144,9 @@ const styles = StyleSheet.create({
   safe: { flexDirection: 'row', alignItems: 'center', padding: 16 },
   safeText: { marginLeft: 8, fontSize: 12, color: colors.muted, flex: 1 },
   bottom: {
-    position: 'absolute', left: 12, right: 12, backgroundColor: colors.white, flexDirection: 'row',
-    alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10, borderWidth: 1.5, borderColor: colors.black, borderRadius: 999,
+    position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: colors.white, flexDirection: 'row',
+    alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
   mrpSmall: { fontSize: 12, color: colors.faint, textDecorationLine: 'line-through' },
-  total: { fontFamily: fonts.displayHeavy, fontSize: 20 },
+  total: { fontFamily: fonts.display, fontSize: 20 },
 });

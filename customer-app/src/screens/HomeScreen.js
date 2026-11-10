@@ -1,12 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-  View, Text, ScrollView, Pressable, StyleSheet, FlatList, ImageBackground, Image,
-} from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, FlatList, ImageBackground, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HomeHeader from '../components/HomeHeader';
 import HeroCarousel from '../components/HeroCarousel';
 import ProductCard from '../components/ProductCard';
-import { colors, fonts, font, TAB_BAR_SPACE } from '../theme';
+import { colors, fonts, font } from '../theme';
 import { getBanners, getCategories, getProducts, getPromos, getProductById } from '../services/api';
 import { brands } from '../data/catalog';
 import { discountPct } from '../utils/format';
@@ -37,9 +35,7 @@ export default function HomeScreen({ navigation }) {
   const [promos, setPromos] = useState([]);
   const [all, setAll] = useState([]);
   const [hh, mm, ss] = useCountdown();
-
-  const inner = width - 32;
-  const cardW = (inner - 12) / 2;
+  const cardW = (width - 32 - 10) / 2;
 
   useEffect(() => {
     getCategories().then(setCats);
@@ -61,162 +57,142 @@ export default function HomeScreen({ navigation }) {
   }, [all]);
 
   const recent = recentlyViewed.map(getProductById).filter(Boolean);
-  const [c0, c1, c2, c3, c4, c5, c6, c7] = cats;
-  const bigW = (inner - 10) / 2;
+
+  const row = (data, w = 140, img = 120) => (
+    <FlatList
+      horizontal
+      data={data}
+      keyExtractor={(i) => i.id}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 16, gap: 10 }}
+      renderItem={({ item }) => <ProductCard product={item} width={w} imageSize={img} />}
+    />
+  );
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.mist }}>
       <HomeHeader />
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: TAB_BAR_SPACE + 24 }}>
-        {/* Hero — full-width auto slider */}
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 24 }}>
         <HeroCarousel banners={banners} onPress={(b) => openCat(b.link.category, b.title.replace('\n', ' '))} />
 
-        {/* Category bento */}
-        <SectionTitle title="Shop by category" />
-        {cats.length === 8 ? (
-          <View style={{ paddingHorizontal: 16, gap: 10 }}>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              <BentoTile cat={c0} w={bigW} h={150} big onPress={openCat} />
-              <View style={{ gap: 10 }}>
-                <BentoTile cat={c1} w={bigW} h={70} onPress={openCat} />
-                <BentoTile cat={c2} w={bigW} h={70} onPress={openCat} />
-              </View>
+        {/* Offer strip */}
+        <View style={styles.offerStrip}>
+          {[
+            ['flash-outline', '10% off on UPI'],
+            ['bicycle-outline', 'Free delivery'],
+            ['cash-outline', 'Cash on delivery'],
+            ['refresh-outline', '7-day returns'],
+          ].map(([ic, t]) => (
+            <View key={t} style={styles.offerItem}>
+              <Ionicons name={ic} size={18} color={colors.accent} />
+              <Text style={styles.offerText} numberOfLines={2}>{t}</Text>
             </View>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              {[c3, c4, c5].map((c) => <BentoTile key={c.id} cat={c} w={(inner - 20) / 3} h={82} onPress={openCat} />)}
-            </View>
-            <View style={{ flexDirection: 'row', gap: 10 }}>
-              {[c6, c7].map((c) => <BentoTile key={c.id} cat={c} w={(inner - 10) / 2} h={72} onPress={openCat} />)}
-            </View>
-          </View>
-        ) : null}
-
-        {/* Deals band */}
-        <View style={styles.deals}>
-          <View style={styles.dealsHead}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.dealsTitle}>Deals of the day</Text>
-              <Text style={styles.dealsSub}>Prices reset at midnight</Text>
-            </View>
-            <View style={styles.timer} accessibilityLabel={`Ends in ${hh} hours ${mm} minutes`}>
-              {[hh, mm, ss].map((v, i) => (
-                <React.Fragment key={i}>
-                  <View style={styles.timeBox}><Text style={styles.timeText}>{v}</Text></View>
-                  {i < 2 ? <Text style={styles.timeSep}>:</Text> : null}
-                </React.Fragment>
-              ))}
-            </View>
-          </View>
-          <FlatList
-            horizontal
-            data={sections.deals}
-            keyExtractor={(i) => i.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16, gap: 14 }}
-            renderItem={({ item }) => <ProductCard product={item} width={124} imageSize={110} onDark />}
-          />
-          <Pressable style={styles.dealsAll} onPress={() => navigation.navigate('ProductList', { title: 'Deals of the day', sort: 'discount' })}>
-            <Text style={styles.dealsAllText}>See all deals</Text>
-          </Pressable>
+          ))}
         </View>
 
-        {/* Trending */}
-        <SectionTitle title="Trending now" onAll={() => navigation.navigate('ProductList', { title: 'Trending now', tag: 'trending' })} />
-        <FlatList
-          horizontal
-          data={sections.trending}
-          keyExtractor={(i) => i.id}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 16, gap: 14 }}
-          renderItem={({ item }) => <ProductCard product={item} width={124} imageSize={115} />}
-        />
+        {/* Categories */}
+        <Section title="Shop by category" onAll={() => navigation.navigate('Categories')}>
+          <View style={styles.catGrid}>
+            {cats.map((c) => (
+              <Pressable key={c.id} style={styles.catItem} onPress={() => openCat(c.id, c.name)} accessibilityLabel={c.name}>
+                <Image source={{ uri: c.image }} style={styles.catImg} />
+                <Text style={styles.catText} numberOfLines={2}>{c.name}</Text>
+              </Pressable>
+            ))}
+          </View>
+        </Section>
+
+        {/* Deals */}
+        <View style={[styles.section, { backgroundColor: colors.accentSoft }]}>
+          <View style={styles.secHead}>
+            <View style={{ flex: 1 }}>
+              <Text style={font.h2}>Deals of the day</Text>
+              <View style={styles.timerRow}>
+                <Ionicons name="time-outline" size={14} color={colors.accent} />
+                <Text style={styles.timerLabel}>Ends in</Text>
+                {[hh, mm, ss].map((v, i) => (
+                  <React.Fragment key={i}>
+                    <View style={styles.timeBox}><Text style={styles.timeText}>{v}</Text></View>
+                    {i < 2 ? <Text style={styles.timeSep}>:</Text> : null}
+                  </React.Fragment>
+                ))}
+              </View>
+            </View>
+            <Pressable style={styles.viewAll} onPress={() => navigation.navigate('ProductList', { title: 'Deals of the day', sort: 'discount' })}>
+              <Text style={styles.viewAllText}>View all</Text>
+            </Pressable>
+          </View>
+          {row(sections.deals)}
+        </View>
+
+        <Section title="Trending now" onAll={() => navigation.navigate('ProductList', { title: 'Trending now', tag: 'trending' })}>
+          {row(sections.trending)}
+        </Section>
 
         {/* Promo pair */}
-        <View style={styles.promoRow}>
+        <View style={[styles.section, { paddingHorizontal: 16, flexDirection: 'row', gap: 10 }]}>
           {promos.map((p) => (
-            <Pressable key={p.id} style={{ flex: 1 }} onPress={() => openCat(p.link.category, p.title)}>
-              <ImageBackground source={{ uri: p.image }} style={[styles.promo, { height: 120 }]} imageStyle={{ borderRadius: 24 }}>
-                <View style={styles.promoTag}>
-                  <Text style={styles.promoTitle}>{p.title}</Text>
-                  <Text style={styles.promoSub}>{p.subtitle}</Text>
-                </View>
-              </ImageBackground>
-            </Pressable>
-          ))}
-        </View>
-
-        {/* Under 999 */}
-        <View style={styles.under}>
-          <SectionTitle title="Under ₹999" inline onAll={() => navigation.navigate('ProductList', { title: 'Under ₹999', maxPrice: 999 })} />
-          <FlatList
-            horizontal
-            data={sections.under999}
-            keyExtractor={(i) => i.id}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16, gap: 14 }}
-            renderItem={({ item }) => <ProductCard product={item} width={120} imageSize={105} />}
-          />
-        </View>
-
-        {/* Brands — double ring, logo motif */}
-        <SectionTitle title="Brands on Thousands" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 16 }}>
-          {brands.map((b) => (
-            <Pressable key={b} style={{ alignItems: 'center', width: 62 }} onPress={() => navigation.navigate('ProductList', { brand: b, title: b })}>
-              <View style={styles.brandRing}>
-                <View style={styles.brandDot}><Text style={styles.brandInitial}>{b[0]}</Text></View>
+            <Pressable key={p.id} style={styles.promo} onPress={() => openCat(p.link.category, p.title)}>
+              <ImageBackground source={{ uri: p.image }} style={styles.promoImg} imageStyle={{ borderTopLeftRadius: 12, borderTopRightRadius: 12 }} />
+              <View style={styles.promoBody}>
+                <Text style={styles.promoTitle}>{p.title}</Text>
+                <Text style={styles.promoSub}>{p.subtitle}</Text>
               </View>
-              <Text style={styles.brandText} numberOfLines={1}>{b}</Text>
             </Pressable>
-          ))}
-        </ScrollView>
-
-        {recent.length ? (
-          <>
-            <SectionTitle title="Continue browsing" />
-            <FlatList
-              horizontal
-              data={recent}
-              keyExtractor={(i) => i.id}
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: 16, gap: 14 }}
-              renderItem={({ item }) => <ProductCard product={item} width={110} imageSize={95} />}
-            />
-          </>
-        ) : null}
-
-        {/* Top picks */}
-        <SectionTitle title="Loved by thousands" onAll={() => navigation.navigate('ProductList', { title: 'Top rated', sort: 'rating' })} />
-        <View style={styles.grid}>
-          {sections.topPicks.map((p) => (
-            <ProductCard key={p.id} product={p} width={cardW} imageSize={cardW * 0.78} style={{ marginBottom: 20 }} />
           ))}
         </View>
 
-        {/* Promise row */}
-        <View style={styles.trust}>
+        <Section title="Under ₹999" onAll={() => navigation.navigate('ProductList', { title: 'Under ₹999', maxPrice: 999 })}>
+          {row(sections.under999)}
+        </Section>
+
+        <Section title="Top brands">
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 12 }}>
+            {brands.map((b) => (
+              <Pressable key={b} style={styles.brand} onPress={() => navigation.navigate('ProductList', { brand: b, title: b })}>
+                <View style={styles.brandCircle}><Text style={styles.brandInitial}>{b[0]}</Text></View>
+                <Text style={styles.brandText} numberOfLines={1}>{b}</Text>
+              </Pressable>
+            ))}
+          </ScrollView>
+        </Section>
+
+        {recent.length ? <Section title="Recently viewed">{row(recent, 120, 100)}</Section> : null}
+
+        <Section title="Top picks for you" onAll={() => navigation.navigate('ProductList', { title: 'Top rated', sort: 'rating' })}>
+          <View style={styles.grid}>
+            {sections.topPicks.map((p) => (
+              <ProductCard key={p.id} product={p} width={cardW} imageSize={cardW * 0.8} style={{ marginBottom: 10 }} />
+            ))}
+          </View>
+        </Section>
+
+        {/* Trust */}
+        <View style={[styles.section, styles.trust]}>
           {[
             ['shield-checkmark-outline', 'Genuine products'],
             ['lock-closed-outline', 'Secure payments'],
-            ['refresh-outline', '7-day returns'],
+            ['headset-outline', '24/7 support'],
           ].map(([ic, t]) => (
             <View key={t} style={styles.trustItem}>
-              <Ionicons name={ic} size={22} color={colors.black} />
+              <Ionicons name={ic} size={22} color={colors.accent} />
               <Text style={styles.trustTitle}>{t}</Text>
             </View>
           ))}
         </View>
 
+        {/* Sell */}
         <Pressable style={styles.sell} onPress={() => navigation.navigate('Support', { seller: true })}>
-          <View style={{ flex: 1 }}>
+          <View style={styles.sellIcon}><Ionicons name="storefront-outline" size={22} color={colors.accent} /></View>
+          <View style={{ flex: 1, marginHorizontal: 12 }}>
             <Text style={styles.sellTitle}>Sell on {BRAND.name}</Text>
-            <Text style={styles.sellSub}>No registration fee. Weekly payouts to your bank.</Text>
+            <Text style={styles.sellSub}>No registration fee. Weekly payouts.</Text>
           </View>
-          <View style={styles.sellGo}><Ionicons name="storefront" size={20} color={colors.white} /></View>
+          <View style={styles.sellBtn}><Text style={styles.sellBtnText}>Start selling</Text></View>
         </Pressable>
 
         <View style={styles.footer}>
-          <Image source={require('../../assets/logo-black.png')} style={{ width: 20, height: 23, opacity: 0.2 }} resizeMode="contain" />
+          <Image source={require('../../assets/logo-black.png')} style={{ width: 18, height: 21, opacity: 0.25 }} resizeMode="contain" />
           <Text style={styles.footerText}>{BRAND.tagline}</Text>
         </View>
       </ScrollView>
@@ -224,83 +200,67 @@ export default function HomeScreen({ navigation }) {
   );
 }
 
-function BentoTile({ cat, w, h, big, onPress }) {
+function Section({ title, onAll, children }) {
   return (
-    <Pressable onPress={() => onPress(cat.id, cat.name)} style={({ pressed }) => [{ width: w, height: h }, pressed && { opacity: 0.85 }]} accessibilityLabel={cat.name}>
-      <ImageBackground source={{ uri: cat.image }} style={styles.bento} imageStyle={{ borderRadius: big ? 26 : 20 }}>
-        {big ? (
-          <View style={styles.bentoBig}>
-            <Text style={styles.bentoBigText}>{cat.name}</Text>
-            <Text style={styles.bentoBigSub}>{cat.subs.slice(0, 3).join(', ')}</Text>
-          </View>
-        ) : (
-          <View style={styles.bentoPill}><Text style={styles.bentoPillText} numberOfLines={1}>{cat.name}</Text></View>
-        )}
-      </ImageBackground>
-    </Pressable>
-  );
-}
-
-function SectionTitle({ title, onAll, inline }) {
-  return (
-    <View style={[styles.secHead, inline && { marginTop: 0 }]}>
-      <Text style={[font.h2, { flex: 1 }]}>{title}</Text>
-      {onAll ? (
-        <Pressable onPress={onAll} hitSlop={8}>
-          <Text style={styles.seeAll}>See all</Text>
-        </Pressable>
-      ) : null}
+    <View style={styles.section}>
+      <View style={styles.secHead}>
+        <Text style={[font.h2, { flex: 1 }]}>{title}</Text>
+        {onAll ? (
+          <Pressable onPress={onAll} hitSlop={8} style={styles.viewAll}>
+            <Text style={styles.viewAllText}>View all</Text>
+          </Pressable>
+        ) : null}
+      </View>
+      {children}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  section: { backgroundColor: colors.white, paddingVertical: 14, marginTop: 8 },
+  secHead: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 12 },
+  viewAll: { backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 10, paddingVertical: 5 },
+  viewAllText: { color: colors.white, fontSize: 12, fontFamily: fonts.displayMedium },
 
-  secHead: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginTop: 24, marginBottom: 12 },
-  seeAll: { color: colors.accent, fontWeight: '700', fontSize: 14 },
+  offerStrip: { flexDirection: 'row', backgroundColor: colors.white, paddingVertical: 12, paddingHorizontal: 8 },
+  offerItem: { flex: 1, alignItems: 'center', paddingHorizontal: 2 },
+  offerText: { fontSize: 11, color: colors.ink, marginTop: 4, textAlign: 'center', fontWeight: '500' },
 
-  bento: { flex: 1, justifyContent: 'flex-end', padding: 8, backgroundColor: colors.mist, borderRadius: 20 },
-  bentoPill: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 5, maxWidth: '100%' },
-  bentoPillText: { fontSize: 12, fontWeight: '700', color: colors.black },
-  bentoBig: { backgroundColor: colors.black, borderRadius: 14, padding: 9 },
-  bentoBigText: { fontFamily: fonts.displayHeavy, color: colors.white, fontSize: 15, letterSpacing: -0.4 },
-  bentoBigSub: { color: 'rgba(255,255,255,0.65)', fontSize: 11, marginTop: 2 },
+  catGrid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 8 },
+  catItem: { width: '25%', alignItems: 'center', marginBottom: 12, paddingHorizontal: 4 },
+  catImg: { width: 62, height: 62, borderRadius: 31, backgroundColor: colors.mist },
+  catText: { fontSize: 11, color: colors.ink, marginTop: 6, textAlign: 'center', fontWeight: '500' },
 
-  deals: { backgroundColor: colors.accent, marginTop: 32, paddingTop: 22, paddingBottom: 16 },
-  dealsHead: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 16 },
-  dealsTitle: { fontFamily: fonts.displayHeavy, color: colors.white, fontSize: 24, letterSpacing: -0.6 },
-  dealsSub: { color: 'rgba(255,255,255,0.75)', fontSize: 13, marginTop: 2 },
-  timer: { flexDirection: 'row', alignItems: 'center' },
-  timeBox: { backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 6, paddingVertical: 6, minWidth: 36, alignItems: 'center' },
-  timeText: { fontFamily: fonts.display, color: colors.black, fontSize: 16, fontVariant: ['tabular-nums'] },
-  timeSep: { color: colors.white, fontFamily: fonts.display, fontSize: 16, marginHorizontal: 3 },
-  dealsAll: { alignSelf: 'center', marginTop: 16, borderWidth: 1.5, borderColor: colors.white, borderRadius: 999, paddingHorizontal: 18, paddingVertical: 8 },
-  dealsAllText: { color: colors.white, fontWeight: '700', fontSize: 13 },
+  timerRow: { flexDirection: 'row', alignItems: 'center', marginTop: 4 },
+  timerLabel: { fontSize: 12, color: colors.muted, marginHorizontal: 4 },
+  timeBox: { backgroundColor: colors.accent, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2 },
+  timeText: { color: colors.white, fontSize: 12, fontFamily: fonts.display, fontVariant: ['tabular-nums'] },
+  timeSep: { color: colors.accent, fontWeight: '700', marginHorizontal: 2 },
 
-  promoRow: { flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginTop: 32 },
-  promo: { justifyContent: 'flex-end', padding: 8, backgroundColor: colors.mist, borderRadius: 24 },
-  promoTag: { backgroundColor: colors.white, borderRadius: 16, padding: 10 },
-  promoTitle: { fontFamily: fonts.display, fontSize: 15, color: colors.black },
-  promoSub: { color: colors.accent, fontWeight: '700', fontSize: 12, marginTop: 2 },
+  promo: { flex: 1, borderRadius: 12, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.white },
+  promoImg: { height: 100, backgroundColor: colors.mist },
+  promoBody: { padding: 10 },
+  promoTitle: { fontFamily: fonts.display, fontSize: 14, color: colors.black },
+  promoSub: { color: colors.success, fontWeight: '600', fontSize: 12, marginTop: 2 },
 
-  under: { backgroundColor: colors.mist, marginTop: 32, paddingTop: 22, paddingBottom: 22 },
-
-  brandRing: { width: 54, height: 54, borderRadius: 27, borderWidth: 1.5, borderColor: colors.black, padding: 3 },
-  brandDot: { flex: 1, borderRadius: 30, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
-  brandInitial: { fontFamily: fonts.displayHeavy, color: colors.white, fontSize: 18 },
-  brandText: { fontSize: 12, fontWeight: '600', marginTop: 6, color: colors.ink },
+  brand: { alignItems: 'center', width: 64 },
+  brandCircle: { width: 56, height: 56, borderRadius: 28, borderWidth: 1, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.white },
+  brandInitial: { fontFamily: fonts.display, color: colors.accent, fontSize: 20 },
+  brandText: { fontSize: 11, marginTop: 6, color: colors.ink },
 
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 16 },
 
-  trust: { flexDirection: 'row', marginHorizontal: 16, marginTop: 8, paddingVertical: 18, borderTopWidth: 1, borderBottomWidth: 1, borderColor: colors.border },
+  trust: { flexDirection: 'row' },
   trustItem: { flex: 1, alignItems: 'center' },
-  trustTitle: { fontSize: 12, fontWeight: '600', marginTop: 6, color: colors.ink },
+  trustTitle: { fontSize: 12, marginTop: 6, color: colors.ink, fontWeight: '500' },
 
-  sell: { marginHorizontal: 16, marginTop: 20, backgroundColor: colors.black, borderRadius: 24, padding: 18, flexDirection: 'row', alignItems: 'center' },
-  sellTitle: { fontFamily: fonts.displayHeavy, color: colors.white, fontSize: 20, letterSpacing: -0.4 },
-  sellSub: { color: 'rgba(255,255,255,0.65)', fontSize: 13, marginTop: 4, lineHeight: 18 },
-  sellGo: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center', marginLeft: 12 },
+  sell: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginTop: 8, padding: 16 },
+  sellIcon: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  sellTitle: { fontFamily: fonts.display, fontSize: 15, color: colors.black },
+  sellSub: { color: colors.muted, fontSize: 12, marginTop: 2 },
+  sellBtn: { borderWidth: 1, borderColor: colors.accent, borderRadius: 6, paddingHorizontal: 10, paddingVertical: 6 },
+  sellBtnText: { color: colors.accent, fontSize: 12, fontFamily: fonts.displayMedium },
 
-  footer: { alignItems: 'center', marginTop: 28 },
-  footerText: { fontSize: 12, color: colors.faint, marginTop: 8 },
+  footer: { alignItems: 'center', marginTop: 20 },
+  footerText: { fontSize: 11, color: colors.faint, marginTop: 6 },
 });

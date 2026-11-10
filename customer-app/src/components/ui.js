@@ -91,8 +91,8 @@ export function Row({ children, style }) {
 
 const styles = StyleSheet.create({
   btn: {
-    height: 52,
-    borderRadius: 999,
+    height: 48,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

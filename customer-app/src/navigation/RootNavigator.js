@@ -2,8 +2,6 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, fonts } from '../theme';
 import { useApp } from '../context/AppContext';
 
@@ -35,63 +33,33 @@ const tabIcons = {
   Cart: ['bag', 'bag-outline'],
 };
 
-// Floating black pill tab bar — active tab ultramarine double-ring
-function FloatingTabBar({ state, navigation }) {
-  const insets = useSafeAreaInsets();
+function Tabs() {
   const { cartCount } = useApp();
   return (
-    <View pointerEvents="box-none" style={[tabStyles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]}>
-      <View style={tabStyles.bar}>
-        {state.routes.map((route, i) => {
-          const focused = state.index === i;
-          const onPress = () => {
-            const e = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
-            if (!focused && !e.defaultPrevented) navigation.navigate(route.name);
-          };
-          return (
-            <Pressable key={route.key} onPress={onPress} style={tabStyles.item} accessibilityRole="tab" accessibilityState={{ selected: focused }} accessibilityLabel={route.name}>
-              <View style={[tabStyles.ring, focused && tabStyles.ringOn]}>
-                <View style={[tabStyles.dot, focused && tabStyles.dotOn]}>
-                  <Ionicons name={tabIcons[route.name][focused ? 0 : 1]} size={20} color={focused ? colors.white : '#B9BBC0'} />
-                </View>
-              </View>
-              {route.name === 'Cart' && cartCount > 0 ? (
-                <View style={tabStyles.badge}><Text style={tabStyles.badgeText}>{cartCount}</Text></View>
-              ) : null}
-            </Pressable>
-          );
-        })}
-      </View>
-    </View>
-  );
-}
-
-const tabStyles = StyleSheet.create({
-  wrap: { position: 'absolute', left: 0, right: 0, bottom: 0, alignItems: 'center' },
-  bar: {
-    flexDirection: 'row', backgroundColor: colors.black, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 6,
-    width: '88%', justifyContent: 'space-between',
-  },
-  item: { flex: 1, alignItems: 'center', justifyContent: 'center', height: 56 },
-  ring: { width: 50, height: 50, borderRadius: 25, borderWidth: 1.5, borderColor: 'transparent', alignItems: 'center', justifyContent: 'center' },
-  ringOn: { borderColor: colors.accent },
-  dot: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  dotOn: { backgroundColor: colors.accent },
-  badge: {
-    position: 'absolute', top: 6, right: '22%', minWidth: 18, height: 18, borderRadius: 9, backgroundColor: colors.white,
-    alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4,
-  },
-  badgeText: { fontSize: 10, fontWeight: '800', color: colors.black },
-});
-
-function Tabs() {
-  return (
-    <Tab.Navigator tabBar={(props) => <FloatingTabBar {...props} />} screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarActiveTintColor: colors.accent,
+        tabBarInactiveTintColor: colors.muted,
+        tabBarLabelStyle: { fontSize: 11, fontFamily: fonts.displayMedium },
+        tabBarStyle: { backgroundColor: colors.white, borderTopColor: colors.border, height: 62, paddingTop: 6 },
+        tabBarIcon: ({ focused, color }) => (
+          <Ionicons name={tabIcons[route.name][focused ? 0 : 1]} size={22} color={color} />
+        ),
+      })}
+    >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Categories" component={CategoriesScreen} />
       <Tab.Screen name="Wishlist" component={WishlistScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
+      <Tab.Screen
+        name="Cart"
+        component={CartScreen}
+        options={{
+          tabBarBadge: cartCount > 0 ? cartCount : undefined,
+          tabBarBadgeStyle: { backgroundColor: colors.sale, color: colors.white, fontSize: 10 },
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -100,7 +68,7 @@ const stackHeader = {
   headerStyle: { backgroundColor: colors.white },
   headerTintColor: colors.black,
   headerTitleStyle: { fontFamily: fonts.display, fontSize: 18 },
-  headerShadowVisible: false,
+  headerShadowVisible: true,
   headerBackButtonDisplayMode: 'minimal',
 };
 
