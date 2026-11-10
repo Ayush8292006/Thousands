@@ -23,7 +23,7 @@ export default function CartScreen({ navigation }) {
 
   if (!cart.length) {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <View style={{ flex: 1, backgroundColor: colors.bg }}>
         {header}
         <EmptyState
           icon="cart-outline"

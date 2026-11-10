@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { AppProvider } from './src/context/AppContext';
 import RootNavigator from './src/navigation/RootNavigator';
 import { colors } from './src/theme';
+import GlitterOverlay from './src/components/GlitterOverlay';
 
 // Web: browser ka default focus outline saare inputs se hatao
 if (Platform.OS === 'web' && typeof document !== 'undefined') {
@@ -29,6 +30,7 @@ export default function App() {
           <RootNavigator />
         </NavigationContainer>
       </AppProvider>
+      <GlitterOverlay />
     </SafeAreaProvider>
   );
 

@@ -7,7 +7,7 @@ export const colors = {
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F1F3F6', // neutral page background
+  bg: '#FFF8E7', // cream page background (client palette)
   mist: '#F2F3F5', // surfaces, image backdrops
   soft: '#F2F3F5',
   card: '#FFFFFF',
@@ -31,7 +31,7 @@ export const lightBlueTheme = {
   primary: '#A9CFF5',      // Soft Premium Blue
   secondary: '#DCEEFF',    // Light Sky Blue
   bg: '#FFFFFF',           // Clean White
-  softBg: '#F1F3F6',
+  softBg: '#FFF8E7', // cream
   text: '#172B45',         // Deep Navy
   textMuted: '#5C728A',    // Slate Navy Muted
   accent: '#397FC1',       // Accent Blue
@@ -70,4 +70,4 @@ export const shadow = {};
 export const TAB_BAR_SPACE = 0; // standard tab bar apni jagah leta hai
 
 // Soft light-blue and ice-blue backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6'];
+export const pastels = ['#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9'];
