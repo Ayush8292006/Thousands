@@ -12,7 +12,6 @@ import {
 import { AppProvider } from './src/context/AppContext';
 import RootNavigator from './src/navigation/RootNavigator';
 import { colors } from './src/theme';
-import GlitterOverlay from './src/components/GlitterOverlay';
 
 // Web: browser ka default focus outline (black border) saare inputs se hatao
 if (Platform.OS === 'web' && typeof document !== 'undefined') {
@@ -38,7 +37,7 @@ export default function App() {
 
   if (!loaded && !error && !timedOut) {
     return (
-      <View style={{ flex: 1, backgroundColor: colors.bg, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={require('./assets/logo-white.png')} style={{ width: 70, height: 80 }} resizeMode="contain" />
       </View>
     );
@@ -52,15 +51,14 @@ export default function App() {
           <RootNavigator />
         </NavigationContainer>
       </AppProvider>
-      <GlitterOverlay />
     </SafeAreaProvider>
   );
 
   // Web (Vercel) pe app ko phone-frame mein centre karo, taaki laptop pe bhi app jaisi dikhe
   if (Platform.OS === 'web') {
     return (
-      <View style={{ flex: 1, backgroundColor: '#F3E5BF', alignItems: 'center' }}>
-        <View style={{ flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.bg }}>{app}</View>
+      <View style={{ flex: 1, backgroundColor: '#E6E7EB', alignItems: 'center' }}>
+        <View style={{ flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.white }}>{app}</View>
       </View>
     );
   }

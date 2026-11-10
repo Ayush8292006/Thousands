@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Thousands",
+    "slug": "thousands-customer",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo-white.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FCF6D2"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.thousands.shop"
+    },
+    "android": {
+      "package": "com.thousands.shop",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FCF6D2"
+      }
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-font"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/icon.png",
+      "name": "Thousands",
+      "shortName": "Thousands",
+      "themeColor": "#000000",
+      "backgroundColor": "#FFFFFF"
+    }
+  }
+}
