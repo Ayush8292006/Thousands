@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Image, StyleSheet, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
+import { View, Text, TextInput, Image, StyleSheet, KeyboardAvoidingView, Platform, Pressable, Modal, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { countries, isValidMobile } from '../data/countries';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius, font } from '../theme';
 import { Button } from '../components/ui';
@@ -12,22 +14,28 @@ export default function LoginScreen() {
   const { setUser } = useApp();
   const [step, setStep] = useState('phone');
   const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState(countries[0]);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [query, setQuery] = useState('');
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const onSend = async () => {
-    if (!/^[6-9]\d{9}$/.test(phone)) return setError('Enter a valid 10-digit mobile number');
+    if (!isValidMobile(country, phone)) {
+      const n = country.len[0] === country.len[1] ? country.len[0] : `${country.len[0]}–${country.len[1]}`;
+      return setError(`Enter a valid ${n}-digit mobile number`);
+    }
     setError('');
     setLoading(true);
-    await sendOtp(phone);
+    await sendOtp(`${country.dial}${phone}`);
     setLoading(false);
     setStep('otp');
   };
 
   const onVerify = async () => {
     setLoading(true);
-    const res = await verifyOtp(phone, otp);
+    const res = await verifyOtp(`${country.dial} ${phone}`, otp);
     setLoading(false);
     if (!res.ok) return setError('Enter the 6-digit OTP');
     setUser(res.user);
@@ -47,14 +55,19 @@ export default function LoginScreen() {
             <Text style={font.h1}>Login or Sign up</Text>
             <Text style={[font.small, { marginTop: 6 }]}>Enter your mobile number and we will send you an OTP.</Text>
             <View style={styles.inputRow}>
-              <Text style={styles.cc}>+91</Text>
+              <Pressable style={styles.ccBtn} onPress={() => setPickerOpen(true)} accessibilityLabel={`Country code ${country.dial}, change`}>
+                <Text style={styles.flag}>{country.flag}</Text>
+                <Text style={styles.cc}>{country.dial}</Text>
+                <Ionicons name="chevron-down" size={14} color={colors.muted} />
+              </Pressable>
+              <View style={styles.divider} />
               <TextInput
                 value={phone}
-                onChangeText={(t) => setPhone(t.replace(/\D/g, '').slice(0, 10))}
+                onChangeText={(t) => setPhone(t.replace(/\D/g, '').slice(0, country.len[1]))}
                 placeholder="Mobile number"
                 placeholderTextColor={colors.faint}
                 keyboardType="phone-pad"
-                style={styles.input}
+                style={[styles.input, noOutline]}
               />
             </View>
             {error ? <Text style={styles.err}>{error}</Text> : null}
@@ -64,7 +77,7 @@ export default function LoginScreen() {
           <>
             <Text style={font.h1}>Verify OTP</Text>
             <Text style={[font.small, { marginTop: 6 }]}>
-              Enter the 6-digit code sent to +91 {phone}.{' '}
+              Enter the 6-digit code sent to {country.dial} {phone}.{' '}
               <Text style={{ color: colors.black, fontWeight: '700' }} onPress={() => setStep('phone')}>Change</Text>
             </Text>
             <TextInput
@@ -73,7 +86,7 @@ export default function LoginScreen() {
               placeholder="• • • • • •"
               placeholderTextColor={colors.faint}
               keyboardType="number-pad"
-              style={[styles.inputRow, styles.otp]}
+              style={[styles.inputRow, styles.otp, noOutline]}
               autoFocus
             />
             {error ? <Text style={styles.err}>{error}</Text> : null}
@@ -88,9 +101,57 @@ export default function LoginScreen() {
           By continuing, you agree to the Thousands Terms of Use and Privacy Policy.
         </Text>
       </View>
+
+      <Modal visible={pickerOpen} transparent animationType="slide" onRequestClose={() => setPickerOpen(false)}>
+        <Pressable style={styles.backdrop} onPress={() => setPickerOpen(false)} />
+        <View style={[styles.picker, { paddingBottom: insets.bottom + 12 }]}>
+          <Text style={[font.h2, { marginBottom: 12 }]}>Select country</Text>
+          <View style={styles.searchRow}>
+            <Ionicons name="search" size={18} color={colors.muted} />
+            <TextInput
+              value={query}
+              onChangeText={setQuery}
+              placeholder="Search country or code"
+              placeholderTextColor={colors.faint}
+              style={[styles.searchInput, noOutline]}
+            />
+          </View>
+          <FlatList
+            data={countries.filter((c) => {
+              const q = query.trim().toLowerCase();
+              return !q || c.name.toLowerCase().includes(q) || c.dial.includes(q);
+            })}
+            keyExtractor={(c) => c.code}
+            keyboardShouldPersistTaps="handled"
+            renderItem={({ item }) => {
+              const on = item.code === country.code;
+              return (
+                <Pressable
+                  style={styles.countryRow}
+                  onPress={() => {
+                    setCountry(item);
+                    setPhone((p) => p.slice(0, item.len[1]));
+                    setError('');
+                    setQuery('');
+                    setPickerOpen(false);
+                  }}
+                >
+                  <Text style={styles.flag}>{item.flag}</Text>
+                  <Text style={styles.countryName}>{item.name}</Text>
+                  <Text style={styles.countryDial}>{item.dial}</Text>
+                  {on ? <Ionicons name="checkmark" size={18} color={colors.accent} style={{ marginLeft: 8 }} /> : null}
+                </Pressable>
+              );
+            }}
+          />
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
+
+// Web browser ka default focus border hatao
+const noOutline = Platform.OS === 'web' ? { outlineStyle: 'none', outlineWidth: 0 } : null;
 
 const styles = StyleSheet.create({
   hero: { flex: 1, alignItems: 'center', justifyContent: 'center' },
@@ -102,7 +163,17 @@ const styles = StyleSheet.create({
     marginTop: 22, height: 54, borderRadius: radius.md, borderWidth: 1.5, borderColor: colors.border,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14,
   },
-  cc: { fontSize: 16, fontWeight: '700', marginRight: 10, color: colors.black },
+  ccBtn: { flexDirection: 'row', alignItems: 'center', height: '100%', paddingRight: 4 },
+  flag: { fontSize: 20, marginRight: 6 },
+  cc: { fontSize: 16, fontWeight: '700', marginRight: 4, color: colors.black },
+  divider: { width: 1, height: 26, backgroundColor: colors.border, marginHorizontal: 10 },
+  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
+  picker: { backgroundColor: colors.white, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20, maxHeight: '75%' },
+  searchRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 10, paddingHorizontal: 12, height: 44, marginBottom: 8 },
+  searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: colors.black },
+  countryRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: colors.border },
+  countryName: { flex: 1, fontSize: 15, color: colors.ink },
+  countryDial: { fontSize: 15, fontWeight: '600', color: colors.muted },
   input: { flex: 1, fontSize: 16, color: colors.black },
   otp: { fontSize: 22, letterSpacing: 10, textAlign: 'center', fontWeight: '700', color: colors.black },
   err: { color: colors.danger, marginTop: 8, fontSize: 12 },
