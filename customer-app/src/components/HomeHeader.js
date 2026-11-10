@@ -29,7 +29,7 @@ export default function HomeHeader() {
         {/* Premium Dark Logo Container */}
         <View style={styles.logoBadge}>
           <Image
-            source={require('../../assets/brand-logo.jpg')}
+            source={require('../../assets/logo-white.png')}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
 
   },
   logo: {
-    width: 36,
-    height: 36,
+    width: 30,
+    height: 32,
   },
   brandInfo: {
     marginLeft: 10,
