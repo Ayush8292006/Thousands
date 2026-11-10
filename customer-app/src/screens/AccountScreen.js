@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   header: { backgroundColor: colors.accent, flexDirection: 'row', alignItems: 'center', padding: 16, paddingBottom: 46 },
   avatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
   avatarText: { fontSize: 24, fontWeight: '900' },
-  name: { color: colors.white, fontSize: 22, fontFamily: 'PlusJakartaSans_700Bold' },
+  name: { color: colors.white, fontSize: 22, fontWeight: '700' },
   phone: { color: colors.faint, marginTop: 2 },
   plus: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.accent, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4 },
   plusText: { color: colors.accent, fontSize: 11, fontWeight: '800', marginLeft: 4 },

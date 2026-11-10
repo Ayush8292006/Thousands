@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { TopBar, Panel, Field, Pill } from '../components/kit';
 import Sheet from '../components/Sheet';
 import { Button } from '../components/ui';
@@ -80,16 +80,16 @@ export default function WarehousesScreen() {
 }
 
 const styles = StyleSheet.create({
-  fbf: { flexDirection: 'row', alignItems: 'center', margin: 12, marginBottom: 0, borderRadius: 16, padding: 16 },
-  fbfTitle: { fontFamily: fonts.display, color: colors.white, fontSize: 17 },
+  fbf: { flexDirection: 'row', alignItems: 'center', margin: 12, marginBottom: 0, borderRadius: 4, padding: 16 },
+  fbfTitle: { fontWeight: '700', color: colors.white, fontSize: 17 },
   fbfSub: { color: 'rgba(255,255,255,0.85)', fontSize: 12, marginTop: 4, lineHeight: 17, paddingRight: 8 },
   fbfOn: { fontSize: 12, color: colors.success, fontWeight: '600', marginHorizontal: 16, marginTop: 8 },
-  icon: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  icon: { width: 40, height: 40, borderRadius: 4, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   name: { fontSize: 14, fontWeight: '700', color: colors.black },
   addr: { fontSize: 12, color: colors.muted, marginTop: 2, lineHeight: 17 },
   foot: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.border },
   link: { color: colors.accent, fontWeight: '700', fontSize: 13 },
   small: { fontSize: 12, color: colors.muted },
-  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 18, height: 50, gap: 6 },
-  fabText: { color: colors.white, fontFamily: fonts.display, fontSize: 14 },
+  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 4, paddingHorizontal: 18, height: 50, gap: 6 },
+  fabText: { color: colors.white, fontWeight: '700', fontSize: 14 },
 });

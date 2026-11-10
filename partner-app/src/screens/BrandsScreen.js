@@ -87,20 +87,20 @@ export default function BrandsScreen() {
 }
 
 const styles = StyleSheet.create({
-  info: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: colors.accentSoft, margin: 12, marginBottom: 0, borderRadius: 10, padding: 10 },
+  info: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: colors.accentSoft, margin: 12, marginBottom: 0, borderRadius: 4, padding: 10 },
   infoText: { flex: 1, marginLeft: 8, fontSize: 12, color: colors.ink, lineHeight: 17 },
   row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.border },
   logo: { width: 42, height: 42, borderRadius: 21, backgroundColor: '#F1EBFF', alignItems: 'center', justifyContent: 'center' },
-  logoText: { fontFamily: fonts.display, fontSize: 18, color: '#7C3AED' },
+  logoText: { fontWeight: '700', fontSize: 18, color: '#7C3AED' },
   name: { fontSize: 14, fontWeight: '700', color: colors.black },
   meta: { fontSize: 11, color: colors.muted, marginTop: 2 },
   note: { fontSize: 11, color: colors.sale, marginTop: 3 },
   label: { fontSize: 12, color: colors.muted, marginBottom: 8, fontWeight: '600' },
   chips: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8 },
-  doc: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border, borderStyle: 'dashed', borderRadius: 10, padding: 12, marginBottom: 8 },
+  doc: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border, borderStyle: 'dashed', borderRadius: 4, padding: 12, marginBottom: 8 },
   docOn: { borderStyle: 'solid', borderColor: colors.success, backgroundColor: colors.successSoft },
   docText: { flex: 1, marginLeft: 10, fontSize: 13, color: colors.ink },
   docAct: { fontSize: 12, fontWeight: '700', color: colors.accent },
-  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 18, height: 50, gap: 6 },
-  fabText: { color: colors.white, fontFamily: fonts.display, fontSize: 14 },
+  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 4, paddingHorizontal: 18, height: 50, gap: 6 },
+  fabText: { color: colors.white, fontWeight: '700', fontSize: 14 },
 });

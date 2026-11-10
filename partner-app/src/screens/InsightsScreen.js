@@ -84,11 +84,11 @@ export default function InsightsScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   kpis: { flexDirection: 'row', gap: 8, padding: 12, paddingBottom: 0 },
-  kpi: { flex: 1, borderRadius: 12, padding: 12 },
-  kpiV: { fontFamily: fonts.display, fontSize: 17 },
+  kpi: { flex: 1, borderRadius: 4, padding: 12 },
+  kpiV: { fontWeight: '700', fontSize: 17 },
   kpiK: { fontSize: 11, color: colors.ink, marginTop: 2 },
   fLabel: { flex: 1, marginLeft: 6, fontSize: 13, color: colors.ink },
-  fValue: { fontFamily: fonts.display, fontSize: 13, color: colors.black },
+  fValue: { fontWeight: '700', fontSize: 13, color: colors.black },
   fTrack: { height: 10, borderRadius: 5, backgroundColor: colors.mist, marginTop: 6 },
   fBar: { height: 10, borderRadius: 5, backgroundColor: colors.accent },
   tip: { fontSize: 12, color: colors.ink, backgroundColor: colors.accentSoft, borderRadius: 8, padding: 10 },
@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
   rSub: { fontSize: 11, color: colors.muted, marginTop: 2 },
   rNote: { fontSize: 11, color: '#E67E00', marginTop: 2, fontWeight: '600' },
   link: { color: colors.accent, fontWeight: '700', fontSize: 12 },
-  rank: { width: 20, fontFamily: fonts.display, fontSize: 14, color: colors.muted },
-  rev: { fontFamily: fonts.display, fontSize: 13, color: colors.success },
+  rank: { width: 20, fontWeight: '700', fontSize: 14, color: colors.muted },
+  rev: { fontWeight: '700', fontSize: 13, color: colors.success },
 });

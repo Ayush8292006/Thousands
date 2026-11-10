@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { TopBar, Panel, Field, Pill, SegmentTabs } from '../components/kit';
 import Sheet from '../components/Sheet';
 import { Button, Chip } from '../components/ui';
@@ -47,7 +47,7 @@ export default function PromotionsScreen() {
         <Text style={styles.sec}>Upcoming sale events</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 12, gap: 10 }}>
           {upcomingEvents.map((e) => (
-            <ImageBackground key={e.id} source={{ uri: e.image }} style={styles.event} imageStyle={{ borderRadius: 14 }}>
+            <ImageBackground key={e.id} source={{ uri: e.image }} style={styles.event} imageStyle={{ borderRadius: 4 }}>
               <LinearGradient colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.8)']} style={styles.eventShade}>
                 <Text style={styles.eventName}>{e.name}</Text>
                 <Text style={styles.eventSub}>{e.dates} · min. {e.minDiscount}% off</Text>
@@ -111,15 +111,15 @@ export default function PromotionsScreen() {
 }
 
 const styles = StyleSheet.create({
-  sec: { fontFamily: fonts.display, fontSize: 15, color: colors.black, padding: 12, paddingBottom: 10 },
+  sec: { fontWeight: '700', fontSize: 15, color: colors.black, padding: 12, paddingBottom: 10 },
   event: { width: 250, height: 140 },
-  eventShade: { flex: 1, borderRadius: 14, justifyContent: 'flex-end', padding: 12 },
-  eventName: { fontFamily: fonts.display, color: colors.white, fontSize: 16 },
+  eventShade: { flex: 1, borderRadius: 4, justifyContent: 'flex-end', padding: 12 },
+  eventName: { fontWeight: '700', color: colors.white, fontSize: 16 },
   eventSub: { color: colors.yellow, fontSize: 11, fontWeight: '700', marginTop: 2 },
   eventBtn: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 6, paddingHorizontal: 10, paddingVertical: 5, marginTop: 8 },
-  eventBtnText: { fontSize: 11, fontFamily: fonts.display, color: colors.accent },
-  offIcon: { width: 46, height: 46, borderRadius: 12, backgroundColor: '#FFF4E0', alignItems: 'center', justifyContent: 'center' },
-  offText: { fontFamily: fonts.display, fontSize: 14, color: '#E67E00' },
+  eventBtnText: { fontSize: 11, fontWeight: '700', color: colors.accent },
+  offIcon: { width: 46, height: 46, borderRadius: 4, backgroundColor: '#FFF4E0', alignItems: 'center', justifyContent: 'center' },
+  offText: { fontWeight: '700', fontSize: 14, color: '#E67E00' },
   name: { fontSize: 14, fontWeight: '700', color: colors.black },
   meta: { fontSize: 11, color: colors.muted, marginTop: 2 },
   prods: { fontSize: 12, color: colors.ink, marginTop: 10 },
@@ -130,6 +130,6 @@ const styles = StyleSheet.create({
   label: { fontSize: 12, color: colors.muted, marginBottom: 8, fontWeight: '600' },
   chips: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8 },
   err: { color: colors.sale, fontSize: 12, fontWeight: '600', marginTop: 10 },
-  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 18, height: 50, gap: 6 },
-  fabText: { color: colors.white, fontFamily: fonts.display, fontSize: 14 },
+  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 4, paddingHorizontal: 18, height: 50, gap: 6 },
+  fabText: { color: colors.white, fontWeight: '700', fontSize: 14 },
 });

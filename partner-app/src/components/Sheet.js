@@ -30,5 +30,5 @@ const styles = StyleSheet.create({
   sheet: { backgroundColor: colors.white, borderTopLeftRadius: 20, borderTopRightRadius: 20, paddingHorizontal: 18, paddingTop: 8, maxHeight: '88%' },
   handle: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border, marginBottom: 10 },
   head: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 },
-  title: { fontFamily: fonts.display, fontSize: 18, color: colors.black },
+  title: { fontWeight: '700', fontSize: 18, color: colors.black },
 });

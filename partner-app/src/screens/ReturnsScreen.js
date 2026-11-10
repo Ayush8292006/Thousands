@@ -98,9 +98,9 @@ export default function ReturnsScreen() {
 }
 
 const styles = StyleSheet.create({
-  spf: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.successSoft, marginHorizontal: 12, borderRadius: 10, padding: 10 },
+  spf: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.successSoft, marginHorizontal: 12, borderRadius: 4, padding: 10 },
   spfText: { flex: 1, marginLeft: 8, fontSize: 12, color: colors.ink, lineHeight: 17 },
-  card: { backgroundColor: colors.white, borderRadius: 14, padding: 12, marginBottom: 10 },
+  card: { backgroundColor: colors.white, borderRadius: 4, padding: 12, marginBottom: 10 },
   head: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   id: { fontSize: 12, fontWeight: '700', color: colors.muted },
   badge: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
@@ -114,5 +114,5 @@ const styles = StyleSheet.create({
   actions: { flexDirection: 'row', gap: 8, marginTop: 12 },
   btn: { flex: 1, backgroundColor: colors.accent, borderRadius: 8, paddingVertical: 10, alignItems: 'center', justifyContent: 'center' },
   btnOutline: { backgroundColor: colors.white, borderWidth: 1, borderColor: colors.border, flex: 0.7 },
-  btnText: { color: colors.white, fontFamily: fonts.display, fontSize: 12 },
+  btnText: { color: colors.white, fontWeight: '700', fontSize: 12 },
 });

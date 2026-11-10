@@ -7,7 +7,7 @@ export const colors = {
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F2F3F5', // inner screens ka base; Home white rehta hai
+  bg: '#F1F3F6', // neutral page background
   mist: '#F2F3F5', // surfaces, image backdrops
   soft: '#F2F3F5',
   card: '#FFFFFF',
@@ -26,24 +26,21 @@ export const colors = {
 };
 
 // Category / brand tiles ke soft backgrounds
-export const pastels = ['#E8F0FF', '#FFF1E6', '#E9F8EF', '#FDECF1', '#F1EBFF', '#FFF8D6', '#E6F7F8', '#F3F4F6'];
+export const pastels = ['#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6', '#F1F3F6'];
 
-export const fonts = {
-  display: 'PlusJakartaSans_700Bold',
-  displayHeavy: 'PlusJakartaSans_800ExtraBold',
-  displayMedium: 'PlusJakartaSans_600SemiBold',
-};
+// System font (Roboto / San Francisco) — fast, sharp, no loading
+export const fonts = { display: undefined, displayHeavy: undefined, displayMedium: undefined };
 
-export const radius = { sm: 6, md: 14, lg: 20, xl: 28, pill: 999 };
+export const radius = { sm: 2, md: 4, lg: 4, xl: 6, pill: 4 }; // sharp
 export const space = (n) => n * 4;
 
 // Type scale (~1.2): 11 / 13 / 15 / 18 / 22 / 28 / 34
 export const font = {
-  hero: { fontFamily: fonts.display, fontSize: 26, lineHeight: 30, color: colors.black, letterSpacing: -0.4 },
-  h1: { fontFamily: fonts.display, fontSize: 22, lineHeight: 28, color: colors.black, letterSpacing: -0.3 },
-  h2: { fontFamily: fonts.display, fontSize: 17, lineHeight: 22, color: colors.black, letterSpacing: -0.2 },
-  h3: { fontFamily: fonts.displayMedium, fontSize: 15, lineHeight: 20, color: colors.black },
-  price: { fontFamily: fonts.display, fontSize: 17, color: colors.black, letterSpacing: -0.2 },
+  hero: { fontWeight: '700', fontSize: 26, lineHeight: 30, color: colors.black, },
+  h1: { fontWeight: '700', fontSize: 22, lineHeight: 28, color: colors.black, },
+  h2: { fontWeight: '700', fontSize: 17, lineHeight: 22, color: colors.black, },
+  h3: { fontWeight: '600', fontSize: 15, lineHeight: 20, color: colors.black },
+  price: { fontWeight: '700', fontSize: 17, color: colors.black, },
   body: { fontSize: 15, lineHeight: 21, color: colors.ink },
   small: { fontSize: 13, lineHeight: 18, color: colors.muted },
   tiny: { fontSize: 11, color: colors.muted },

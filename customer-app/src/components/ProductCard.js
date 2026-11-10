@@ -72,9 +72,9 @@ function formatCount(n) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.white, borderRadius: 12, borderWidth: 1, borderColor: colors.border, padding: 8 },
+  card: { backgroundColor: colors.white, borderRadius: 4, borderWidth: 1, borderColor: colors.border, padding: 8 },
   heart: {
-    position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 14,
+    position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 4,
     backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
   },
   assured: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   ratingText: { color: colors.white, fontSize: 10, fontWeight: '700' },
   reviews: { fontSize: 11, color: colors.muted, marginLeft: 4 },
   priceRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 5 },
-  price: { fontFamily: fonts.display, fontSize: 15, color: colors.black },
+  price: { fontWeight: '700', fontSize: 15, color: colors.black },
   mrp: { color: colors.faint, textDecorationLine: 'line-through', fontSize: 11, marginLeft: 5 },
   footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 },
   off: { color: colors.success, fontSize: 12, fontWeight: '700' },

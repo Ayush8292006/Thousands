@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { TopBar, Panel } from '../components/kit';
 import { colors, fonts } from '../theme';
 import { healthMetrics, TIERS } from '../data/hub';
@@ -71,17 +71,17 @@ export default function HealthScreen() {
 }
 
 const styles = StyleSheet.create({
-  tier: { flexDirection: 'row', alignItems: 'center', margin: 12, borderRadius: 16, padding: 18 },
+  tier: { flexDirection: 'row', alignItems: 'center', margin: 12, borderRadius: 4, padding: 18 },
   tierLabel: { color: 'rgba(255,255,255,0.75)', fontSize: 12 },
-  tierName: { fontFamily: fonts.display, color: colors.white, fontSize: 24 },
+  tierName: { fontWeight: '700', color: colors.white, fontSize: 24 },
   bar: { height: 6, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.25)', marginTop: 8 },
   barFill: { height: 6, borderRadius: 3, backgroundColor: colors.yellow },
   tierSub: { color: 'rgba(255,255,255,0.85)', fontSize: 11, marginTop: 6 },
-  summary: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, borderRadius: 12, padding: 12 },
+  summary: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, borderRadius: 4, padding: 12 },
   summaryText: { flex: 1, marginLeft: 10, fontSize: 12, color: colors.ink, lineHeight: 17 },
   metric: { paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.border },
   mLabel: { flex: 1, fontSize: 14, fontWeight: '600', color: colors.black },
-  mValue: { fontFamily: fonts.display, fontSize: 16 },
+  mValue: { fontWeight: '700', fontSize: 16 },
   track: { height: 6, borderRadius: 3, backgroundColor: colors.mist, marginTop: 8 },
   fill: { height: 6, borderRadius: 3 },
   mHelp: { fontSize: 11, color: colors.muted, marginTop: 6 },

@@ -82,15 +82,15 @@ function formatCount(n) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: lightBlueTheme.bg,
-    borderRadius: 14,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
     padding: 8,
-    shadowColor: '#397FC1',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.07,
-    shadowRadius: 6,
-    elevation: 2,
+
+
+
+
+
   },
   imageWrap: {
     alignItems: 'center',
@@ -102,17 +102,17 @@ const styles = StyleSheet.create({
     right: 6,
     width: 28,
     height: 28,
-    borderRadius: 14,
+    borderRadius: 4,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#172B45',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 3,
-    elevation: 2,
+
+
+
+
+
   },
   assured: {
     position: 'absolute',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   price: {
-    fontFamily: fonts.display,
+    fontWeight: '700',
     fontSize: 15,
     color: lightBlueTheme.text,
   },

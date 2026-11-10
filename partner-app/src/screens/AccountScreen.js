@@ -66,8 +66,8 @@ export default function AccountScreen({ navigation }) {
 const styles = StyleSheet.create({
   profile: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, padding: 16 },
   avatar: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  avatarText: { fontFamily: fonts.display, fontSize: 24, color: colors.white },
-  store: { fontFamily: fonts.display, fontSize: 18, color: colors.black },
+  avatarText: { fontWeight: '700', fontSize: 24, color: colors.white },
+  store: { fontWeight: '700', fontSize: 18, color: colors.black },
   legal: { fontSize: 12, color: colors.muted, marginTop: 2 },
   note: { fontSize: 11, color: colors.muted, marginTop: 8 },
   logout: { textAlign: 'center', color: colors.sale, fontWeight: '700', fontSize: 15, marginTop: 20 },

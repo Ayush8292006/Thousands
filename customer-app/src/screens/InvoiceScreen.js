@@ -133,7 +133,7 @@ function SumRow({ k, v }) {
 }
 
 const styles = StyleSheet.create({
-  paper: { backgroundColor: colors.white, borderRadius: 12, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
+  paper: { backgroundColor: colors.white, borderRadius: 4, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
   top: { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 2, borderBottomColor: colors.black, paddingBottom: 12 },
   logoBox: { width: 38, height: 38, borderRadius: 8, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   brand: { fontWeight: '900', letterSpacing: 3, fontSize: 15 },

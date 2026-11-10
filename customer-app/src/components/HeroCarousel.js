@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import { useAppWidth } from '../utils/platform';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from './Flat';
 import { Ionicons } from '@expo/vector-icons';
 import { fonts, lightBlueTheme } from '../theme';
 
-export default function HeroCarousel({ banners, onPress, interval = 4500 }) {
+export default function HeroCarousel({ banners, onPress, interval = 4500, autoPlay = false }) {
   const { width } = useAppWidth();
   const carouselWidth = width - 24; // 12px margin each side for modern framed look
   const height = Math.round(carouselWidth * 0.54);
@@ -14,7 +14,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4500 }) {
   const touching = useRef(false);
 
   useEffect(() => {
-    if (banners.length < 2) return;
+    if (!autoPlay || banners.length < 2) return undefined;
     const t = setInterval(() => {
       if (touching.current) return;
       setIndex((i) => {
@@ -24,7 +24,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4500 }) {
       });
     }, interval);
     return () => clearInterval(t);
-  }, [banners.length, interval]);
+  }, [banners.length, interval, autoPlay]);
 
   if (!banners.length) return <View style={{ height, backgroundColor: lightBlueTheme.softBg }} />;
 
@@ -94,15 +94,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    borderRadius: 16,
+    borderRadius: 4,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
-    shadowColor: '#397FC1',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 3,
+
+
+
+
+
   },
   content: {
     flex: 1,
@@ -129,15 +129,15 @@ const styles = StyleSheet.create({
   sub: {
     color: lightBlueTheme.secondary,
     fontSize: 12,
-    fontFamily: fonts.displayMedium,
+    fontWeight: '600',
   },
   title: {
     color: '#FFFFFF',
     fontSize: 21,
     lineHeight: 26,
-    fontFamily: fonts.display,
+    fontWeight: '700',
     marginTop: 4,
-    letterSpacing: -0.3,
+    
   },
   cta: {
     alignSelf: 'flex-start',
@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
     marginTop: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    shadowColor: '#172B45',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 2,
+
+
+
+
+
   },
   ctaText: {
     color: lightBlueTheme.text,

@@ -46,7 +46,7 @@ export default function NotificationsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: colors.white, padding: 14, marginHorizontal: 12, marginBottom: 8, borderRadius: 12 },
+  row: { flexDirection: 'row', alignItems: 'flex-start', backgroundColor: colors.white, padding: 14, marginHorizontal: 12, marginBottom: 8, borderRadius: 4 },
   unread: { borderLeftWidth: 3, borderLeftColor: colors.accent },
   icon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 14, fontWeight: '700', color: colors.black },

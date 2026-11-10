@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
   offerRing: { width: 70, height: 70, borderRadius: 35, backgroundColor: '#F2622E', alignItems: 'center', justifyContent: 'center' },
   bulb: { position: 'absolute', width: 6, height: 6, marginLeft: -3, marginTop: -3, borderRadius: 3, backgroundColor: '#FFE27A' },
   offerInner: { width: 50, height: 50, borderRadius: 25, backgroundColor: '#FFF6D6', alignItems: 'center', justifyContent: 'center' },
-  offerBig: { fontFamily: fonts.displayHeavy, fontSize: 14, color: '#C2410C', lineHeight: 16 },
-  offerSmall: { fontFamily: fonts.display, fontSize: 8, color: '#C2410C', letterSpacing: 1 },
+  offerBig: { fontWeight: '800', fontSize: 14, color: '#C2410C', lineHeight: 16 },
+  offerSmall: { fontWeight: '700', fontSize: 8, color: '#C2410C', letterSpacing: 1 },
   label: { fontSize: 11.5, color: colors.ink, marginTop: 6, fontWeight: '600', maxWidth: TILE_W + 4, textAlign: 'center' },
 });
 

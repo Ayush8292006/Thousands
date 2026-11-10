@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from './Flat';
 import { fonts, lightBlueTheme } from '../theme';
 import { BRAND } from '../config/app';
 import { useApp } from '../context/AppContext';
@@ -40,7 +40,7 @@ export default function HomeHeader() {
           <Text style={styles.brandTitle}>{BRAND.name.toUpperCase()}</Text>
           <View style={styles.tagBadge}>
             <View style={styles.tagDot} />
-            <Text style={styles.tagText}>PREMIUM FASHION</Text>
+            <Text style={styles.tagText}>Online Shopping</Text>
           </View>
         </View>
 
@@ -83,7 +83,7 @@ export default function HomeHeader() {
       {/* Elegant Search Bar */}
       <Pressable onPress={() => nav.navigate('Search')} style={styles.search} accessibilityRole="search">
         <Ionicons name="search" size={18} color={lightBlueTheme.accent} />
-        <Text style={styles.searchText} numberOfLines={1}>Search collections, designer wear & accessories...</Text>
+        <Text style={styles.searchText} numberOfLines={1}>Search for products, brands and more</Text>
         <Ionicons name="mic-outline" size={19} color={lightBlueTheme.accent} />
         <View style={styles.sep} />
         <Ionicons name="camera-outline" size={19} color={lightBlueTheme.accent} />
@@ -120,18 +120,18 @@ const styles = StyleSheet.create({
   logoBadge: {
     width: 42,
     height: 42,
-    borderRadius: 10,
+    borderRadius: 4,
     backgroundColor: lightBlueTheme.darkLogoBg,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: 'rgba(169, 207, 245, 0.45)',
-    shadowColor: '#172B45',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.12,
-    shadowRadius: 5,
-    elevation: 3,
+
+
+
+
+
   },
   logo: {
     width: 36,
@@ -142,10 +142,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   brandTitle: {
-    fontFamily: fonts.display,
     fontSize: 17,
     color: lightBlueTheme.text,
-    letterSpacing: 1.8,
+    letterSpacing: 0.3,
     fontWeight: '800',
   },
   tagBadge: {
@@ -202,18 +201,18 @@ const styles = StyleSheet.create({
   search: {
     marginTop: 10,
     height: 44,
-    borderRadius: 12,
+    borderRadius: 4,
     backgroundColor: '#FFFFFF',
     borderWidth: 1.2,
     borderColor: lightBlueTheme.border,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
-    shadowColor: '#397FC1',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 6,
-    elevation: 2,
+
+
+
+
+
   },
   searchText: {
     flex: 1,

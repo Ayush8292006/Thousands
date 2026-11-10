@@ -69,9 +69,9 @@ const styles = StyleSheet.create({
   label: { fontSize: 12, color: colors.muted, marginBottom: 8, fontWeight: '600' },
   chips: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8 },
   divider: { height: 1, backgroundColor: colors.border, marginVertical: 6 },
-  result: { backgroundColor: colors.successSoft, borderRadius: 12, padding: 14, marginTop: 10, alignItems: 'center' },
+  result: { backgroundColor: colors.successSoft, borderRadius: 4, padding: 14, marginTop: 10, alignItems: 'center' },
   resultLabel: { fontSize: 12, color: colors.success, fontWeight: '700' },
-  resultValue: { fontFamily: fonts.display, fontSize: 28, color: colors.success, marginTop: 2 },
+  resultValue: { fontWeight: '700', fontSize: 28, color: colors.success, marginTop: 2 },
   resultPct: { fontSize: 12, color: colors.ink, marginTop: 2 },
   note: { fontSize: 11, color: colors.faint, marginTop: 8 },
 });

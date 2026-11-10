@@ -81,14 +81,14 @@ export default function OrdersScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  tip: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accentSoft, marginHorizontal: 12, borderRadius: 10, padding: 10, marginBottom: 8 },
+  tip: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accentSoft, marginHorizontal: 12, borderRadius: 4, padding: 10, marginBottom: 8 },
   tipText: { flex: 1, marginLeft: 6, fontSize: 12, color: colors.ink },
-  card: { backgroundColor: colors.white, borderRadius: 14, padding: 12, marginBottom: 10 },
+  card: { backgroundColor: colors.white, borderRadius: 4, padding: 12, marginBottom: 10 },
   head: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   id: { fontSize: 12, fontWeight: '700', color: colors.muted },
   title: { fontSize: 13, fontWeight: '600', color: colors.black, lineHeight: 18 },
   meta: { fontSize: 11, color: colors.muted, marginTop: 3 },
-  price: { fontFamily: fonts.display, fontSize: 15, color: colors.black, marginLeft: 8 },
+  price: { fontWeight: '700', fontSize: 15, color: colors.black, marginLeft: 8 },
   cta: { marginTop: 12, backgroundColor: colors.accent, borderRadius: 8, paddingVertical: 10, alignItems: 'center' },
-  ctaText: { color: colors.white, fontFamily: fonts.display, fontSize: 13 },
+  ctaText: { color: colors.white, fontWeight: '700', fontSize: 13 },
 });

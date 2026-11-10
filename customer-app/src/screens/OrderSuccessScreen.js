@@ -57,5 +57,5 @@ const styles = StyleSheet.create({
   circle: { width: 96, height: 96, borderRadius: 48, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 26, fontWeight: '900', marginTop: 24 },
   sub: { color: colors.muted, marginTop: 6 },
-  box: { alignSelf: 'stretch', backgroundColor: colors.bg, borderRadius: 14, padding: 16, marginTop: 28 },
+  box: { alignSelf: 'stretch', backgroundColor: colors.bg, borderRadius: 4, padding: 16, marginTop: 28 },
 });

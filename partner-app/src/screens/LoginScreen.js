@@ -174,12 +174,12 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   hero: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   partnerTag: { backgroundColor: colors.yellow, borderRadius: 6, paddingHorizontal: 10, paddingVertical: 3, marginTop: 4 },
-  partnerTagText: { fontFamily: 'PlusJakartaSans_700Bold', fontSize: 12, color: colors.black },
+  partnerTagText: { fontWeight: '700', fontSize: 12, color: colors.black },
   perks: { flexDirection: 'row', marginTop: 22, gap: 18 },
   perk: { alignItems: 'center' },
   perkText: { color: 'rgba(255,255,255,0.85)', fontSize: 11, marginTop: 4 },
   logo: { width: 60, height: 70 },
-  brand: { color: colors.white, fontSize: 40, fontFamily: 'PlusJakartaSans_700Bold', letterSpacing: -1.2, marginTop: 18 },
+  brand: { color: colors.white, fontSize: 40, fontWeight: '700', marginTop: 18 },
   tag: { color: 'rgba(255,255,255,0.8)', marginTop: 8, fontSize: 13 },
   sheet: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 },
   inputRow: {
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   divider: { width: 1, height: 26, backgroundColor: colors.border, marginHorizontal: 10 },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
   picker: { backgroundColor: colors.white, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20, maxHeight: '75%' },
-  searchRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 10, paddingHorizontal: 12, height: 44, marginBottom: 8 },
+  searchRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 4, paddingHorizontal: 12, height: 44, marginBottom: 8 },
   searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: colors.black },
   countryRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: colors.border },
   countryName: { flex: 1, fontSize: 15, color: colors.ink },

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { StatusBar } from 'expo-status-bar';
 import { Panel, StatusBadge } from '../components/kit';
 import ProductImage from '../components/ProductImage';
@@ -184,29 +184,29 @@ const styles = StyleSheet.create({
   hero: { paddingHorizontal: 16, paddingBottom: 18 },
   heroTop: { flexDirection: 'row', alignItems: 'center' },
   greet: { color: 'rgba(255,255,255,0.8)', fontSize: 13 },
-  store: { fontFamily: fonts.display, color: colors.white, fontSize: 22, marginTop: 1 },
+  store: { fontWeight: '700', color: colors.white, fontSize: 22, marginTop: 1 },
   bell: { marginRight: 14 },
   bellBadge: { position: 'absolute', top: -4, right: -6, minWidth: 16, height: 16, borderRadius: 8, backgroundColor: colors.yellow, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 3 },
   bellText: { fontSize: 9, fontWeight: '800', color: colors.black },
-  tier: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.yellow, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 2, marginTop: 4 },
+  tier: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.yellow, borderRadius: 4, paddingHorizontal: 8, paddingVertical: 2, marginTop: 4 },
   tierText: { fontSize: 10, fontWeight: '800', color: colors.black },
   grow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  growTile: { width: '48.5%', flexGrow: 1, borderRadius: 12, padding: 12 },
-  growT: { fontFamily: fonts.display, fontSize: 14, color: colors.black, marginTop: 6 },
+  growTile: { width: '48.5%', flexGrow: 1, borderRadius: 4, padding: 12 },
+  growT: { fontWeight: '700', fontSize: 14, color: colors.black, marginTop: 6 },
   growS: { fontSize: 11, color: colors.muted, marginTop: 1 },
   avatar: { width: 42, height: 42, borderRadius: 21, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  avatarText: { fontFamily: fonts.display, fontSize: 18, color: colors.accent },
-  liveRow: { flexDirection: 'row', alignItems: 'center', marginTop: 12, backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: 10, paddingHorizontal: 12, paddingVertical: 4 },
+  avatarText: { fontWeight: '700', fontSize: 18, color: colors.accent },
+  liveRow: { flexDirection: 'row', alignItems: 'center', marginTop: 12, backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: 4, paddingHorizontal: 12, paddingVertical: 4 },
   liveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#4ADE80', marginRight: 6 },
   liveText: { color: colors.white, fontSize: 12, fontWeight: '600' },
   kpis: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 10 },
-  kpi: { width: '47.5%', flexGrow: 1, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 12, padding: 12 },
-  kpiValue: { fontFamily: fonts.display, color: colors.white, fontSize: 20, marginTop: 6 },
+  kpi: { width: '47.5%', flexGrow: 1, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 4, padding: 12 },
+  kpiValue: { fontWeight: '700', color: colors.white, fontSize: 20, marginTop: 6 },
   kpiLabel: { color: 'rgba(255,255,255,0.8)', fontSize: 12, marginTop: 1 },
 
-  payout: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, marginTop: -2, borderRadius: 14, padding: 16, borderLeftWidth: 4, borderLeftColor: colors.success },
+  payout: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, marginTop: -2, borderRadius: 4, padding: 16, borderLeftWidth: 4, borderLeftColor: colors.success },
   payoutLabel: { fontSize: 12, color: colors.muted, fontWeight: '600' },
-  payoutValue: { fontFamily: fonts.display, fontSize: 24, color: colors.black, marginTop: 2 },
+  payoutValue: { fontWeight: '700', fontSize: 24, color: colors.black, marginTop: 2 },
   payoutSub: { fontSize: 12, color: colors.success, marginTop: 2, fontWeight: '600' },
   payoutBtn: { width: 34, height: 34, borderRadius: 17, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
 
@@ -221,11 +221,11 @@ const styles = StyleSheet.create({
 
   quick: { flexDirection: 'row', justifyContent: 'space-between' },
   quickItem: { alignItems: 'center', flex: 1 },
-  quickIcon: { width: 50, height: 50, borderRadius: 14, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  quickIcon: { width: 50, height: 50, borderRadius: 4, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   quickText: { fontSize: 11, color: colors.ink, marginTop: 6, fontWeight: '600', textAlign: 'center' },
 
   orderRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.border },
   orderTitle: { fontSize: 13, fontWeight: '600', color: colors.black },
   orderMeta: { fontSize: 11, color: colors.muted, marginTop: 2 },
-  orderPrice: { fontFamily: fonts.display, fontSize: 14, color: colors.black, marginBottom: 4 },
+  orderPrice: { fontWeight: '700', fontSize: 14, color: colors.black, marginBottom: 4 },
 });

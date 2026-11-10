@@ -49,9 +49,9 @@ export default function ReportsScreen() {
 const styles = StyleSheet.create({
   months: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8, padding: 12 },
   row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.border },
-  icon: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  icon: { width: 40, height: 40, borderRadius: 4, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 14, fontWeight: '600', color: colors.black },
   sub: { fontSize: 11, color: colors.muted, marginTop: 2 },
   dl: { width: 38, height: 38, borderRadius: 19, borderWidth: 1, borderColor: colors.border, alignItems: 'center', justifyContent: 'center' },
-  note: { fontSize: 11, color: colors.faint, textAlign: 'center', marginTop: 12, paddingHorizontal: 24, fontFamily: fonts.displayMedium },
+  note: { fontSize: 11, color: colors.faint, textAlign: 'center', marginTop: 12, paddingHorizontal: 24, fontWeight: '600' },
 });

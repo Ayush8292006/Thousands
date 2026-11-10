@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 14, fontWeight: '700', color: colors.black, lineHeight: 19 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3, lineHeight: 17 },
   track: { flexDirection: 'row', alignItems: 'flex-start' },
-  dot: { width: 22, height: 22, borderRadius: 11, backgroundColor: colors.mist, alignItems: 'center', justifyContent: 'center' },
+  dot: { width: 22, height: 22, borderRadius: 4, backgroundColor: colors.mist, alignItems: 'center', justifyContent: 'center' },
   dotLabel: { fontSize: 9, color: colors.muted, marginTop: 4, textAlign: 'center' },
   trackLine: { flex: 1, height: 2, backgroundColor: colors.border, marginTop: 10 },
   awb: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 8, padding: 10, marginTop: 12 },

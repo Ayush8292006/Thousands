@@ -41,7 +41,7 @@ function Tabs() {
         headerShown: false,
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.muted,
-        tabBarLabelStyle: { fontSize: 11, fontFamily: fonts.displayMedium },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarStyle: { backgroundColor: colors.white, borderTopColor: colors.border, height: 62, paddingTop: 6 },
         tabBarIcon: ({ focused, color }) => (
           <Ionicons name={tabIcons[route.name][focused ? 0 : 1]} size={22} color={color} />
@@ -67,7 +67,7 @@ function Tabs() {
 const stackHeader = {
   headerStyle: { backgroundColor: colors.white },
   headerTintColor: colors.black,
-  headerTitleStyle: { fontFamily: fonts.display, fontSize: 18 },
+  headerTitleStyle: { fontWeight: '700', fontSize: 18 },
   headerShadowVisible: true,
   headerBackButtonDisplayMode: 'minimal',
 };

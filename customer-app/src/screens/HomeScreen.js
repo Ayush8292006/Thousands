@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, FlatList, ImageBackground, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import HomeHeader from '../components/HomeHeader';
 import HeroCarousel from '../components/HeroCarousel';
 import ShopTiles from '../components/ShopTiles';
@@ -166,7 +166,7 @@ export default function HomeScreen({ navigation }) {
         <View style={[styles.section, { flexDirection: 'row', gap: 8, paddingHorizontal: 12 }]}>
           {promos.map((p, i) => (
             <Pressable key={p.id} style={{ flex: 1 }} onPress={() => openCat(p.link.category, p.title)}>
-              <ImageBackground source={{ uri: p.image }} style={styles.promo} imageStyle={{ borderRadius: 12 }}>
+              <ImageBackground source={{ uri: p.image }} style={styles.promo} imageStyle={{ borderRadius: 4 }}>
                 <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.75)']} style={styles.promoShade}>
                   <View style={[styles.promoTag, { backgroundColor: i === 0 ? colors.sale : colors.success }]}>
                     <Text style={styles.promoTagText}>{i === 0 ? 'Hot deal' : 'New'}</Text>
@@ -297,54 +297,54 @@ function SecHead({ title, sub, onAll }) {
 const styles = StyleSheet.create({
   section: { backgroundColor: colors.white, paddingVertical: 14, marginTop: 8 },
   secHead: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, marginBottom: 12 },
-  secTitle: { fontFamily: fonts.display, fontSize: 17, color: colors.black },
+  secTitle: { fontWeight: '700', fontSize: 17, color: colors.black },
   secSub: { fontSize: 12, color: colors.muted, marginTop: 1 },
-  arrowBtn: { width: 30, height: 30, borderRadius: 15, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
+  arrowBtn: { width: 30, height: 30, borderRadius: 4, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
 
   catStrip: { backgroundColor: colors.white, paddingVertical: 12 },
   catItem: { width: 76, alignItems: 'center' },
-  catBg: { width: 60, height: 60, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
-  catImg: { width: 46, height: 46, borderRadius: 10 },
+  catBg: { width: 60, height: 60, borderRadius: 4, alignItems: 'center', justifyContent: 'center' },
+  catImg: { width: 46, height: 46, borderRadius: 4 },
   catText: { fontSize: 11, color: colors.ink, marginTop: 5, fontWeight: '600', maxWidth: 72 },
 
   saleStrip: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 9 },
-  saleText: { flex: 1, marginLeft: 6, fontFamily: fonts.display, fontSize: 13, color: colors.black },
+  saleText: { flex: 1, marginLeft: 6, fontWeight: '700', fontSize: 13, color: colors.black },
   saleBadge: { backgroundColor: colors.black, borderRadius: 4, paddingHorizontal: 8, paddingVertical: 3 },
   saleBadgeText: { color: colors.yellow, fontSize: 11, fontWeight: '800' },
 
   bankRow: { backgroundColor: colors.white, paddingVertical: 10 },
-  bankCard: { flexDirection: 'row', alignItems: 'center', borderRadius: 10, paddingVertical: 9, paddingHorizontal: 10, gap: 8 },
-  bankIcon: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
+  bankCard: { flexDirection: 'row', alignItems: 'center', borderRadius: 4, paddingVertical: 9, paddingHorizontal: 10, gap: 8 },
+  bankIcon: { width: 30, height: 30, borderRadius: 4, alignItems: 'center', justifyContent: 'center' },
   bankTitle: { fontSize: 12, fontWeight: '700', color: colors.black },
   bankSub: { fontSize: 10, color: colors.muted },
 
   dealBlock: { marginTop: 8, paddingVertical: 14 },
   dealHead: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, marginBottom: 12 },
-  dealTitle: { fontFamily: fonts.display, fontSize: 18, color: colors.white },
+  dealTitle: { fontWeight: '700', fontSize: 18, color: colors.white },
   timerRow: { flexDirection: 'row', alignItems: 'center', marginTop: 3 },
   timerLabel: { color: colors.white, fontSize: 12, marginLeft: 4, fontWeight: '600', fontVariant: ['tabular-nums'] },
   whiteBtn: { backgroundColor: colors.white, borderRadius: 6, paddingHorizontal: 12, paddingVertical: 6 },
-  whiteBtnText: { color: colors.accent, fontSize: 12, fontFamily: fonts.display },
+  whiteBtnText: { color: colors.accent, fontSize: 12, fontWeight: '700' },
 
   tileGrid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 12, gap: 8 },
-  offerTile: { backgroundColor: colors.white, borderRadius: 10, padding: 8, alignItems: 'center' },
+  offerTile: { backgroundColor: colors.white, borderRadius: 4, padding: 8, alignItems: 'center' },
   offerName: { fontSize: 12, color: colors.ink, marginTop: 6, fontWeight: '500' },
   offerOff: { fontSize: 13, color: colors.success, fontWeight: '800', marginTop: 1 },
 
   promo: { height: 140 },
-  promoShade: { flex: 1, borderRadius: 12, justifyContent: 'flex-end', padding: 10 },
+  promoShade: { flex: 1, borderRadius: 4, justifyContent: 'flex-end', padding: 10 },
   promoTag: { alignSelf: 'flex-start', borderRadius: 4, paddingHorizontal: 6, paddingVertical: 2, marginBottom: 4 },
   promoTagText: { color: colors.white, fontSize: 10, fontWeight: '800' },
-  promoTitle: { fontFamily: fonts.display, fontSize: 15, color: colors.white },
+  promoTitle: { fontWeight: '700', fontSize: 15, color: colors.white },
   promoSub: { color: colors.yellow, fontWeight: '700', fontSize: 11, marginTop: 1 },
 
-  budgetCard: { width: 112, backgroundColor: colors.white, borderRadius: 10, padding: 8 },
-  budgetPrice: { fontFamily: fonts.display, fontSize: 14, color: colors.black, marginTop: 6 },
+  budgetCard: { width: 112, backgroundColor: colors.white, borderRadius: 4, padding: 8 },
+  budgetPrice: { fontWeight: '700', fontSize: 14, color: colors.black, marginTop: 6 },
   budgetName: { fontSize: 11, color: colors.muted, marginTop: 1 },
 
   brand: { alignItems: 'center', width: 78 },
   brandCircle: { width: 60, height: 60, borderRadius: 30, alignItems: 'center', justifyContent: 'center' },
-  brandInitial: { fontFamily: fonts.display, color: colors.black, fontSize: 22 },
+  brandInitial: { fontWeight: '700', color: colors.black, fontSize: 22 },
   brandText: { fontSize: 12, marginTop: 5, color: colors.ink, fontWeight: '600' },
   brandOff: { fontSize: 10, color: colors.success, fontWeight: '700' },
 
@@ -356,10 +356,10 @@ const styles = StyleSheet.create({
   trustTitle: { fontSize: 12, marginTop: 6, color: colors.ink, fontWeight: '600' },
 
   sell: { flexDirection: 'row', alignItems: 'center', marginTop: 8, padding: 18 },
-  sellTitle: { fontFamily: fonts.display, fontSize: 18, color: colors.white },
+  sellTitle: { fontWeight: '700', fontSize: 18, color: colors.white },
   sellSub: { color: 'rgba(255,255,255,0.7)', fontSize: 12, marginTop: 3 },
   sellBtn: { alignSelf: 'flex-start', backgroundColor: colors.yellow, borderRadius: 6, paddingHorizontal: 12, paddingVertical: 7, marginTop: 10 },
-  sellBtnText: { color: colors.black, fontSize: 12, fontFamily: fonts.display },
+  sellBtnText: { color: colors.black, fontSize: 12, fontWeight: '700' },
 
   footer: { alignItems: 'center', marginTop: 20 },
   footerText: { fontSize: 11, color: colors.faint, marginTop: 6 },

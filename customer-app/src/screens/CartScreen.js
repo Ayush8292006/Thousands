@@ -123,7 +123,7 @@ export default function CartScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   header: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 12 },
-  headerTitle: { color: colors.black, fontFamily: fonts.display, fontSize: 20 },
+  headerTitle: { color: colors.black, fontWeight: '700', fontSize: 20 },
   addr: { backgroundColor: colors.white, padding: 14, flexDirection: 'row', alignItems: 'center' },
   addrLine: { fontSize: 12, color: colors.muted, marginTop: 2 },
   changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
@@ -148,5 +148,5 @@ const styles = StyleSheet.create({
     alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
   mrpSmall: { fontSize: 12, color: colors.faint, textDecorationLine: 'line-through' },
-  total: { fontFamily: fonts.display, fontSize: 20 },
+  total: { fontWeight: '700', fontSize: 20 },
 });

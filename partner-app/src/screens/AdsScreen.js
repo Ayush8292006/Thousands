@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { TopBar, Panel, Field } from '../components/kit';
 import Sheet from '../components/Sheet';
 import { Button, Chip } from '../components/ui';
@@ -95,23 +95,23 @@ export default function AdsScreen() {
 }
 
 const styles = StyleSheet.create({
-  hero: { margin: 12, borderRadius: 16, padding: 18 },
+  hero: { margin: 12, borderRadius: 4, padding: 18 },
   heroLabel: { color: 'rgba(255,255,255,0.8)', fontSize: 12 },
-  heroValue: { fontFamily: fonts.display, color: colors.white, fontSize: 32 },
-  heroRow: { flexDirection: 'row', marginTop: 12, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 10, padding: 10 },
+  heroValue: { fontWeight: '700', color: colors.white, fontSize: 32 },
+  heroRow: { flexDirection: 'row', marginTop: 12, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 4, padding: 10 },
   heroK: { color: 'rgba(255,255,255,0.75)', fontSize: 10 },
-  heroV: { color: colors.white, fontFamily: fonts.display, fontSize: 13, marginTop: 2 },
-  adIcon: { width: 40, height: 40, borderRadius: 12, backgroundColor: '#F1EBFF', alignItems: 'center', justifyContent: 'center' },
+  heroV: { color: colors.white, fontWeight: '700', fontSize: 13, marginTop: 2 },
+  adIcon: { width: 40, height: 40, borderRadius: 4, backgroundColor: '#F1EBFF', alignItems: 'center', justifyContent: 'center' },
   name: { fontSize: 14, fontWeight: '700', color: colors.black },
   meta: { fontSize: 11, color: colors.muted, marginTop: 2 },
   metrics: { flexDirection: 'row', marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.border },
   metric: { flex: 1, alignItems: 'center' },
-  mV: { fontFamily: fonts.display, fontSize: 14, color: colors.black },
+  mV: { fontWeight: '700', fontSize: 14, color: colors.black },
   mK: { fontSize: 11, color: colors.muted, marginTop: 2 },
   note: { fontSize: 11, color: colors.muted, textAlign: 'center', paddingHorizontal: 24, marginTop: 4 },
   label: { fontSize: 12, color: colors.muted, marginBottom: 8, fontWeight: '600' },
   chips: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8 },
   err: { color: colors.sale, fontSize: 12, fontWeight: '600', marginTop: 10 },
-  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 18, height: 50, gap: 6 },
-  fabText: { color: colors.white, fontFamily: fonts.display, fontSize: 14 },
+  fab: { position: 'absolute', right: 16, bottom: 16, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accent, borderRadius: 4, paddingHorizontal: 18, height: 50, gap: 6 },
+  fabText: { color: colors.white, fontWeight: '700', fontSize: 14 },
 });

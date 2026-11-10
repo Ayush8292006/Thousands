@@ -105,16 +105,16 @@ export default function CatalogScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   searchWrap: { backgroundColor: colors.white, padding: 12 },
-  search: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 10, paddingHorizontal: 12, height: 46 },
+  search: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 4, paddingHorizontal: 12, height: 46 },
   input: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.black },
-  card: { flexDirection: 'row', backgroundColor: colors.white, borderRadius: 14, padding: 12, marginBottom: 10 },
-  img: { width: 84, height: 84, borderRadius: 10, backgroundColor: colors.mist },
+  card: { flexDirection: 'row', backgroundColor: colors.white, borderRadius: 4, padding: 12, marginBottom: 10 },
+  img: { width: 84, height: 84, borderRadius: 4, backgroundColor: colors.mist },
   brand: { fontSize: 11, fontWeight: '700', color: colors.accent },
   title: { fontSize: 13, fontWeight: '600', color: colors.black, marginTop: 2, lineHeight: 18 },
   meta: { fontSize: 11, color: colors.muted, marginTop: 3 },
   btn: { alignSelf: 'flex-start', backgroundColor: colors.accent, borderRadius: 6, paddingHorizontal: 14, paddingVertical: 6, marginTop: 8 },
   btnDone: { backgroundColor: colors.successSoft },
-  btnText: { color: colors.white, fontSize: 12, fontFamily: fonts.display },
-  newBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: colors.border, borderStyle: 'dashed' },
-  earn: { backgroundColor: colors.successSoft, borderRadius: 10, padding: 10 },
+  btnText: { color: colors.white, fontSize: 12, fontWeight: '700' },
+  newBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: 4, padding: 14, borderWidth: 1, borderColor: colors.border, borderStyle: 'dashed' },
+  earn: { backgroundColor: colors.successSoft, borderRadius: 4, padding: 10 },
 });

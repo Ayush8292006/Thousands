@@ -13,7 +13,7 @@
 // ---------------------------------------------------------------
 export const API_BASE_URL = 'https://api.thousands.example/v1'; // TODO: backend URL
 
-const delay = (ms = 300) => new Promise((r) => setTimeout(r, ms));
+const delay = () => Promise.resolve(); // no fake waiting
 
 export async function sendOtp(phone) {
   await delay(400);

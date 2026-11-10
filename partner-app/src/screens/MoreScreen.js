@@ -74,10 +74,10 @@ export default function MoreScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   group: { backgroundColor: colors.white, marginTop: 8, paddingTop: 14, paddingBottom: 6 },
-  groupTitle: { fontFamily: fonts.display, fontSize: 15, color: colors.black, paddingHorizontal: 16, marginBottom: 12 },
+  groupTitle: { fontWeight: '700', fontSize: 15, color: colors.black, paddingHorizontal: 16, marginBottom: 12 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 8 },
   tile: { width: '25%', alignItems: 'center', marginBottom: 14, paddingHorizontal: 4 },
-  icon: { width: 56, height: 56, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  icon: { width: 56, height: 56, borderRadius: 4, alignItems: 'center', justifyContent: 'center' },
   badge: { position: 'absolute', top: -4, right: -4, minWidth: 18, height: 18, borderRadius: 9, backgroundColor: colors.sale, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 4 },
   badgeText: { color: colors.white, fontSize: 10, fontWeight: '800' },
   label: { fontSize: 11, color: colors.ink, marginTop: 6, textAlign: 'center', fontWeight: '600' },

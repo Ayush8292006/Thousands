@@ -94,7 +94,7 @@ export default function ReviewsScreen() {
 }
 
 const styles = StyleSheet.create({
-  avg: { fontFamily: fonts.display, fontSize: 32, color: colors.black },
+  avg: { fontWeight: '700', fontSize: 32, color: colors.black },
   avgSub: { fontSize: 11, color: colors.muted },
   distRow: { flexDirection: 'row', alignItems: 'center', marginVertical: 2 },
   distN: { width: 28, fontSize: 11, color: colors.ink },
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   reply: { backgroundColor: colors.accentSoft, borderRadius: 8, padding: 10, marginTop: 10 },
   replyLabel: { fontSize: 11, fontWeight: '700', color: colors.accent },
   replyText: { fontSize: 13, color: colors.ink, marginTop: 2 },
-  replyBox: { flexDirection: 'row', alignItems: 'flex-end', backgroundColor: colors.mist, borderRadius: 10, padding: 6, marginTop: 10 },
+  replyBox: { flexDirection: 'row', alignItems: 'flex-end', backgroundColor: colors.mist, borderRadius: 4, padding: 6, marginTop: 10 },
   replyInput: { flex: 1, fontSize: 13, color: colors.black, paddingHorizontal: 8, paddingVertical: 6, maxHeight: 90 },
   send: { width: 34, height: 34, borderRadius: 17, backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
 });

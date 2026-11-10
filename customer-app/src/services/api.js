@@ -8,7 +8,7 @@ import { products, categories, banners, promos } from '../data/catalog';
 
 export const API_BASE_URL = 'https://api.thousands.example/v1'; // TODO: backend URL
 
-const delay = (ms = 150) => new Promise((r) => setTimeout(r, ms));
+const delay = () => Promise.resolve(); // no fake waiting
 
 // GET /categories
 export async function getCategories() {

@@ -92,13 +92,13 @@ export function Row({ children, style }) {
 const styles = StyleSheet.create({
   btn: {
     height: 48,
-    borderRadius: 10,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     paddingHorizontal: 16,
   },
-  btnText: { fontFamily: fonts.display, fontSize: 15, letterSpacing: -0.1 },
+  btnText: { fontWeight: '700', fontSize: 15, },
   rating: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   ratingText: { color: colors.white, fontSize: 11, fontWeight: '700' },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 12 },
   sectionAction: {
-    width: 30, height: 30, borderRadius: 15, backgroundColor: colors.black,
+    width: 30, height: 30, borderRadius: 4, backgroundColor: colors.black,
     alignItems: 'center', justifyContent: 'center',
   },
   card: { backgroundColor: colors.card, borderRadius: radius.lg, padding: 16 },

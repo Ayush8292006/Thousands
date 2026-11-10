@@ -68,10 +68,10 @@ export default function ReviewStatusScreen() {
 const styles = StyleSheet.create({
   hero: { alignItems: 'center', backgroundColor: colors.white, padding: 24 },
   ring: { width: 84, height: 84, borderRadius: 42, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
-  title: { fontFamily: fonts.display, fontSize: 19, color: colors.black, marginTop: 14, textAlign: 'center' },
+  title: { fontWeight: '700', fontSize: 19, color: colors.black, marginTop: 14, textAlign: 'center' },
   sub: { fontSize: 13, color: colors.muted, textAlign: 'center', marginTop: 6, lineHeight: 19, maxWidth: 300 },
   appId: { fontSize: 12, color: colors.ink, marginTop: 12, fontWeight: '600', backgroundColor: colors.mist, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6 },
-  dot: { width: 24, height: 24, borderRadius: 12, backgroundColor: colors.mist, alignItems: 'center', justifyContent: 'center' },
+  dot: { width: 24, height: 24, borderRadius: 4, backgroundColor: colors.mist, alignItems: 'center', justifyContent: 'center' },
   line: { width: 2, flex: 1, backgroundColor: colors.border, marginVertical: 2 },
   stepT: { fontSize: 14, fontWeight: '700', color: colors.black },
   stepS: { fontSize: 12, color: colors.muted, marginTop: 2 },

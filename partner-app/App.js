@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Image, Platform } from 'react-native';
+import React from 'react';
+import { View, Platform } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import {
-  useFonts,
-  PlusJakartaSans_600SemiBold,
-  PlusJakartaSans_700Bold,
-  PlusJakartaSans_800ExtraBold,
-} from '@expo-google-fonts/plus-jakarta-sans';
 import { SellerProvider } from './src/context/SellerContext';
 import RootNavigator from './src/navigation/RootNavigator';
 import { colors } from './src/theme';
 
-// Web: browser ka default focus outline hatao
+// Web: browser ka default focus outline saare inputs se hatao
 if (Platform.OS === 'web' && typeof document !== 'undefined') {
   const st = document.createElement('style');
-  st.textContent = 'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; }';
+  st.textContent = 'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }';
   document.head.appendChild(st);
 }
 
@@ -25,23 +19,8 @@ const navTheme = {
   colors: { ...DefaultTheme.colors, background: colors.bg, primary: colors.accent, card: colors.white, text: colors.black },
 };
 
+// Sharp theme: system font, koi font-loading / splash wait nahi — app turant khulta hai.
 export default function App() {
-  const [loaded, error] = useFonts({ PlusJakartaSans_600SemiBold, PlusJakartaSans_700Bold, PlusJakartaSans_800ExtraBold });
-  const [timedOut, setTimedOut] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setTimedOut(true), 3000);
-    return () => clearTimeout(t);
-  }, []);
-
-  if (!loaded && !error && !timedOut) {
-    return (
-      <View style={{ flex: 1, backgroundColor: colors.accentDark, alignItems: 'center', justifyContent: 'center' }}>
-        <Image source={require('./assets/logo-white.png')} style={{ width: 70, height: 80 }} resizeMode="contain" />
-      </View>
-    );
-  }
-
   const app = (
     <SafeAreaProvider>
       <SellerProvider>
@@ -53,6 +32,7 @@ export default function App() {
     </SafeAreaProvider>
   );
 
+  // Web (Vercel): phone-width frame
   if (Platform.OS === 'web') {
     return (
       <View style={{ flex: 1, backgroundColor: '#E6E7EB', alignItems: 'center' }}>

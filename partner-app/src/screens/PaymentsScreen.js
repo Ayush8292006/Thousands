@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from '../components/Flat';
 import { TopBar, Panel, SegmentTabs, StatusBadge } from '../components/kit';
 import { colors, fonts } from '../theme';
 import { useSeller } from '../context/SellerContext';
@@ -107,21 +107,21 @@ export default function PaymentsScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  wallet: { margin: 12, borderRadius: 16, padding: 18 },
+  wallet: { margin: 12, borderRadius: 4, padding: 18 },
   wLabel: { color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: '600' },
-  wValue: { fontFamily: fonts.display, color: colors.white, fontSize: 30, marginTop: 4 },
-  wRow: { flexDirection: 'row', marginTop: 14, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 10, padding: 10 },
+  wValue: { fontWeight: '700', color: colors.white, fontSize: 30, marginTop: 4 },
+  wRow: { flexDirection: 'row', marginTop: 14, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 4, padding: 10 },
   wStat: { flex: 1 },
   wSep: { width: 1, backgroundColor: 'rgba(255,255,255,0.3)', marginHorizontal: 10 },
   wStatLabel: { color: 'rgba(255,255,255,0.8)', fontSize: 11 },
-  wStatValue: { color: colors.white, fontFamily: fonts.display, fontSize: 15, marginTop: 2 },
-  info: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 12, backgroundColor: colors.accentSoft, borderRadius: 10, padding: 10 },
+  wStatValue: { color: colors.white, fontWeight: '700', fontSize: 15, marginTop: 2 },
+  info: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 12, backgroundColor: colors.accentSoft, borderRadius: 4, padding: 10 },
   infoText: { flex: 1, marginLeft: 8, fontSize: 12, color: colors.ink },
   line: { flexDirection: 'row', alignItems: 'center', paddingVertical: 11, borderBottomWidth: 1, borderBottomColor: colors.border },
   lineTitle: { fontSize: 13, fontWeight: '600', color: colors.black },
   lineMeta: { fontSize: 11, color: colors.muted, marginTop: 2 },
-  lineNet: { fontFamily: fonts.display, fontSize: 14, color: colors.success, marginBottom: 4 },
+  lineNet: { fontWeight: '700', fontSize: 14, color: colors.success, marginBottom: 4 },
   payIcon: { width: 34, height: 34, borderRadius: 17, backgroundColor: colors.successSoft, alignItems: 'center', justifyContent: 'center' },
   empty: { fontSize: 13, color: colors.muted, paddingVertical: 10 },
-  calc: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, marginTop: 12, borderRadius: 14, padding: 14 },
+  calc: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, marginHorizontal: 12, marginTop: 12, borderRadius: 4, padding: 14 },
 });

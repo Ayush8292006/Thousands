@@ -148,11 +148,11 @@ export default function ProductFormScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  photo: { width: 96, height: 96, borderRadius: 10, backgroundColor: colors.mist },
+  photo: { width: 96, height: 96, borderRadius: 4, backgroundColor: colors.mist },
   cover: { position: 'absolute', left: 6, bottom: 6, backgroundColor: colors.black, borderRadius: 4, paddingHorizontal: 6, paddingVertical: 2 },
   coverText: { color: colors.white, fontSize: 10, fontWeight: '700' },
-  remove: { position: 'absolute', top: 4, right: 4, width: 22, height: 22, borderRadius: 11, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center' },
-  addPhoto: { width: 96, height: 96, borderRadius: 10, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
+  remove: { position: 'absolute', top: 4, right: 4, width: 22, height: 22, borderRadius: 4, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center' },
+  addPhoto: { width: 96, height: 96, borderRadius: 4, backgroundColor: colors.accentSoft, alignItems: 'center', justifyContent: 'center' },
   addPhotoText: { fontSize: 11, color: colors.accent, fontWeight: '700', marginTop: 4 },
   label: { fontSize: 12, color: colors.muted, marginBottom: 8, fontWeight: '600' },
   chips: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8, marginBottom: 14 },
