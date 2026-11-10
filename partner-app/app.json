@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Thousands Partner",
+    "slug": "thousands-partner",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo-white.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1F3DB8"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.thousands.partner"
+    },
+    "android": {
+      "package": "com.thousands.partner",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-white.png",
+        "backgroundColor": "#1F3DB8"
+      }
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-font"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/icon.png",
+      "name": "Thousands Partner",
+      "shortName": "Partner",
+      "themeColor": "#1F3DB8",
+      "backgroundColor": "#FFFFFF"
+    }
+  }
+}
