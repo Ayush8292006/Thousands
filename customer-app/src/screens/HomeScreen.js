@@ -102,7 +102,7 @@ export default function HomeScreen({ navigation }) {
         </ScrollView>
 
         {/* Sale strip */}
-        <LinearGradient colors={['#FFD21F', '#FF9F1C']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.saleStrip}>
+        <LinearGradient colors={['#FFE3D8', '#FFD0BE']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.saleStrip}>
           <Ionicons name="flash" size={18} color={colors.black} />
           <Text style={styles.saleText}>The Big Thousand Days are live</Text>
           <View style={styles.saleBadge}><Text style={styles.saleBadgeText}>Up to 80% off</Text></View>
@@ -113,10 +113,10 @@ export default function HomeScreen({ navigation }) {
         {/* Bank offers */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.bankRow} contentContainerStyle={{ paddingHorizontal: 12, gap: 8 }}>
           {[
-            ['card', '10% instant discount', 'on UPI payments', '#E8F0FF', colors.accent],
-            ['wallet', '5% cashback', 'on Thousands Pay Later', '#E9F8EF', colors.success],
-            ['bicycle', 'Free delivery', 'on orders above ₹499', '#FFF4E0', '#E67E00'],
-            ['refresh', '7-day returns', 'on most products', '#FDECF1', colors.sale],
+            ['card', '10% instant discount', 'on UPI payments', colors.soft, colors.black],
+            ['wallet', '5% cashback', 'on Thousands Pay Later', colors.dealSoft, colors.dealInk],
+            ['bicycle', 'Free delivery', 'on orders above ₹499', colors.soft, colors.black],
+            ['refresh', '7-day returns', 'on most products', colors.soft, colors.black],
           ].map(([ic, t, sub, bg, fg]) => (
             <View key={t} style={[styles.bankCard, { backgroundColor: bg }]}>
               <View style={[styles.bankIcon, { backgroundColor: fg }]}><Ionicons name={ic} size={16} color={colors.white} /></View>
@@ -129,7 +129,7 @@ export default function HomeScreen({ navigation }) {
         </ScrollView>
 
         {/* Deals of the day — gradient block */}
-        <LinearGradient colors={['#2B50E0', '#6A3DE8']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.dealBlock}>
+        <LinearGradient colors={['#000000', '#262626']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.dealBlock}>
           <View style={styles.dealHead}>
             <View style={{ flex: 1 }}>
               <Text style={styles.dealTitle}>Deals of the Day</Text>
@@ -146,7 +146,7 @@ export default function HomeScreen({ navigation }) {
         </LinearGradient>
 
         {/* Best of Electronics — 3-col offer grid */}
-        <View style={[styles.section, { backgroundColor: '#EAF2FF' }]}>
+        <View style={[styles.section, { backgroundColor: colors.bg }]}>
           <SecHead title="Best of Electronics" onAll={() => openCat('electronics', 'Electronics')} />
           <View style={styles.tileGrid}>
             {s.bestElectronics.map((p) => <OfferTile key={p.id} p={p} w={tileW} />)}
@@ -159,7 +159,7 @@ export default function HomeScreen({ navigation }) {
             <Pressable key={p.id} style={{ flex: 1 }} onPress={() => openCat(p.link.category, p.title)}>
               <ImageBackground source={{ uri: p.image }} style={styles.promo} imageStyle={{ borderRadius: 12 }}>
                 <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.75)']} style={styles.promoShade}>
-                  <View style={[styles.promoTag, { backgroundColor: i === 0 ? colors.sale : colors.success }]}>
+                  <View style={[styles.promoTag, { backgroundColor: i === 0 ? colors.sale : colors.black }]}>
                     <Text style={styles.promoTagText}>{i === 0 ? 'Hot deal' : 'New'}</Text>
                   </View>
                   <Text style={styles.promoTitle}>{p.title}</Text>
@@ -176,7 +176,7 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         {/* Fashion offers — 2x2 on pastel */}
-        <View style={[styles.section, { backgroundColor: '#FFF1F4' }]}>
+        <View style={[styles.section, { backgroundColor: colors.bg }]}>
           <SecHead title="Fashion Top Deals" onAll={() => openCat('fashion', 'Fashion')} />
           <View style={styles.tileGrid}>
             {s.fashionFoot.map((p) => <OfferTile key={p.id} p={p} w={cardW} />)}
@@ -184,7 +184,7 @@ export default function HomeScreen({ navigation }) {
         </View>
 
         {/* Under 999 — yellow block */}
-        <View style={[styles.section, { backgroundColor: '#FFF8D6' }]}>
+        <View style={[styles.section, { backgroundColor: colors.dealSoft }]}>
           <SecHead title="Budget Store" sub="Everything under ₹999" onAll={() => navigation.navigate('ProductList', { title: 'Under ₹999', maxPrice: 999 })} />
           <FlatList
             horizontal
@@ -237,9 +237,9 @@ export default function HomeScreen({ navigation }) {
         {/* Trust */}
         <View style={[styles.section, styles.trust]}>
           {[
-            ['shield-checkmark', '100% Genuine', '#E8F0FF', colors.accent],
-            ['lock-closed', 'Secure Payments', '#E9F8EF', colors.success],
-            ['headset', '24/7 Support', '#FFF4E0', '#E67E00'],
+            ['shield-checkmark', '100% Genuine', colors.soft, colors.black],
+            ['lock-closed', 'Secure Payments', colors.soft, colors.black],
+            ['headset', '24/7 Support', colors.soft, colors.black],
           ].map(([ic, t, bg, fg]) => (
             <View key={t} style={styles.trustItem}>
               <View style={[styles.trustIcon, { backgroundColor: bg }]}><Ionicons name={ic} size={20} color={fg} /></View>
@@ -250,13 +250,13 @@ export default function HomeScreen({ navigation }) {
 
         {/* Sell banner */}
         <Pressable onPress={() => navigation.navigate('Support', { seller: true })}>
-          <LinearGradient colors={['#111827', '#1F2A4D']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.sell}>
+          <LinearGradient colors={['#000000', '#262626']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.sell}>
             <View style={{ flex: 1 }}>
               <Text style={styles.sellTitle}>Sell on {BRAND.name}</Text>
               <Text style={styles.sellSub}>Reach crores of customers. No registration fee.</Text>
               <View style={styles.sellBtn}><Text style={styles.sellBtnText}>Start selling</Text></View>
             </View>
-            <Ionicons name="storefront" size={56} color="rgba(255,210,31,0.9)" />
+            <Ionicons name="storefront" size={56} color="rgba(255,255,255,0.9)" />
           </LinearGradient>
         </Pressable>
 

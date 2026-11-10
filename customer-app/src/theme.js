@@ -49,6 +49,3 @@ export const font = {
 export const shadow = {};
 
 export const TAB_BAR_SPACE = 0; // standard tab bar apni jagah leta hai
-
-// Soft pastel backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#E8F0FF', '#FFF1E6', '#E9F8EF', '#FDECF1', '#F1EBFF', '#FFF8D6', '#E6F7F8', '#F3F4F6'];
