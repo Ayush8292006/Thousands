@@ -7,7 +7,7 @@ export const colors = {
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F2F3F5', // inner screens ka base; Home white rehta hai
+  bg: '#FFF8E7', // halka cream (client palette) — page background
   mist: '#F2F3F5', // surfaces, image backdrops
   soft: '#F2F3F5',
   card: '#FFFFFF',
@@ -31,7 +31,7 @@ export const lightBlueTheme = {
   primary: '#A9CFF5',      // Soft Premium Blue
   secondary: '#DCEEFF',    // Light Sky Blue
   bg: '#FFFFFF',           // Clean White
-  softBg: '#F4F9FF',       // Ice Blue
+  softBg: '#FFF8E7',       // halka cream (client palette)
   text: '#172B45',         // Deep Navy
   textMuted: '#5C728A',    // Slate Navy Muted
   accent: '#397FC1',       // Accent Blue
@@ -41,6 +41,9 @@ export const lightBlueTheme = {
   darkLogoBg: '#000000',   // Black background for original geometric logo
   shadow: 'rgba(57, 127, 193, 0.08)',
 };
+
+// Client cream palette (halke accents ke liye)
+export const cream = ['#FFF8E7', '#FFF8DC', '#FFFDD0', '#FDF5C9', '#F3E5BF'];
 
 export const fonts = {
   display: 'PlusJakartaSans_700Bold',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, fonts } from '../theme';
@@ -57,7 +57,7 @@ function Tile({ t, onPress }) {
   } else {
     art = (
       <View style={styles.arch}>
-        <Image source={{ uri: t.image }} style={styles.archImg} />
+        <Image source={{ uri: t.image, cache: 'force-cache' }} style={styles.archImg} fadeDuration={0} />
       </View>
     );
   }
@@ -69,7 +69,7 @@ function Tile({ t, onPress }) {
   );
 }
 
-export default function ShopTiles({ navigation }) {
+function ShopTiles({ navigation }) {
   const open = (t) => {
     if (t.special === 'all') navigation.navigate('Categories');
     else navigation.navigate('ProductList', t.link);
@@ -108,3 +108,5 @@ const styles = StyleSheet.create({
   offerSmall: { fontFamily: fonts.display, fontSize: 8, color: '#C2410C', letterSpacing: 1 },
   label: { fontSize: 11.5, color: colors.ink, marginTop: 6, fontWeight: '600', maxWidth: TILE_W + 4, textAlign: 'center' },
 });
+
+export default memo(ShopTiles);

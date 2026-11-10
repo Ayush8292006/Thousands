@@ -30,6 +30,12 @@ function useCountdown() {
   return [Math.floor(left / 3600), Math.floor((left % 3600) / 60), left % 60].map((n) => String(n).padStart(2, '0'));
 }
 
+// Sirf timer har second re-render hota hai, poora page nahi (images blink nahi karengi)
+function DealTimer({ style }) {
+  const [hh, mm, ss] = useCountdown();
+  return <Text style={style}>{hh}h : {mm}m : {ss}s left</Text>;
+}
+
 export default function HomeScreen({ navigation }) {
   const { width } = useAppWidth();
   const { recentlyViewed } = useApp();
@@ -37,7 +43,6 @@ export default function HomeScreen({ navigation }) {
   const [banners, setBanners] = useState([]);
   const [promos, setPromos] = useState([]);
   const [all, setAll] = useState([]);
-  const [hh, mm, ss] = useCountdown();
   const cardW = (width - 24 - 8) / 2;
   const tileW = (width - 24 - 16) / 3;
 
@@ -87,7 +92,7 @@ export default function HomeScreen({ navigation }) {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.mist }}>
+    <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <HomeHeader />
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 24 }}>
         {/* Category tiles — pastel backgrounds */}
@@ -139,7 +144,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.dealTitle}>Deals of the Day</Text>
               <View style={styles.timerRow}>
                 <Ionicons name="alarm-outline" size={14} color={colors.yellow} />
-                <Text style={styles.timerLabel}>{hh}h : {mm}m : {ss}s left</Text>
+                <DealTimer style={styles.timerLabel} />
               </View>
             </View>
             <Pressable style={styles.whiteBtn} onPress={() => navigation.navigate('ProductList', { title: 'Deals of the Day', sort: 'discount' })}>
