@@ -51,7 +51,7 @@ export default function CategoriesScreen({ navigation }) {
           {active ? (
             <>
               <Pressable onPress={() => navigation.navigate('ProductList', { category: active.id, title: active.name })}>
-                <ImageBackground source={{ uri: active.image }} style={styles.banner} imageStyle={{ borderRadius: radius.lg }}>
+                <ImageBackground source={{ uri: active.image }} style={styles.banner} imageStyle={{ borderRadius: 0}}>
                   <View style={styles.bannerShade} />
                   <Text style={styles.bannerTitle}>{active.name}</Text>
                   <View style={styles.bannerBtn}>
@@ -100,19 +100,19 @@ const styles = StyleSheet.create({
   side: { width: 88, maxWidth: 88, backgroundColor: colors.mist },
   sideItem: { alignItems: 'center', paddingVertical: 12, paddingHorizontal: 4 },
   sideOn: { backgroundColor: colors.white },
-  bar: { position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, backgroundColor: colors.accent, borderRadius: 2 },
-  sideRing: { width: 52, height: 52, borderRadius: 26, borderWidth: 2, borderColor: 'transparent', padding: 2 },
-  sideImg: { width: '100%', height: '100%', borderRadius: 24, backgroundColor: colors.soft },
+  bar: { position: 'absolute', left: 0, top: 10, bottom: 10, width: 3, backgroundColor: colors.accent, borderRadius: 0},
+  sideRing: { width: 52, height: 52, borderRadius: 0, borderWidth: 2, borderColor: 'transparent', padding: 2 },
+  sideImg: { width: '100%', height: '100%', borderRadius: 0, backgroundColor: colors.soft },
   sideText: { fontSize: 10, marginTop: 5, color: colors.muted, textAlign: 'center', fontWeight: '600' },
   banner: { height: 90, justifyContent: 'flex-end', padding: 14 },
-  bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: radius.lg },
+  bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 0},
   bannerKicker: { color: colors.accent, fontSize: 10, fontWeight: '900', letterSpacing: 1.6 },
   bannerTitle: { color: colors.white, fontSize: 22, fontWeight: '700' },
-  bannerBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4, marginTop: 6 },
+  bannerBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 0, paddingHorizontal: 10, paddingVertical: 4, marginTop: 6 },
   bannerBtnText: { fontSize: 11, fontWeight: '800' },
   secTitle: { fontSize: 17, fontWeight: '700', color: colors.black, marginTop: 20, marginBottom: 10 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  chip: { flexDirection: 'row', alignItems: 'center', gap: 4, borderWidth: 1, borderColor: colors.border, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 7, backgroundColor: colors.white },
+  chip: { flexDirection: 'row', alignItems: 'center', gap: 4, borderWidth: 1, borderColor: colors.border, borderRadius: 0, paddingHorizontal: 12, paddingVertical: 7, backgroundColor: colors.white },
   chipText: { fontSize: 12, fontWeight: '700', color: colors.ink },
   grid: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -5 },
   gridItem: { width: '50%', padding: 5 },

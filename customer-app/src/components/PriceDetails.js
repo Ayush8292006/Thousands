@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
   line: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   label: { fontSize: 14, color: colors.ink },
   bold: { fontWeight: '800', fontSize: 16, color: colors.black },
-  taxBox: { backgroundColor: colors.bg, borderRadius: 8, padding: 10, marginTop: 4 },
+  taxBox: { backgroundColor: colors.bg, borderRadius: 0, padding: 10, marginTop: 4 },
   taxHead: { fontSize: 12, fontWeight: '700', color: colors.ink, marginBottom: 4 },
   taxRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 },
   taxLabel: { fontSize: 12, color: colors.muted },
-  save: { backgroundColor: colors.successSoft, borderRadius: 8, padding: 10, marginTop: 12 },
+  save: { backgroundColor: colors.successSoft, borderRadius: 0, padding: 10, marginTop: 12 },
   saveText: { color: colors.success, fontWeight: '700', fontSize: 13 },
 });

@@ -20,7 +20,7 @@ export default function QtyStepper({ value, onChange, max = 10 }) {
 const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border,
-    borderRadius: 8, alignSelf: 'flex-start',
+    borderRadius: 0, alignSelf: 'flex-start',
   },
   btn: { width: 34, height: 32, alignItems: 'center', justifyContent: 'center' },
   val: { minWidth: 24, textAlign: 'center', fontWeight: '700', fontSize: 14 },

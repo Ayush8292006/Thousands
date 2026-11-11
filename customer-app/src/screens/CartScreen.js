@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   headerTitle: { color: colors.black, fontWeight: '700', fontSize: 20 },
   addr: { backgroundColor: colors.white, padding: 14, flexDirection: 'row', alignItems: 'center' },
   addrLine: { fontSize: 12, color: colors.muted, marginTop: 2 },
-  changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
+  changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: 0, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
   changeText: { fontWeight: '700', fontSize: 12 },
   freeNote: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accentSoft, padding: 10, paddingHorizontal: 14 },
   freeText: { marginLeft: 8, fontSize: 12, color: colors.ink, fontWeight: '600', flex: 1 },

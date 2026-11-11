@@ -116,7 +116,7 @@ export default function CheckoutScreen({ navigation }) {
 const styles = StyleSheet.create({
   steps: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, paddingVertical: 14, paddingHorizontal: 24 },
   step: { alignItems: 'center' },
-  stepDot: { width: 22, height: 22, borderRadius: 4, borderWidth: 1.5, borderColor: colors.black, alignItems: 'center', justifyContent: 'center' },
+  stepDot: { width: 22, height: 22, borderRadius: 0, borderWidth: 1.5, borderColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   stepNum: { fontSize: 11, fontWeight: '800' },
   stepText: { fontSize: 11, marginTop: 4, fontWeight: '600' },
   stepLine: { flex: 1, height: 1.5, marginHorizontal: 6, marginBottom: 16 },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   item: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8 },
   method: {
     flexDirection: 'row', alignItems: 'center', borderWidth: 1.5, borderColor: colors.border,
-    borderRadius: radius.md, padding: 12, marginTop: 10,
+    borderRadius: 0, padding: 12, marginTop: 10,
   },
   bottom: {
     position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: colors.white, flexDirection: 'row',

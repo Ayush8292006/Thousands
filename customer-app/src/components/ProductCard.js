@@ -72,21 +72,21 @@ function formatCount(n) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.white, borderRadius: 4, borderWidth: 1, borderColor: colors.border, padding: 8 },
+  card: { backgroundColor: colors.white, borderRadius: 0, borderWidth: 1, borderColor: colors.border, padding: 8 },
   heart: {
-    position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 4,
+    position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 0,
     backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
   },
   assured: {
     position: 'absolute', bottom: 6, left: 6, flexDirection: 'row', alignItems: 'center',
-    backgroundColor: colors.white, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 2,
+    backgroundColor: colors.white, borderRadius: 0, paddingHorizontal: 5, paddingVertical: 2,
   },
   assuredText: { fontSize: 9, fontWeight: '700', color: colors.accent, marginLeft: 2 },
   body: { paddingTop: 8, paddingHorizontal: 2 },
   brand: { fontSize: 11, color: colors.muted, fontWeight: '600' },
   title: { fontSize: 12, color: colors.ink, marginTop: 2, lineHeight: 16, minHeight: 32 },
   meta: { flexDirection: 'row', alignItems: 'center', marginTop: 5 },
-  rating: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.success, borderRadius: 4, paddingHorizontal: 5, paddingVertical: 1 },
+  rating: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.success, borderRadius: 0, paddingHorizontal: 5, paddingVertical: 1 },
   ratingText: { color: colors.white, fontSize: 10, fontWeight: '700' },
   reviews: { fontSize: 11, color: colors.muted, marginLeft: 4 },
   priceRow: { flexDirection: 'row', alignItems: 'baseline', marginTop: 5 },
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   mrp: { color: colors.faint, textDecorationLine: 'line-through', fontSize: 11, marginLeft: 5 },
   footer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 },
   off: { color: colors.success, fontSize: 12, fontWeight: '700' },
-  add: { borderWidth: 1, borderColor: colors.accent, borderRadius: 6, paddingHorizontal: 10, paddingVertical: 3 },
+  add: { borderWidth: 1, borderColor: colors.accent, borderRadius: 0, paddingHorizontal: 10, paddingVertical: 3 },
   added: { backgroundColor: colors.accent },
   addText: { fontSize: 11, fontWeight: '700', color: colors.accent },
 });

@@ -92,7 +92,7 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
   bar: { backgroundColor: colors.white, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, paddingBottom: 12 },
   inputWrap: {
-    flex: 1, marginLeft: 12, height: 46, backgroundColor: colors.mist, borderRadius: 4,
+    flex: 1, marginLeft: 12, height: 46, backgroundColor: colors.mist, borderRadius: 0,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 10,
   },
   input: { flex: 1, marginLeft: 8, fontSize: 14, color: colors.black },
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   chips: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 4 },
   chip: {
     flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border,
-    borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 8, marginRight: 8, marginBottom: 8,
+    borderRadius: 0, paddingHorizontal: 12, paddingVertical: 8, marginRight: 8, marginBottom: 8,
   },
   chipText: { marginLeft: 6, fontSize: 13, fontWeight: '600', color: colors.ink },
 });

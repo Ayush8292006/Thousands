@@ -48,7 +48,7 @@ export const cream = ['#FFF8E7', '#FFF8DC', '#FFFDD0', '#FDF5C9', '#F3E5BF'];
 // System font (Roboto / San Francisco) — fast, sharp, no loading
 export const fonts = { display: undefined, displayHeavy: undefined, displayMedium: undefined };
 
-export const radius = { sm: 2, md: 4, lg: 4, xl: 6, pill: 4 }; // sharp
+export const radius = { sm: 0, md: 0, lg: 0, xl: 0, pill: 0 }; // sharp edges everywhere // sharp
 export const space = (n) => n * 4;
 
 // Type scale (~1.2): 11 / 13 / 15 / 18 / 22 / 28 / 34

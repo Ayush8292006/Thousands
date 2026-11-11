@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable, StyleSheet, FlatList, ImageBackground } from 'react-native';
 import { useAppWidth } from '../utils/platform';
 import { LinearGradient } from './Flat';
+import Shine from './Shine';
 import { Ionicons } from '@expo/vector-icons';
 import { fonts, lightBlueTheme } from '../theme';
 
@@ -74,7 +75,8 @@ export default function HeroCarousel({ banners, onPress, interval = 4500, autoPl
                     <Ionicons name="chevron-forward" size={13} color={lightBlueTheme.text} style={{ marginLeft: 3 }} />
                   </View>
                 </View>
-              </ImageBackground>
+                <Shine intensity={0.18} pause={5200} delay={1200} />
+                </ImageBackground>
             </Pressable>
           </View>
         )}
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    borderRadius: 4,
+    borderRadius: 0,
     overflow: 'hidden',
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(169, 207, 245, 0.25)',
     borderWidth: 0.8,
     borderColor: lightBlueTheme.primary,
-    borderRadius: 4,
+    borderRadius: 0,
     paddingHorizontal: 7,
     paddingVertical: 2,
     alignSelf: 'flex-start',
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
   cta: {
     alignSelf: 'flex-start',
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    borderRadius: 0,
     paddingHorizontal: 16,
     paddingVertical: 7,
     marginTop: 12,
@@ -171,14 +173,14 @@ const styles = StyleSheet.create({
   dot: {
     width: 6,
     height: 6,
-    borderRadius: 3,
+    borderRadius: 0,
     backgroundColor: 'rgba(255, 255, 255, 0.45)',
     marginHorizontal: 3,
   },
   dotOn: {
     width: 22,
     height: 6,
-    borderRadius: 3,
+    borderRadius: 0,
     backgroundColor: lightBlueTheme.primary,
   },
 });

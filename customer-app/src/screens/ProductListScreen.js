@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   sep: { width: 1, backgroundColor: colors.border, marginVertical: 8 },
   count: { fontSize: 12, color: colors.muted, paddingHorizontal: 14, paddingVertical: 10 },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
-  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20 },
+  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 0, borderTopRightRadius: 0, padding: 20 },
   opt: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 14 },
   optText: { fontSize: 15, color: colors.ink },
   fHead: { fontSize: 14, fontWeight: '800', marginTop: 10, marginBottom: 10 },

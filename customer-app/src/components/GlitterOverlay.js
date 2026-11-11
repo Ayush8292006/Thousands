@@ -33,7 +33,7 @@ function GlitterOverlay() {
       {DOTS.map((d) => (
         <View
           key={d.key}
-          style={{ position: 'absolute', left: d.left, top: d.top, width: d.size, height: d.size, borderRadius: d.size / 2, backgroundColor: d.color, opacity: d.opacity }}
+          style={{ position: 'absolute', left: d.left, top: d.top, width: d.size, height: d.size, borderRadius: 0, backgroundColor: d.color, opacity: d.opacity }}
         />
       ))}
     </View>

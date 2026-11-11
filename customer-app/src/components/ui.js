@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, font, fonts } from '../theme';
+import Shine from './Shine';
 
 export function Button({ title, onPress, variant = 'primary', icon, loading, disabled, style }) {
   const isPrimary = variant === 'primary';
@@ -25,6 +26,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
         <>
           {icon ? <Ionicons name={icon} size={18} color={fg} style={{ marginRight: 8 }} /> : null}
           <Text style={[styles.btnText, { color: fg }]}>{title}</Text>
+          {(isPrimary || isGold) && !disabled ? <Shine intensity={0.22} pause={4200} /> : null}
         </>
       )}
     </Pressable>
@@ -90,9 +92,9 @@ export function Row({ children, style }) {
 }
 
 const styles = StyleSheet.create({
-  btn: {
+  btn: { overflow: 'hidden',
     height: 48,
-    borderRadius: 4,
+    borderRadius: 0,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.success,
-    borderRadius: 4,
+    borderRadius: 0,
     paddingHorizontal: 6,
     paddingVertical: 2,
     alignSelf: 'flex-start',
@@ -111,17 +113,17 @@ const styles = StyleSheet.create({
   ratingText: { color: colors.white, fontSize: 11, fontWeight: '700' },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 12 },
   sectionAction: {
-    width: 30, height: 30, borderRadius: 4, backgroundColor: colors.black,
+    width: 30, height: 30, borderRadius: 0, backgroundColor: colors.black,
     alignItems: 'center', justifyContent: 'center',
   },
-  card: { backgroundColor: colors.card, borderRadius: radius.lg, padding: 16 },
+  card: { backgroundColor: colors.card, borderRadius: 0, padding: 16 },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
   emptyIcon: {
-    width: 96, height: 96, borderRadius: 48, backgroundColor: colors.soft,
+    width: 96, height: 96, borderRadius: 0, backgroundColor: colors.soft,
     alignItems: 'center', justifyContent: 'center',
   },
   chip: {
-    paddingHorizontal: 14, paddingVertical: 8, borderRadius: radius.pill,
+    paddingHorizontal: 14, paddingVertical: 8, borderRadius: 0,
     borderWidth: 1, borderColor: colors.border, backgroundColor: colors.white, marginRight: 8,
   },
   chipActive: { backgroundColor: colors.black, borderColor: colors.black },

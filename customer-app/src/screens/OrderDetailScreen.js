@@ -91,9 +91,9 @@ const styles = StyleSheet.create({
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3, lineHeight: 17 },
   item: { flexDirection: 'row', backgroundColor: colors.white, padding: 16, marginTop: 1 },
-  tDot: { width: 20, height: 20, borderRadius: 4, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.white },
+  tDot: { width: 20, height: 20, borderRadius: 0, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.white },
   tDotOn: { backgroundColor: colors.success, borderColor: colors.success },
   tLine: { width: 2, flex: 1, backgroundColor: colors.border, marginVertical: 2 },
   tText: { fontSize: 14, color: colors.faint },
-  cancelBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#FDECEC', padding: 12, borderRadius: 8 },
+  cancelBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#FDECEC', padding: 12, borderRadius: 0},
 });
