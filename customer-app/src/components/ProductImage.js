@@ -13,7 +13,7 @@ function ProductImage({ product, size = 120, style, index = 0, rounded = 14, thu
   const uri = forced || (thumb && index === 0 ? product.thumb : product.images?.[index]) || product.images?.[0];
 
   return (
-    <View style={[styles.box, { height: size, borderRadius: 0}, style]}>
+    <View style={[styles.box, { height: size, borderRadius: rounded }, style]}>
       {uri && !failed ? (
         <Image
           source={{ uri, cache: 'force-cache' }}

@@ -105,14 +105,14 @@ const styles = StyleSheet.create({
   form: { backgroundColor: colors.white, padding: 16 },
   formTitle: { fontSize: 16, fontWeight: '800', marginBottom: 14 },
   label: { fontSize: 12, color: colors.muted, marginBottom: 6, fontWeight: '600' },
-  input: { height: 46, backgroundColor: colors.mist, borderRadius: 0, paddingHorizontal: 12, fontSize: 14, color: colors.black },
+  input: { height: 46, backgroundColor: colors.mist, borderRadius: radius.md, paddingHorizontal: 12, fontSize: 14, color: colors.black },
   err: { color: colors.danger, fontSize: 12, marginBottom: 10 },
   count: { fontSize: 12, fontWeight: '800', color: colors.muted, letterSpacing: 0.6, padding: 16, paddingBottom: 8 },
   card: {
     flexDirection: 'row', backgroundColor: colors.white, marginHorizontal: 12, marginBottom: 10, padding: 14,
-    borderRadius: 0, borderWidth: 1.5, borderColor: 'transparent',
+    borderRadius: radius.md, borderWidth: 1.5, borderColor: 'transparent',
   },
-  tag: { backgroundColor: colors.soft, borderRadius: 0, paddingHorizontal: 6, paddingVertical: 2, marginLeft: 8 },
+  tag: { backgroundColor: colors.soft, borderRadius: 12, paddingHorizontal: 6, paddingVertical: 2, marginLeft: 8 },
   tagText: { fontSize: 9, fontWeight: '800', color: colors.muted },
   line: { fontSize: 13, color: colors.muted, marginTop: 3 },
 });

@@ -53,9 +53,9 @@ function Row({ k, v }) {
 
 const styles = StyleSheet.create({
   wrap: { flex: 1, backgroundColor: colors.white, paddingHorizontal: 24 },
-  ring: { width: 130, height: 130, borderRadius: 0, backgroundColor: colors.successSoft, alignItems: 'center', justifyContent: 'center' },
-  circle: { width: 96, height: 96, borderRadius: 0, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
+  ring: { width: 130, height: 130, borderRadius: 65, backgroundColor: colors.successSoft, alignItems: 'center', justifyContent: 'center' },
+  circle: { width: 96, height: 96, borderRadius: 48, backgroundColor: colors.success, alignItems: 'center', justifyContent: 'center' },
   title: { fontSize: 26, fontWeight: '900', marginTop: 24 },
   sub: { color: colors.muted, marginTop: 6 },
-  box: { alignSelf: 'stretch', backgroundColor: colors.bg, borderRadius: 0, padding: 16, marginTop: 28 },
+  box: { alignSelf: 'stretch', backgroundColor: colors.bg, borderRadius: 12, padding: 16, marginTop: 28 },
 });

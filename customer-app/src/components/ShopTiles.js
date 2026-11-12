@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts } from '../theme';
+import { colors } from '../theme';
 
 // Flipkart-style "arch" category tiles — 2 rows, horizontal scroll.
 // Production mein ye list backend (home layout API) se aayegi.
@@ -26,14 +26,13 @@ export const SHOP_TILES = [
   { key: 'sports', name: 'Sports', image: U('1591291621164-2c6367723315'), link: { category: 'sports', title: 'Sports' } },
 ];
 
-const ARCH = '#D9E3FF';
-const TILE_W = 74;
+const TILE = 72;
 
 function Tile({ t, onPress }) {
   let art;
   if (t.special === 'all') {
     art = (
-      <View style={styles.arch}>
+      <View style={[styles.art, styles.allBg]}>
         <View style={styles.allGrid}>
           {['shirt', 'phone-portrait', 'home', 'sparkles'].map((ic) => (
             <View key={ic} style={styles.allCell}><Ionicons name={ic} size={13} color={colors.accent} /></View>
@@ -43,23 +42,13 @@ function Tile({ t, onPress }) {
     );
   } else if (t.special === 'offer') {
     art = (
-      <View style={styles.offerRing}>
-        {Array.from({ length: 10 }).map((_, i) => {
-          const a = (i / 10) * Math.PI * 2;
-          return <View key={i} style={[styles.bulb, { left: 35 + Math.cos(a) * 30, top: 35 + Math.sin(a) * 30 }]} />;
-        })}
-        <View style={styles.offerInner}>
-          <Text style={styles.offerBig}>8PM</Text>
-          <Text style={styles.offerSmall}>OFFER</Text>
-        </View>
+      <View style={[styles.art, styles.offerBg]}>
+        <Text style={styles.offerBig}>8PM</Text>
+        <Text style={styles.offerSmall}>OFFER</Text>
       </View>
     );
   } else {
-    art = (
-      <View style={styles.arch}>
-        <Image source={{ uri: t.image, cache: 'force-cache' }} style={styles.archImg} fadeDuration={0} />
-      </View>
-    );
+    art = <Image source={{ uri: t.image }} style={styles.art} fadeDuration={0} />;
   }
   return (
     <Pressable style={styles.tile} onPress={onPress} accessibilityLabel={t.name}>
@@ -74,39 +63,30 @@ function ShopTiles({ navigation }) {
     if (t.special === 'all') navigation.navigate('Categories');
     else navigation.navigate('ProductList', t.link);
   };
-  // 2 rows: tiles ko columns (top, bottom) mein pair karo
   const cols = [];
   for (let i = 0; i < SHOP_TILES.length; i += 2) cols.push(SHOP_TILES.slice(i, i + 2));
   return (
-    <View style={styles.wrap}>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 8 }}>
-        {cols.map((col) => (
-          <View key={col[0].key} style={{ marginRight: 4 }}>
-            {col.map((t) => <Tile key={t.key} t={t} onPress={() => open(t)} />)}
-          </View>
-        ))}
-      </ScrollView>
-    </View>
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.wrap} contentContainerStyle={{ paddingHorizontal: 10 }}>
+      {cols.map((col) => (
+        <View key={col[0].key}>
+          {col.map((t) => <Tile key={t.key} t={t} onPress={() => open(t)} />)}
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.white, paddingTop: 12, paddingBottom: 4, marginTop: 8 },
-  tile: { width: TILE_W + 6, alignItems: 'center', marginBottom: 10 },
-  arch: {
-    width: TILE_W, height: 70, backgroundColor: ARCH,
-    borderTopLeftRadius: 0, borderTopRightRadius: 0, borderBottomLeftRadius: 0, borderBottomRightRadius: 0,
-    alignItems: 'center', justifyContent: 'flex-end', overflow: 'hidden',
-  },
-  archImg: { width: TILE_W - 12, height: 62, borderTopLeftRadius: 0, borderTopRightRadius: 0},
-  allGrid: { width: 44, flexDirection: 'row', flexWrap: 'wrap', gap: 4, marginBottom: 12 },
-  allCell: { width: 20, height: 20, borderRadius: 0, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  offerRing: { width: 70, height: 70, borderRadius: 0, backgroundColor: '#F2622E', alignItems: 'center', justifyContent: 'center' },
-  bulb: { position: 'absolute', width: 6, height: 6, marginLeft: -3, marginTop: -3, borderRadius: 0, backgroundColor: '#FFE27A' },
-  offerInner: { width: 50, height: 50, borderRadius: 0, backgroundColor: '#FFF6D6', alignItems: 'center', justifyContent: 'center' },
-  offerBig: { fontWeight: '800', fontSize: 14, color: '#C2410C', lineHeight: 16 },
-  offerSmall: { fontWeight: '700', fontSize: 8, color: '#C2410C', letterSpacing: 1 },
-  label: { fontSize: 11.5, color: colors.ink, marginTop: 6, fontWeight: '600', maxWidth: TILE_W + 4, textAlign: 'center' },
-});
-
 export default memo(ShopTiles);
+
+const styles = StyleSheet.create({
+  wrap: { backgroundColor: colors.white, paddingTop: 16 },
+  tile: { width: TILE + 12, alignItems: 'center', marginBottom: 14 },
+  art: { width: TILE, height: TILE, borderRadius: 18, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  allBg: { backgroundColor: colors.accentSoft },
+  allGrid: { width: 46, flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  allCell: { width: 21, height: 21, borderRadius: 6, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
+  offerBg: { backgroundColor: '#FFF1E6' },
+  offerBig: { fontSize: 17, fontWeight: '800', color: '#E2560B' },
+  offerSmall: { fontSize: 9, fontWeight: '700', color: '#E2560B', letterSpacing: 1.2 },
+  label: { fontSize: 12, color: colors.ink, marginTop: 6, maxWidth: TILE + 8, textAlign: 'center' },
+});

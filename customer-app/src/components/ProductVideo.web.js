@@ -22,7 +22,7 @@ export default function ProductVideo({ uri, width, height, radius = 20 }) {
   };
 
   return (
-    <View style={[styles.box, { width, height, borderRadius: 0}]}>
+    <View style={[styles.box, { width, height, borderRadius: radius }]}>
       {React.createElement('video', {
         ref,
         src: uri,
@@ -47,5 +47,5 @@ export default function ProductVideo({ uri, width, height, radius = 20 }) {
 const styles = StyleSheet.create({
   box: { backgroundColor: '#111', overflow: 'hidden', alignSelf: 'center' },
   controls: { position: 'absolute', left: 12, bottom: 12, flexDirection: 'row', gap: 8 },
-  btn: { width: 34, height: 34, borderRadius: 0, backgroundColor: 'rgba(0,0,0,0.55)', alignItems: 'center', justifyContent: 'center' },
+  btn: { width: 34, height: 34, borderRadius: 17, backgroundColor: 'rgba(0,0,0,0.55)', alignItems: 'center', justifyContent: 'center' },
 });

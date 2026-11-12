@@ -133,9 +133,9 @@ function SumRow({ k, v }) {
 }
 
 const styles = StyleSheet.create({
-  paper: { backgroundColor: colors.white, borderRadius: 0, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
+  paper: { backgroundColor: colors.white, borderRadius: 12, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
   top: { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 2, borderBottomColor: colors.black, paddingBottom: 12 },
-  logoBox: { width: 38, height: 38, borderRadius: 0, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
+  logoBox: { width: 38, height: 38, borderRadius: 8, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   brand: { fontWeight: '900', letterSpacing: 3, fontSize: 15 },
   docTitle: { fontWeight: '900', fontSize: 13, letterSpacing: 1 },
   metaRow: { flexDirection: 'row', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: colors.border },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   bold: { fontWeight: '700', fontSize: 13, color: colors.black },
   small: { fontSize: 11, color: colors.muted, lineHeight: 16 },
   tiny: { fontSize: 9, color: colors.faint, marginTop: 2 },
-  thead: { flexDirection: 'row', backgroundColor: colors.black, paddingVertical: 7, paddingHorizontal: 6, marginTop: 12, borderRadius: 0},
+  thead: { flexDirection: 'row', backgroundColor: colors.black, paddingVertical: 7, paddingHorizontal: 6, marginTop: 12, borderRadius: 12 },
   th: { color: colors.white, fontSize: 10, fontWeight: '800' },
   r: { textAlign: 'right' },
   tr: { flexDirection: 'row', paddingVertical: 8, paddingHorizontal: 6, borderBottomWidth: 1, borderBottomColor: colors.border, alignItems: 'flex-start' },

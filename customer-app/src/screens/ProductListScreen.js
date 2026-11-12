@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, Pressable, Modal, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ProductCard from '../components/ProductCard';
-import { Button, Chip, EmptyState } from '../components/ui';
-import { colors, font } from '../theme';
+import GridCard from '../components/GridCard';
+import { Button, EmptyState } from '../components/ui';
+import { colors } from '../theme';
 import { getProducts } from '../services/api';
 import { discountPct } from '../utils/format';
+import { useApp } from '../context/AppContext';
+import { useAppWidth } from '../utils/platform';
 
 const SORTS = [
   { id: 'relevance', label: 'Relevance' },
@@ -23,23 +25,49 @@ const PRICE_RANGES = [
   { id: 'a10000', label: 'Above ₹10,000', min: 10000, max: Infinity },
 ];
 
-export default function ProductListScreen({ route }) {
-  const { category, sub, query, brand, tag, maxPrice, sort: initialSort } = route.params || {};
+function Pill({ icon, label, active, onPress }) {
+  return (
+    <Pressable style={[styles.pill, active && styles.pillOn]} onPress={onPress}>
+      {icon ? <Ionicons name={icon} size={17} color={active ? colors.accent : colors.ink} /> : null}
+      <Text style={[styles.pillText, active && { color: colors.accent }]}>{label}</Text>
+    </Pressable>
+  );
+}
+
+function Option({ label, on, onPress, check }) {
+  return (
+    <Pressable style={styles.opt} onPress={onPress}>
+      <Text style={[styles.optText, on && { fontWeight: '700', color: colors.accent }]}>{label}</Text>
+      <Ionicons
+        name={check ? (on ? 'checkbox' : 'square-outline') : on ? 'radio-button-on' : 'radio-button-off'}
+        size={21}
+        color={on ? colors.accent : colors.faint}
+      />
+    </Pressable>
+  );
+}
+
+// Flipkart-style results: rounded search header, filter pills, 2-column grid
+export default function ProductListScreen({ route, navigation }) {
+  const { category, sub, query, brand, tag, maxPrice, sort: initialSort, title } = route.params || {};
   const insets = useSafeAreaInsets();
+  const { width } = useAppWidth();
+  const { cartCount, wishlist, toggleWishlist } = useApp();
   const [list, setList] = useState([]);
   const [sort, setSort] = useState(initialSort || 'relevance');
-  const [sortOpen, setSortOpen] = useState(false);
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [sheet, setSheet] = useState(false);
   const [brands, setBrands] = useState([]);
   const [minRating, setMinRating] = useState(0);
   const [price, setPrice] = useState('all');
+  const [assured, setAssured] = useState(false);
+  const [fast, setFast] = useState(false);
 
   useEffect(() => {
     getProducts({ category, sub, q: query, brand, tag, maxPrice }).then(setList);
   }, [category, sub, query, brand, tag, maxPrice]);
 
   const allBrands = useMemo(() => [...new Set(list.map((p) => p.brand))], [list]);
-  const activeFilters = brands.length + (minRating ? 1 : 0) + (price !== 'all' ? 1 : 0);
+  const activeFilters = brands.length + (minRating ? 1 : 0) + (price !== 'all' ? 1 : 0) + (sort !== 'relevance' ? 1 : 0);
 
   const shown = useMemo(() => {
     const pr = PRICE_RANGES.find((r) => r.id === price);
@@ -47,7 +75,9 @@ export default function ProductListScreen({ route }) {
       (p) =>
         (!brands.length || brands.includes(p.brand)) &&
         p.rating >= minRating &&
-        p.price >= pr.min && p.price < pr.max
+        (!assured || p.assured) &&
+        (!fast || p.stock > 10) &&
+        p.price >= pr.min && p.price < pr.max,
     );
     const by = {
       priceAsc: (a, b) => a.price - b.price,
@@ -57,83 +87,67 @@ export default function ProductListScreen({ route }) {
     }[sort];
     if (by) out = [...out].sort(by);
     return out;
-  }, [list, brands, minRating, price, sort]);
+  }, [list, brands, minRating, price, sort, assured, fast]);
 
+  const openProduct = useCallback((id) => navigation.navigate('ProductDetail', { id }), [navigation]);
   const toggleBrand = (b) => setBrands((prev) => (prev.includes(b) ? prev.filter((x) => x !== b) : [...prev, b]));
+  const clearAll = () => { setBrands([]); setMinRating(0); setPrice('all'); setSort('relevance'); setAssured(false); setFast(false); };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.bg }}>
-      <View style={styles.toolbar}>
-        <Pressable style={styles.tool} onPress={() => setSortOpen(true)}>
-          <Ionicons name="swap-vertical" size={16} color={colors.black} />
-          <Text style={styles.toolText}>Sort</Text>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
+        <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
+          <Ionicons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
-        <View style={styles.sep} />
-        <Pressable style={styles.tool} onPress={() => setFilterOpen(true)}>
-          <Ionicons name="options-outline" size={16} color={colors.black} />
-          <Text style={styles.toolText}>Filter{activeFilters ? ` (${activeFilters})` : ''}</Text>
+        <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
+          <Ionicons name="search" size={20} color={colors.ink} />
+          <Text style={styles.searchText} numberOfLines={1}>{query || title || 'Search for products'}</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('Tabs', { screen: 'Cart' })} hitSlop={8} accessibilityLabel="Cart">
+          <Ionicons name="cart-outline" size={26} color={colors.ink} />
+          {cartCount > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{cartCount}</Text></View> : null}
         </Pressable>
       </View>
-      <Text style={styles.count}>{shown.length} products</Text>
+
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pills}>
+          <Pill icon="options-outline" label={activeFilters ? `Sort & Filter (${activeFilters})` : 'Sort & Filter'} active={!!activeFilters} onPress={() => setSheet(true)} />
+          <Pill icon="car-outline" label="Get it Fast" active={fast} onPress={() => setFast(!fast)} />
+          <Pill icon="shield-checkmark-outline" label="Assured" active={assured} onPress={() => setAssured(!assured)} />
+          <Pill icon="star-outline" label="Top Rated" active={minRating >= 4} onPress={() => setMinRating(minRating >= 4 ? 0 : 4)} />
+        </ScrollView>
+      </View>
 
       <FlatList
         data={shown}
         keyExtractor={(i) => i.id}
         numColumns={2}
-        columnWrapperStyle={{ gap: 10, paddingHorizontal: 12 }}
-        contentContainerStyle={{ gap: 10, paddingBottom: 24, flexGrow: 1 }}
-        renderItem={({ item }) => <ProductCard product={item} />}
+        contentContainerStyle={{ paddingBottom: 24, flexGrow: 1 }}
+        renderItem={({ item, index }) => (
+          <GridCard product={item} index={index} width={width / 2} liked={wishlist.includes(item.id)} onToggleLike={toggleWishlist} onOpen={openProduct} />
+        )}
         ListEmptyComponent={
           <EmptyState icon="search-outline" title="No products found" subtitle="Try changing the filters or searching for something else." />
         }
       />
 
-      {/* Sort sheet */}
-      <Modal visible={sortOpen} transparent animationType="slide" onRequestClose={() => setSortOpen(false)}>
-        <Pressable style={styles.backdrop} onPress={() => setSortOpen(false)} />
+      <Modal visible={sheet} transparent animationType="slide" onRequestClose={() => setSheet(false)}>
+        <Pressable style={styles.backdrop} onPress={() => setSheet(false)} />
         <View style={[styles.sheet, { paddingBottom: insets.bottom + 16 }]}>
-          <Text style={[font.h3, { marginBottom: 8, color: colors.muted }]}>SORT BY</Text>
-          {SORTS.map((s) => (
-            <Pressable key={s.id} style={styles.opt} onPress={() => { setSort(s.id); setSortOpen(false); }}>
-              <Text style={[styles.optText, sort === s.id && { fontWeight: '800' }]}>{s.label}</Text>
-              <Ionicons name={sort === s.id ? 'radio-button-on' : 'radio-button-off'} size={20} color={colors.black} />
-            </Pressable>
-          ))}
-        </View>
-      </Modal>
-
-      {/* Filter sheet */}
-      <Modal visible={filterOpen} transparent animationType="slide" onRequestClose={() => setFilterOpen(false)}>
-        <Pressable style={styles.backdrop} onPress={() => setFilterOpen(false)} />
-        <View style={[styles.sheet, { maxHeight: '80%', paddingBottom: insets.bottom + 16 }]}>
-          <ScrollView>
-            <Text style={styles.fHead}>Brand</Text>
-            <View style={styles.wrap}>
-              {allBrands.map((b) => (
-                <Chip key={b} label={b} active={brands.includes(b)} onPress={() => toggleBrand(b)} />
-              ))}
-            </View>
+          <View style={styles.handle} />
+          <ScrollView style={{ maxHeight: 460 }}>
+            <Text style={styles.fHead}>Sort by</Text>
+            {SORTS.map((s) => <Option key={s.id} label={s.label} on={sort === s.id} onPress={() => setSort(s.id)} />)}
             <Text style={styles.fHead}>Customer Rating</Text>
-            <View style={styles.wrap}>
-              {[0, 4, 4.3].map((r) => (
-                <Chip key={r} label={r ? `${r}★ & above` : 'All'} active={minRating === r} onPress={() => setMinRating(r)} />
-              ))}
-            </View>
+            {[0, 4, 4.3].map((r) => <Option key={r} label={r ? `${r}★ & above` : 'All ratings'} on={minRating === r} onPress={() => setMinRating(r)} />)}
             <Text style={styles.fHead}>Price</Text>
-            <View style={styles.wrap}>
-              {PRICE_RANGES.map((r) => (
-                <Chip key={r.id} label={r.label} active={price === r.id} onPress={() => setPrice(r.id)} />
-              ))}
-            </View>
+            {PRICE_RANGES.map((r) => <Option key={r.id} label={r.label} on={price === r.id} onPress={() => setPrice(r.id)} />)}
+            {allBrands.length > 1 ? <Text style={styles.fHead}>Brand</Text> : null}
+            {allBrands.length > 1 ? allBrands.map((b) => <Option key={b} check label={b} on={brands.includes(b)} onPress={() => toggleBrand(b)} />) : null}
           </ScrollView>
-          <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
-            <Button
-              title="Clear"
-              variant="outline"
-              style={{ flex: 1 }}
-              onPress={() => { setBrands([]); setMinRating(0); setPrice('all'); }}
-            />
-            <Button title={`Show ${shown.length}`} style={{ flex: 1 }} onPress={() => setFilterOpen(false)} />
+          <View style={{ flexDirection: 'row', gap: 10, marginTop: 14 }}>
+            <Button title="Clear all" variant="outline" style={{ flex: 1 }} onPress={clearAll} />
+            <Button title={`Show ${shown.length}`} style={{ flex: 1 }} onPress={() => setSheet(false)} />
           </View>
         </View>
       </Modal>
@@ -142,15 +156,28 @@ export default function ProductListScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  toolbar: { flexDirection: 'row', backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border },
-  tool: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 12 },
-  toolText: { marginLeft: 6, fontWeight: '700', fontSize: 14 },
-  sep: { width: 1, backgroundColor: colors.border, marginVertical: 8 },
-  count: { fontSize: 12, color: colors.muted, paddingHorizontal: 14, paddingVertical: 10 },
+  bar: { backgroundColor: colors.header, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
+  search: {
+    flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.white,
+    borderRadius: 14, borderWidth: 2, borderColor: colors.accent, paddingHorizontal: 14,
+  },
+  searchText: { flex: 1, fontSize: 15.5, color: colors.ink },
+  badge: {
+    position: 'absolute', top: -7, right: -9, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4,
+    backgroundColor: '#E53935', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: colors.header,
+  },
+  badgeText: { color: colors.white, fontSize: 10, fontWeight: '700' },
+  pills: { gap: 10, paddingHorizontal: 16, paddingVertical: 14 },
+  pill: {
+    flexDirection: 'row', alignItems: 'center', gap: 8, height: 44, paddingHorizontal: 14, borderRadius: 14,
+    borderWidth: 1.5, borderColor: '#D3D7DD', backgroundColor: colors.white,
+  },
+  pillOn: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
+  pillText: { fontSize: 14.5, color: colors.ink },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
-  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 0, borderTopRightRadius: 0, padding: 20 },
-  opt: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 14 },
-  optText: { fontSize: 15, color: colors.ink },
-  fHead: { fontSize: 14, fontWeight: '800', marginTop: 10, marginBottom: 10 },
-  wrap: { flexDirection: 'row', flexWrap: 'wrap', rowGap: 8 },
+  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20, paddingTop: 10 },
+  handle: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: '#D3D7DD', marginBottom: 8 },
+  fHead: { fontSize: 15, fontWeight: '800', color: colors.ink, marginTop: 14, marginBottom: 2 },
+  opt: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 11 },
+  optText: { fontSize: 14.5, color: colors.ink },
 });

@@ -4,19 +4,20 @@
 // Display type: Plus Jakarta Sans (headings, prices, wordmark). Body: system font.
 
 export const colors = {
+  header: '#DCEBFF', // light blue top area (home / search / results)
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#FFF8E7', // cream page background (client palette)
+  bg: '#F1F3F6', // inner pages
   mist: '#F2F3F5', // surfaces, image backdrops
   soft: '#F2F3F5',
   card: '#FFFFFF',
   border: '#E4E6EA',
   muted: '#6B6F76',
   faint: '#A0A4AB',
-  accent: '#2B50E0', // commercial blue — CTAs, active tab, links
-  accentDark: '#1F3DB8',
-  accentSoft: '#EEF2FF',
+  accent: '#2874F0', // Flipkart-style blue
+  accentDark: '#1A5DD6',
+  accentSoft: '#E8F1FF',
   sale: '#E11D48', // discount
   success: '#0F9D58',
   successSoft: '#E3F5EC',
@@ -31,7 +32,7 @@ export const lightBlueTheme = {
   primary: '#A9CFF5',      // Soft Premium Blue
   secondary: '#DCEEFF',    // Light Sky Blue
   bg: '#FFFFFF',           // Clean White
-  softBg: '#FFF8E7', // cream
+  softBg: '#F1F3F6',
   text: '#172B45',         // Deep Navy
   textMuted: '#5C728A',    // Slate Navy Muted
   accent: '#397FC1',       // Accent Blue
@@ -48,7 +49,7 @@ export const cream = ['#FFF8E7', '#FFF8DC', '#FFFDD0', '#FDF5C9', '#F3E5BF'];
 // System font (Roboto / San Francisco) — fast, sharp, no loading
 export const fonts = { display: undefined, displayHeavy: undefined, displayMedium: undefined };
 
-export const radius = { sm: 0, md: 0, lg: 0, xl: 0, pill: 0 }; // sharp edges everywhere // sharp
+export const radius = { sm: 8, md: 12, lg: 16, xl: 20, pill: 999 }; // soft, Flipkart-style curves
 export const space = (n) => n * 4;
 
 // Type scale (~1.2): 11 / 13 / 15 / 18 / 22 / 28 / 34
@@ -70,4 +71,4 @@ export const shadow = {};
 export const TAB_BAR_SPACE = 0; // standard tab bar apni jagah leta hai
 
 // Soft light-blue and ice-blue backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9', '#FDF5C9'];
+export const pastels = ['#E8F1FF', '#FFF1E6', '#E9F8EF', '#FDECF1', '#F1EBFF', '#FFF8D6', '#E6F7F8', '#F3F4F6'];

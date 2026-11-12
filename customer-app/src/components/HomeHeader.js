@@ -7,7 +7,6 @@ import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from './Flat';
 import { fonts, lightBlueTheme } from '../theme';
 import { BRAND } from '../config/app';
-import Shine from './Shine';
 import { useApp } from '../context/AppContext';
 
 export default function HomeHeader() {
@@ -34,7 +33,6 @@ export default function HomeHeader() {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Shine intensity={0.35} pause={3600} delay={600} />
         </View>
 
         {/* Clean Typography Brand Identity */}
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
   logoBadge: {
     width: 42,
     height: 42,
-    borderRadius: 0,
+    borderRadius: 12,
     backgroundColor: lightBlueTheme.darkLogoBg,
     alignItems: 'center',
     justifyContent: 'center',
@@ -156,13 +154,13 @@ const styles = StyleSheet.create({
     backgroundColor: lightBlueTheme.secondary,
     paddingHorizontal: 6,
     paddingVertical: 1.5,
-    borderRadius: 0,
+    borderRadius: 12,
     alignSelf: 'flex-start',
   },
   tagDot: {
     width: 4,
     height: 4,
-    borderRadius: 0,
+    borderRadius: 6,
     backgroundColor: lightBlueTheme.accent,
     marginRight: 4,
   },
@@ -178,7 +176,7 @@ const styles = StyleSheet.create({
     height: 34,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 0,
+    borderRadius: 17,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
     right: -4,
     minWidth: 16,
     height: 16,
-    borderRadius: 0,
+    borderRadius: 8,
     backgroundColor: lightBlueTheme.accent,
     alignItems: 'center',
     justifyContent: 'center',
@@ -203,7 +201,7 @@ const styles = StyleSheet.create({
   search: {
     marginTop: 10,
     height: 44,
-    borderRadius: 0,
+    borderRadius: 12,
     backgroundColor: '#FFFFFF',
     borderWidth: 1.2,
     borderColor: lightBlueTheme.border,
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 0,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: lightBlueTheme.border,
     alignSelf: 'flex-start',
