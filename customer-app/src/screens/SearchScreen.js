@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import GlossHeader from '../components/GlossHeader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { noOutline } from '../utils/platform';
 import { colors } from '../theme';
@@ -45,7 +46,7 @@ export default function SearchScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <StatusBar style="dark" />
-      <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
+      <GlossHeader style={[styles.bar, { paddingTop: insets.top + 10 }]} shine={false}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
           <Ionicons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
@@ -69,7 +70,7 @@ export default function SearchScreen({ navigation }) {
             <Ionicons name="mic-outline" size={21} color={colors.ink} />
           )}
         </View>
-      </View>
+      </GlossHeader>
 
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingBottom: 30 }}>
         {q ? (
@@ -152,7 +153,7 @@ export default function SearchScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  bar: { backgroundColor: colors.header, borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
+  bar: { overflow: 'hidden', borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   inputWrap: {
     flex: 1, height: 50, backgroundColor: colors.white, borderRadius: 25, borderWidth: 1, borderColor: colors.headerLine,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, gap: 10,

@@ -9,6 +9,7 @@ import ShopTiles from '../components/ShopTiles';
 import GridCard from '../components/GridCard';
 import ProductImage from '../components/ProductImage';
 import Reveal from '../components/Reveal';
+import GlossHeader from '../components/GlossHeader';
 import { colors } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
@@ -113,7 +114,7 @@ export default function HomeScreen({ navigation }) {
   const trioW = (width - 32 - 20) / 3;
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.header }}>
+    <View style={{ flex: 1, backgroundColor: colors.headerGradient[0] }}>
       {focused ? <StatusBar style="dark" /> : null}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
@@ -123,7 +124,7 @@ export default function HomeScreen({ navigation }) {
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       >
         {/* 0: top area */}
-        <View style={[styles.top, { paddingTop: insets.top + 10 }]}>
+        <GlossHeader style={[styles.top, { paddingTop: insets.top + 10 }]}>
           <Animated.View style={[styles.brandRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
             <View style={styles.brandBlock}>
               <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
@@ -140,7 +141,7 @@ export default function HomeScreen({ navigation }) {
               <Ionicons name="chevron-down" size={16} color={colors.headerMuted} />
             </Pressable>
           </Animated.View>
-        </View>
+        </GlossHeader>
 
         {/* 1: sticky category tabs */}
         <View style={styles.tabsWrap}>
@@ -255,7 +256,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  top: { backgroundColor: colors.header, paddingHorizontal: 16, paddingBottom: 10 },
+  top: { paddingHorizontal: 16, paddingBottom: 10, overflow: 'hidden' },
   brandRow: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingBottom: 6 },
   brandBlock: { alignItems: 'center', minWidth: 84 },
   brandLogo: { width: 34, height: 36 },
@@ -271,7 +272,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14, borderWidth: 1, borderColor: colors.headerLine,
   },
   searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { backgroundColor: colors.header, paddingTop: 2, borderBottomWidth: 1, borderBottomColor: colors.headerLine },
+  tabsWrap: { backgroundColor: colors.headerGradient[2], paddingTop: 2, borderBottomWidth: 1, borderBottomColor: colors.headerLine },
   tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
   tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   tabIconOn: { backgroundColor: 'rgba(184, 146, 10, 0.12)' },

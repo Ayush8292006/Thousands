@@ -5,6 +5,7 @@
 
 export const colors = {
   header: '#F6F0E1', // champagne ivory — logo ke cream background se match
+  headerGradient: ['#FFFCF2', '#F7EFDA', '#EEE2C3'], // glossy champagne (top → bottom)
   headerMuted: '#8A7F66', // header par secondary text / icons
   headerLine: '#E6DCC2', // header ke borders / dividers
   gold: '#B8920A', // logo gold — active state

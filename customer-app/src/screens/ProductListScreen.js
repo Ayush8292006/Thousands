@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, Pressable, Modal, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import GlossHeader from '../components/GlossHeader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import GridCard from '../components/GridCard';
 import { Button, EmptyState } from '../components/ui';
@@ -97,7 +98,7 @@ export default function ProductListScreen({ route, navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <StatusBar style="dark" />
-      <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
+      <GlossHeader style={[styles.bar, { paddingTop: insets.top + 10 }]} shine={false}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
           <Ionicons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
@@ -109,7 +110,7 @@ export default function ProductListScreen({ route, navigation }) {
           <Ionicons name="cart-outline" size={26} color={colors.ink} />
           {cartCount > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{cartCount}</Text></View> : null}
         </Pressable>
-      </View>
+      </GlossHeader>
 
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.pills}>
@@ -158,7 +159,7 @@ export default function ProductListScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  bar: { backgroundColor: colors.header, borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
+  bar: { overflow: 'hidden', borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   search: {
     flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.white,
     borderRadius: 14, borderWidth: 1, borderColor: colors.headerLine, paddingHorizontal: 14,
