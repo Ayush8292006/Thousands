@@ -107,12 +107,6 @@ export default function HomeScreen({ navigation }) {
     ].filter((x) => x.p);
   }, [all]);
 
-  const quick = [
-    { key: 'express', icon: 'flash', color: '#E8590C', label: 'Express', go: () => navigation.navigate('ProductList', { title: 'Express Delivery', sort: 'rating' }) },
-    { key: 'deals', icon: 'pricetags', color: '#D6336C', label: 'Deals', go: () => navigation.navigate('ProductList', { tag: 'deal', title: 'Top Deals', sort: 'discount' }) },
-    { key: 'rewards', icon: 'gift', color: '#7048E8', label: 'Rewards', go: () => navigation.navigate('Account') },
-  ];
-
   const tabs = [{ id: 'foryou', name: 'For You', icon: 'bag-handle-outline' }, ...cats.map((c) => ({ id: c.id, name: SHORT[c.id] || c.name, icon: c.icon }))];
   const cardW = width / 2;
   const lookW = 132;
@@ -120,7 +114,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.header }}>
-      {focused ? <StatusBar style="dark" /> : null}
+      {focused ? <StatusBar style="light" /> : null}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[1]}
@@ -130,33 +124,24 @@ export default function HomeScreen({ navigation }) {
       >
         {/* 0: top area */}
         <View style={[styles.top, { paddingTop: insets.top + 10 }]}>
-          <Animated.View style={[styles.quickRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
-            <View style={[styles.quick, styles.brandTile]}>
+          <Animated.View style={[styles.brandRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
+            <View style={styles.logoWrap}>
               <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
-              <Text style={styles.brandName}>{BRAND.name}</Text>
             </View>
-            {quick.map((q) => (
-              <Pressable key={q.key} style={({ pressed }) => [styles.quick, pressed && { transform: [{ scale: 0.96 }] }]} onPress={q.go} accessibilityLabel={q.label}>
-                <Ionicons name={q.icon} size={24} color={q.color} />
-                <Text style={styles.quickText}>{q.label}</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.brandName}>{BRAND.name}</Text>
+              <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address" hitSlop={6}>
+                <Ionicons name="location-outline" size={13} color={colors.headerMuted} />
+                <Text style={styles.deliverText} numberOfLines={1}>
+                  Deliver to{' '}
+                  <Text style={styles.deliverStrong}>
+                    {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'select address'}
+                  </Text>
+                </Text>
+                <Ionicons name="chevron-down" size={13} color={colors.headerMuted} />
               </Pressable>
-            ))}
+            </View>
           </Animated.View>
-
-          <View style={styles.addrRow}>
-            <Pressable style={styles.address} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
-              <Ionicons name="home" size={15} color={colors.ink} />
-              <Text style={styles.addrTag}>HOME</Text>
-              <Text style={styles.addrText} numberOfLines={1}>
-                {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select delivery address'}
-              </Text>
-              <Ionicons name="chevron-down" size={16} color={colors.ink} />
-            </Pressable>
-            <Pressable style={styles.coins} onPress={() => navigation.navigate('Account')} accessibilityLabel="Thousands coins">
-              <View style={styles.coinDot}><Ionicons name="flash" size={11} color={colors.white} /></View>
-              <Text style={styles.coinText}>0</Text>
-            </Pressable>
-          </View>
         </View>
 
         {/* 1: sticky category tabs */}
@@ -172,7 +157,7 @@ export default function HomeScreen({ navigation }) {
               return (
                 <Pressable key={t.id} style={styles.tab} onPress={() => setTab(t.id)} accessibilityState={{ selected: on }}>
                   <View style={[styles.tabIcon, on && styles.tabIconOn]}>
-                    <Ionicons name={t.icon} size={22} color={on ? colors.accent : colors.ink} />
+                    <Ionicons name={t.icon} size={22} color={on ? colors.gold : colors.headerMuted} />
                   </View>
                   <Text style={[styles.tabText, on && styles.tabTextOn]} numberOfLines={1}>{t.name}</Text>
                   <View style={[styles.tabLine, on && styles.tabLineOn]} />
@@ -272,39 +257,30 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  top: { backgroundColor: colors.header, paddingHorizontal: 12, paddingBottom: 10 },
-  quickRow: { flexDirection: 'row', gap: 8 },
-  quick: {
-    flex: 1, height: 78, borderRadius: 18, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: '#EFE3BC',
+  top: { backgroundColor: colors.header, paddingHorizontal: 16, paddingBottom: 10 },
+  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 4, paddingBottom: 4 },
+  logoWrap: {
+    width: 46, height: 46, borderRadius: 14, backgroundColor: 'rgba(224, 184, 76, 0.12)', borderWidth: 1,
+    borderColor: 'rgba(224, 184, 76, 0.35)', alignItems: 'center', justifyContent: 'center',
   },
-  quickText: { fontSize: 13, fontWeight: '800', fontStyle: 'italic', color: colors.ink, marginTop: 4 },
-  brandTile: { backgroundColor: '#FFF3C2', borderColor: '#E3C565', borderWidth: 1.5 },
   brandLogo: { width: 28, height: 30 },
-  brandName: { fontSize: 13.5, fontWeight: '800', fontStyle: 'italic', color: '#4A3D00', marginTop: 2 },
-  addrRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10 },
-  address: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.75)', borderRadius: 14,
-    paddingHorizontal: 12, paddingVertical: 10,
-  },
-  addrTag: { fontSize: 13, fontWeight: '800', color: colors.ink },
-  addrText: { flex: 1, fontSize: 13, color: colors.ink },
-  coins: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.75)', borderRadius: 14, paddingHorizontal: 12, height: 40 },
-  coinDot: { width: 20, height: 20, borderRadius: 10, backgroundColor: '#E0A800', alignItems: 'center', justifyContent: 'center' },
-  coinText: { fontSize: 14, fontWeight: '800', color: colors.ink },
+  brandName: { fontSize: 21, fontWeight: '800', color: colors.white, letterSpacing: 0.3 },
+  deliver: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 },
+  deliverText: { fontSize: 12.5, color: colors.headerMuted, flexShrink: 1 },
+  deliverStrong: { color: '#F3E7C9', fontWeight: '700' },
   search: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, height: 50, marginHorizontal: 12, marginBottom: 10, backgroundColor: colors.white,
-    borderRadius: 14, borderWidth: 2, borderColor: colors.accent, paddingHorizontal: 14,
+    flexDirection: 'row', alignItems: 'center', gap: 10, height: 48, marginHorizontal: 16, marginTop: 4, marginBottom: 10,
+    backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14,
   },
   searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { backgroundColor: colors.header, borderBottomWidth: 1, borderBottomColor: '#EFE3BC', paddingTop: 2 },
+  tabsWrap: { backgroundColor: colors.header, paddingTop: 2 },
   tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
   tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  tabIconOn: { backgroundColor: colors.accentSoft },
-  tabText: { fontSize: 12.5, color: colors.ink, marginTop: 3 },
-  tabTextOn: { fontWeight: '700' },
+  tabIconOn: { backgroundColor: 'rgba(224, 184, 76, 0.16)' },
+  tabText: { fontSize: 12.5, color: colors.headerMuted, marginTop: 3 },
+  tabTextOn: { fontWeight: '700', color: colors.white },
   tabLine: { height: 3, width: '80%', borderRadius: 2, marginTop: 7, backgroundColor: 'transparent' },
-  tabLineOn: { backgroundColor: colors.accent },
+  tabLineOn: { backgroundColor: colors.gold },
   offer: {
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
     backgroundColor: '#FFF1DA', borderRadius: 18,

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, FlatList, Pressable, Modal, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import GridCard from '../components/GridCard';
 import { Button, EmptyState } from '../components/ui';
@@ -95,16 +96,17 @@ export default function ProductListScreen({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <StatusBar style="light" />
       <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
-          <Ionicons name="arrow-back" size={24} color={colors.ink} />
+          <Ionicons name="arrow-back" size={24} color={colors.white} />
         </Pressable>
         <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
           <Ionicons name="search" size={20} color={colors.ink} />
           <Text style={styles.searchText} numberOfLines={1}>{query || title || 'Search for products'}</Text>
         </Pressable>
         <Pressable onPress={() => navigation.navigate('Tabs', { screen: 'Cart' })} hitSlop={8} accessibilityLabel="Cart">
-          <Ionicons name="cart-outline" size={26} color={colors.ink} />
+          <Ionicons name="cart-outline" size={26} color={colors.white} />
           {cartCount > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{cartCount}</Text></View> : null}
         </Pressable>
       </View>
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
   bar: { backgroundColor: colors.header, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   search: {
     flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.white,
-    borderRadius: 14, borderWidth: 2, borderColor: colors.accent, paddingHorizontal: 14,
+    borderRadius: 14, borderWidth: 0, paddingHorizontal: 14,
   },
   searchText: { flex: 1, fontSize: 15.5, color: colors.ink },
   badge: {

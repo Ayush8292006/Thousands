@@ -4,8 +4,10 @@
 // Display type: Plus Jakarta Sans (headings, prices, wordmark). Body: system font.
 
 export const colors = {
-  header: '#FDF5C9', // cream top area (client palette)
-  page: '#FFFDF7', // home content background (warm white)
+  header: '#17150F', // premium espresso-black top area (logo gold par sabse acha dikhta hai)
+  headerMuted: '#B9B09A', // header par secondary text / icons
+  gold: '#E0B84C', // logo gold — dark header par active state
+  page: '#FAF7F0', // home content background (warm ivory)
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',

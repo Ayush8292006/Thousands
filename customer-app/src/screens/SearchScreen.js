@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { noOutline } from '../utils/platform';
 import { colors } from '../theme';
@@ -43,9 +44,10 @@ export default function SearchScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <StatusBar style="light" />
       <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
-          <Ionicons name="arrow-back" size={24} color={colors.ink} />
+          <Ionicons name="arrow-back" size={24} color={colors.white} />
         </Pressable>
         <View style={styles.inputWrap}>
           <Ionicons name="search" size={20} color={colors.ink} />
@@ -152,7 +154,7 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
   bar: { backgroundColor: colors.header, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   inputWrap: {
-    flex: 1, height: 50, backgroundColor: colors.white, borderRadius: 25, borderWidth: 2, borderColor: colors.accent,
+    flex: 1, height: 50, backgroundColor: colors.white, borderRadius: 25, borderWidth: 0,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, gap: 10,
   },
   input: { flex: 1, fontSize: 16, color: colors.ink },
