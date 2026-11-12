@@ -47,14 +47,14 @@ export default function TabBar({ state, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.white, paddingHorizontal: 12, paddingTop: 6 },
+  wrap: { backgroundColor: colors.page, paddingHorizontal: 12, paddingTop: 6 },
   bar: {
-    flexDirection: 'row', backgroundColor: colors.white, borderRadius: 34, borderWidth: 1, borderColor: '#E3E6EA',
+    flexDirection: 'row', backgroundColor: colors.white, borderRadius: 34, borderWidth: 1, borderColor: '#EDE4CC',
     padding: 5, shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 2 }, elevation: 6,
   },
   item: { flex: 1 },
   inner: { alignItems: 'center', justifyContent: 'center', paddingVertical: 7, borderRadius: 28 },
-  innerOn: { backgroundColor: '#ECEEF2' },
+  innerOn: { backgroundColor: colors.accentSoft },
   label: { fontSize: 11.5, color: colors.ink, marginTop: 2 },
   labelOn: { color: colors.accent, fontWeight: '700' },
   badge: {

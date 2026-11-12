@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   remove: { position: 'absolute', top: 4, right: 4, width: 20, height: 20, borderRadius: 10, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center' },
   recentText: { fontSize: 13.5, color: colors.ink, marginTop: 6, lineHeight: 18 },
-  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: '#DCEEFB', borderRadius: 22 },
+  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: '#FFF4D6', borderRadius: 22 },
   storesTitle: { fontSize: 20, fontWeight: '800', color: colors.ink, paddingHorizontal: 16, marginBottom: 14 },
   store: { width: 118, backgroundColor: colors.white, borderRadius: 16, padding: 8, alignItems: 'center' },
   storeImg: { width: 102, height: 102, borderRadius: 12, backgroundColor: colors.mist },

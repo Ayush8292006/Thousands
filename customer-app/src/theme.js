@@ -4,20 +4,21 @@
 // Display type: Plus Jakarta Sans (headings, prices, wordmark). Body: system font.
 
 export const colors = {
-  header: '#DCEBFF', // light blue top area (home / search / results)
+  header: '#FDF5C9', // cream top area (client palette)
+  page: '#FFFDF7', // home content background (warm white)
   black: '#000000',
   ink: '#16171A',
   white: '#FFFFFF',
-  bg: '#F1F3F6', // inner pages
+  bg: '#FFF8E7', // cream inner pages (client palette)
   mist: '#F2F3F5', // surfaces, image backdrops
   soft: '#F2F3F5',
   card: '#FFFFFF',
-  border: '#E4E6EA',
+  border: '#EDE4CC',
   muted: '#6B6F76',
   faint: '#A0A4AB',
-  accent: '#2874F0', // Flipkart-style blue
-  accentDark: '#1A5DD6',
-  accentSoft: '#E8F1FF',
+  accent: '#9A7300', // logo gold-brown
+  accentDark: '#7A5A00',
+  accentSoft: '#FBF1CF',
   sale: '#E11D48', // discount
   success: '#0F9D58',
   successSoft: '#E3F5EC',

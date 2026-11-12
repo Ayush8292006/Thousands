@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet, Image } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, Text, ScrollView, Pressable, StyleSheet, Image, Animated, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import HeroCarousel from '../components/HeroCarousel';
 import ShopTiles from '../components/ShopTiles';
 import GridCard from '../components/GridCard';
 import ProductImage from '../components/ProductImage';
+import Reveal from '../components/Reveal';
 import { colors } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
@@ -69,6 +70,14 @@ export default function HomeScreen({ navigation }) {
   const [banners, setBanners] = useState([]);
   const [all, setAll] = useState([]);
   const [tab, setTab] = useState('foryou');
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const { height: vh } = useWindowDimensions();
+  const [contentY, setContentY] = useState(null);
+  const [suggY, setSuggY] = useState(null);
+  const [gridY, setGridY] = useState(null);
+  const R = { scrollY, viewport: vh, offset: contentY };
+  const tilesFade = scrollY.interpolate({ inputRange: [0, 90], outputRange: [1, 0.2], extrapolate: 'clamp' });
+  const tilesShift = scrollY.interpolate({ inputRange: [0, 90], outputRange: [0, 18], extrapolate: 'clamp' });
 
   useEffect(() => {
     getCategories().then(setCats);
@@ -98,40 +107,65 @@ export default function HomeScreen({ navigation }) {
     ].filter((x) => x.p);
   }, [all]);
 
+  const quick = [
+    { key: 'express', icon: 'flash', color: '#E8590C', label: 'Express', go: () => navigation.navigate('ProductList', { title: 'Express Delivery', sort: 'rating' }) },
+    { key: 'deals', icon: 'pricetags', color: '#D6336C', label: 'Deals', go: () => navigation.navigate('ProductList', { tag: 'deal', title: 'Top Deals', sort: 'discount' }) },
+    { key: 'rewards', icon: 'gift', color: '#7048E8', label: 'Rewards', go: () => navigation.navigate('Account') },
+  ];
+
   const tabs = [{ id: 'foryou', name: 'For You', icon: 'bag-handle-outline' }, ...cats.map((c) => ({ id: c.id, name: SHORT[c.id] || c.name, icon: c.icon }))];
   const cardW = width / 2;
   const lookW = 132;
   const trioW = (width - 32 - 20) / 3;
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.header }}>
       {focused ? <StatusBar style="dark" /> : null}
-      <ScrollView showsVerticalScrollIndicator={false} stickyHeaderIndices={[1]} contentContainerStyle={{ paddingBottom: 20 }}>
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        stickyHeaderIndices={[1]}
+        contentContainerStyle={{ paddingBottom: 20 }}
+        scrollEventThrottle={16}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
+      >
         {/* 0: top area */}
         <View style={[styles.top, { paddingTop: insets.top + 10 }]}>
-          <View style={styles.brandTile}>
-            <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
-            <Text style={styles.brandName}>{BRAND.name}</Text>
+          <Animated.View style={[styles.quickRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
+            <View style={[styles.quick, styles.brandTile]}>
+              <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
+              <Text style={styles.brandName}>{BRAND.name}</Text>
+            </View>
+            {quick.map((q) => (
+              <Pressable key={q.key} style={({ pressed }) => [styles.quick, pressed && { transform: [{ scale: 0.96 }] }]} onPress={q.go} accessibilityLabel={q.label}>
+                <Ionicons name={q.icon} size={24} color={q.color} />
+                <Text style={styles.quickText}>{q.label}</Text>
+              </Pressable>
+            ))}
+          </Animated.View>
+
+          <View style={styles.addrRow}>
+            <Pressable style={styles.address} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
+              <Ionicons name="home" size={15} color={colors.ink} />
+              <Text style={styles.addrTag}>HOME</Text>
+              <Text style={styles.addrText} numberOfLines={1}>
+                {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select delivery address'}
+              </Text>
+              <Ionicons name="chevron-down" size={16} color={colors.ink} />
+            </Pressable>
+            <Pressable style={styles.coins} onPress={() => navigation.navigate('Account')} accessibilityLabel="Thousands coins">
+              <View style={styles.coinDot}><Ionicons name="flash" size={11} color={colors.white} /></View>
+              <Text style={styles.coinText}>0</Text>
+            </Pressable>
           </View>
+        </View>
 
-          <Pressable style={styles.address} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
-            <Ionicons name="home" size={15} color={colors.ink} />
-            <Text style={styles.addrTag}>HOME</Text>
-            <Text style={styles.addrText} numberOfLines={1}>
-              {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select delivery address'}
-            </Text>
-            <Ionicons name="chevron-down" size={16} color={colors.ink} />
-          </Pressable>
-
+        {/* 1: sticky category tabs */}
+        <View style={styles.tabsWrap}>
           <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
             <Ionicons name="search" size={21} color={colors.ink} />
             <Text style={styles.searchText}>Search for products</Text>
             <Ionicons name="mic-outline" size={21} color={colors.muted} />
           </Pressable>
-        </View>
-
-        {/* 1: sticky category tabs */}
-        <View style={styles.tabsWrap}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 8 }}>
             {tabs.map((t) => {
               const on = tab === t.id;
@@ -148,13 +182,14 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
         </View>
 
-        {/* 2: content */}
-        <View>
+        {/* 2: content (sections reveal on scroll) */}
+        <View style={{ backgroundColor: colors.page }} onLayout={(e) => setContentY(e.nativeEvent.layout.y)}>
           <HeroCarousel banners={banners} onPress={(b) => openCat(b.link.category, b.title.replace('\n', ' '))} />
 
           <ShopTiles navigation={navigation} />
 
-          <Pressable style={styles.offer} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
+          <Reveal {...R}>
+          <Pressable style={({ pressed }) => [styles.offer, pressed && { opacity: 0.9 }]} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
             <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.accent} /></View>
             <View style={{ flex: 1 }}>
               <Text style={styles.offerTitle}>The Big Thousand Days are live</Text>
@@ -162,9 +197,10 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.offerBadge}><Text style={styles.offerBadgeText}>Up to 80% off</Text></View>
           </Pressable>
+          </Reveal>
 
           {lookingFor.length ? (
-            <View style={styles.looking}>
+            <Reveal {...R} style={styles.looking}>
               <Text style={styles.lookingTitle}>{firstName ? `${firstName}, still looking for these?` : 'Still looking for these?'}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 14 }}>
                 {lookingFor.map((p) => (
@@ -175,11 +211,11 @@ export default function HomeScreen({ navigation }) {
                   </Pressable>
                 ))}
               </ScrollView>
-            </View>
+            </Reveal>
           ) : null}
 
           {trio.length ? (
-            <View style={styles.trio}>
+            <Reveal {...R} style={styles.trio}>
               {trio.map((x) => (
                 <Pressable key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
                   <ProductImage product={x.p} size={Math.round(trioW * 1.05)} rounded={16} />
@@ -187,11 +223,11 @@ export default function HomeScreen({ navigation }) {
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>
                 </Pressable>
               ))}
-            </View>
+            </Reveal>
           ) : null}
 
           {deals.length ? (
-            <View style={{ marginTop: 22 }}>
+            <Reveal {...R} style={{ marginTop: 22 }}>
               <View style={styles.secHead}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                   <Text style={styles.secTitle}>Deals of the Day</Text>
@@ -210,43 +246,58 @@ export default function HomeScreen({ navigation }) {
                   </Pressable>
                 ))}
               </ScrollView>
-            </View>
+            </Reveal>
           ) : null}
 
-          <View style={{ marginTop: 22 }}>
+          <View style={{ marginTop: 22 }} onLayout={(e) => setSuggY(e.nativeEvent.layout.y)}>
             <SecHead title="Suggested For You" onAll={() => navigation.navigate('ProductList', { title: 'Suggested For You', sort: 'rating', category: tab === 'foryou' ? undefined : tab })} />
-            <View style={styles.grid}>
+            <View style={styles.grid} onLayout={(e) => setGridY(e.nativeEvent.layout.y)}>
               {suggested.map((p, i) => (
-                <GridCard key={p.id} product={p} index={i} width={cardW} liked={wishlist.includes(p.id)} onToggleLike={toggleWishlist} onOpen={openProduct} />
+                <Reveal
+                  key={p.id}
+                  scrollY={scrollY}
+                  viewport={vh}
+                  offset={contentY != null && suggY != null && gridY != null ? contentY + suggY + gridY : null}
+                  style={{ width: cardW }}
+                >
+                  <GridCard product={p} index={i} width={cardW} liked={wishlist.includes(p.id)} onToggleLike={toggleWishlist} onOpen={openProduct} />
+                </Reveal>
               ))}
             </View>
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  top: { backgroundColor: colors.header, paddingHorizontal: 16, paddingBottom: 14 },
-  brandTile: {
-    alignSelf: 'flex-start', alignItems: 'center', backgroundColor: '#FCF6D2', borderRadius: 16,
-    paddingHorizontal: 16, paddingTop: 8, paddingBottom: 6, minWidth: 92,
+  top: { backgroundColor: colors.header, paddingHorizontal: 12, paddingBottom: 10 },
+  quickRow: { flexDirection: 'row', gap: 8 },
+  quick: {
+    flex: 1, height: 78, borderRadius: 18, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
+    borderWidth: 1, borderColor: '#EFE3BC',
   },
-  brandLogo: { width: 30, height: 32 },
-  brandName: { fontSize: 15, fontWeight: '800', fontStyle: 'italic', color: '#4A3D00', marginTop: 2 },
+  quickText: { fontSize: 13, fontWeight: '800', fontStyle: 'italic', color: colors.ink, marginTop: 4 },
+  brandTile: { backgroundColor: '#FFF3C2', borderColor: '#E3C565', borderWidth: 1.5 },
+  brandLogo: { width: 28, height: 30 },
+  brandName: { fontSize: 13.5, fontWeight: '800', fontStyle: 'italic', color: '#4A3D00', marginTop: 2 },
+  addrRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10 },
   address: {
-    flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.6)', borderRadius: 14,
-    paddingHorizontal: 12, paddingVertical: 10, marginTop: 12,
+    flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.75)', borderRadius: 14,
+    paddingHorizontal: 12, paddingVertical: 10,
   },
   addrTag: { fontSize: 13, fontWeight: '800', color: colors.ink },
   addrText: { flex: 1, fontSize: 13, color: colors.ink },
+  coins: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.75)', borderRadius: 14, paddingHorizontal: 12, height: 40 },
+  coinDot: { width: 20, height: 20, borderRadius: 10, backgroundColor: '#E0A800', alignItems: 'center', justifyContent: 'center' },
+  coinText: { fontSize: 14, fontWeight: '800', color: colors.ink },
   search: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, height: 50, marginTop: 12, backgroundColor: colors.white,
+    flexDirection: 'row', alignItems: 'center', gap: 10, height: 50, marginHorizontal: 12, marginBottom: 10, backgroundColor: colors.white,
     borderRadius: 14, borderWidth: 2, borderColor: colors.accent, paddingHorizontal: 14,
   },
   searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { backgroundColor: colors.white, borderBottomWidth: 1, borderBottomColor: colors.border, paddingTop: 10 },
+  tabsWrap: { backgroundColor: colors.header, borderBottomWidth: 1, borderBottomColor: '#EFE3BC', paddingTop: 2 },
   tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
   tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   tabIconOn: { backgroundColor: colors.accentSoft },
@@ -256,14 +307,14 @@ const styles = StyleSheet.create({
   tabLineOn: { backgroundColor: colors.accent },
   offer: {
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
-    backgroundColor: '#EEF2FF', borderRadius: 18,
+    backgroundColor: '#FFF1DA', borderRadius: 18,
   },
   offerIcon: { width: 36, height: 36, borderRadius: 12, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  offerTitle: { fontSize: 14, fontWeight: '800', color: '#1E2A5A' },
-  offerSub: { fontSize: 12, color: '#5A6488', marginTop: 2 },
+  offerTitle: { fontSize: 14, fontWeight: '800', color: '#4A3200' },
+  offerSub: { fontSize: 12, color: '#7A6440', marginTop: 2 },
   offerBadge: { backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
   offerBadgeText: { color: colors.white, fontSize: 11.5, fontWeight: '700' },
-  looking: { marginHorizontal: 16, marginTop: 20, paddingVertical: 18, backgroundColor: '#EEF0FB', borderRadius: 22 },
+  looking: { marginHorizontal: 16, marginTop: 20, paddingVertical: 18, backgroundColor: '#FFF4D6', borderRadius: 22 },
   lookingTitle: { fontSize: 18, fontWeight: '800', color: colors.ink, paddingHorizontal: 16, marginBottom: 14 },
   lookCard: { backgroundColor: colors.white, borderRadius: 16, padding: 8 },
   lookSub: { fontSize: 13, color: colors.muted, marginTop: 8 },

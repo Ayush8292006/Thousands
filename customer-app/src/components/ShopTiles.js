@@ -79,7 +79,7 @@ function ShopTiles({ navigation }) {
 export default memo(ShopTiles);
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.white, paddingTop: 16 },
+  wrap: { paddingTop: 16 },
   tile: { width: TILE + 12, alignItems: 'center', marginBottom: 14 },
   art: { width: TILE, height: TILE, borderRadius: 18, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   allBg: { backgroundColor: colors.accentSoft },
