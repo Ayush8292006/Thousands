@@ -114,7 +114,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.header }}>
-      {focused ? <StatusBar style="light" /> : null}
+      {focused ? <StatusBar style="dark" /> : null}
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[1]}
@@ -125,22 +125,20 @@ export default function HomeScreen({ navigation }) {
         {/* 0: top area */}
         <View style={[styles.top, { paddingTop: insets.top + 10 }]}>
           <Animated.View style={[styles.brandRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
-            <View style={styles.logoWrap}>
+            <View style={styles.brandBlock}>
               <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
-            </View>
-            <View style={{ flex: 1 }}>
               <Text style={styles.brandName}>{BRAND.name}</Text>
-              <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address" hitSlop={6}>
-                <Ionicons name="location-outline" size={13} color={colors.headerMuted} />
-                <Text style={styles.deliverText} numberOfLines={1}>
-                  Deliver to{' '}
-                  <Text style={styles.deliverStrong}>
-                    {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'select address'}
-                  </Text>
-                </Text>
-                <Ionicons name="chevron-down" size={13} color={colors.headerMuted} />
-              </Pressable>
             </View>
+            <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
+              <Ionicons name="location" size={16} color={colors.gold} />
+              <View style={{ flex: 1 }}>
+                <Text style={styles.deliverLabel}>Deliver to</Text>
+                <Text style={styles.deliverStrong} numberOfLines={1}>
+                  {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select address'}
+                </Text>
+              </View>
+              <Ionicons name="chevron-down" size={16} color={colors.headerMuted} />
+            </Pressable>
           </Animated.View>
         </View>
 
@@ -157,7 +155,7 @@ export default function HomeScreen({ navigation }) {
               return (
                 <Pressable key={t.id} style={styles.tab} onPress={() => setTab(t.id)} accessibilityState={{ selected: on }}>
                   <View style={[styles.tabIcon, on && styles.tabIconOn]}>
-                    <Ionicons name={t.icon} size={22} color={on ? colors.gold : colors.headerMuted} />
+                    <Ionicons name={t.icon} size={22} color={on ? colors.gold : '#5E5643'} />
                   </View>
                   <Text style={[styles.tabText, on && styles.tabTextOn]} numberOfLines={1}>{t.name}</Text>
                   <View style={[styles.tabLine, on && styles.tabLineOn]} />
@@ -258,27 +256,27 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   top: { backgroundColor: colors.header, paddingHorizontal: 16, paddingBottom: 10 },
-  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 4, paddingBottom: 4 },
-  logoWrap: {
-    width: 46, height: 46, borderRadius: 14, backgroundColor: 'rgba(224, 184, 76, 0.12)', borderWidth: 1,
-    borderColor: 'rgba(224, 184, 76, 0.35)', alignItems: 'center', justifyContent: 'center',
+  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingBottom: 6 },
+  brandBlock: { alignItems: 'center', minWidth: 84 },
+  brandLogo: { width: 34, height: 36 },
+  brandName: { fontSize: 15, fontWeight: '800', fontStyle: 'italic', color: colors.olive, marginTop: 3, letterSpacing: 0.2 },
+  deliver: {
+    flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.white,
+    borderWidth: 1, borderColor: colors.headerLine, borderRadius: 14, paddingHorizontal: 12, paddingVertical: 8,
   },
-  brandLogo: { width: 28, height: 30 },
-  brandName: { fontSize: 21, fontWeight: '800', color: colors.white, letterSpacing: 0.3 },
-  deliver: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 2 },
-  deliverText: { fontSize: 12.5, color: colors.headerMuted, flexShrink: 1 },
-  deliverStrong: { color: '#F3E7C9', fontWeight: '700' },
+  deliverLabel: { fontSize: 11, color: colors.headerMuted },
+  deliverStrong: { fontSize: 13.5, color: colors.ink, fontWeight: '700', marginTop: 1 },
   search: {
     flexDirection: 'row', alignItems: 'center', gap: 10, height: 48, marginHorizontal: 16, marginTop: 4, marginBottom: 10,
-    backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14,
+    backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14, borderWidth: 1, borderColor: colors.headerLine,
   },
   searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { backgroundColor: colors.header, paddingTop: 2 },
+  tabsWrap: { backgroundColor: colors.header, paddingTop: 2, borderBottomWidth: 1, borderBottomColor: colors.headerLine },
   tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
   tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  tabIconOn: { backgroundColor: 'rgba(224, 184, 76, 0.16)' },
-  tabText: { fontSize: 12.5, color: colors.headerMuted, marginTop: 3 },
-  tabTextOn: { fontWeight: '700', color: colors.white },
+  tabIconOn: { backgroundColor: 'rgba(184, 146, 10, 0.12)' },
+  tabText: { fontSize: 12.5, color: '#5E5643', marginTop: 3 },
+  tabTextOn: { fontWeight: '700', color: colors.ink },
   tabLine: { height: 3, width: '80%', borderRadius: 2, marginTop: 7, backgroundColor: 'transparent' },
   tabLineOn: { backgroundColor: colors.gold },
   offer: {

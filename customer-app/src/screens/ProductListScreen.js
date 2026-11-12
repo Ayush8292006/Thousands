@@ -96,17 +96,17 @@ export default function ProductListScreen({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <View style={[styles.bar, { paddingTop: insets.top + 10 }]}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
-          <Ionicons name="arrow-back" size={24} color={colors.white} />
+          <Ionicons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
         <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
           <Ionicons name="search" size={20} color={colors.ink} />
           <Text style={styles.searchText} numberOfLines={1}>{query || title || 'Search for products'}</Text>
         </Pressable>
         <Pressable onPress={() => navigation.navigate('Tabs', { screen: 'Cart' })} hitSlop={8} accessibilityLabel="Cart">
-          <Ionicons name="cart-outline" size={26} color={colors.white} />
+          <Ionicons name="cart-outline" size={26} color={colors.ink} />
           {cartCount > 0 ? <View style={styles.badge}><Text style={styles.badgeText}>{cartCount}</Text></View> : null}
         </Pressable>
       </View>
@@ -158,10 +158,10 @@ export default function ProductListScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  bar: { backgroundColor: colors.header, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
+  bar: { backgroundColor: colors.header, borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   search: {
     flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.white,
-    borderRadius: 14, borderWidth: 0, paddingHorizontal: 14,
+    borderRadius: 14, borderWidth: 1, borderColor: colors.headerLine, paddingHorizontal: 14,
   },
   searchText: { flex: 1, fontSize: 15.5, color: colors.ink },
   badge: {
