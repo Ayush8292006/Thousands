@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../theme';
 import { useApp } from '../context/AppContext';
+import Glass from './Glass';
 
 // Floating, rounded bottom bar (Flipkart new app jaisa)
 const ICONS = {
@@ -19,7 +20,7 @@ export default function TabBar({ state, navigation }) {
   const { cartCount } = useApp();
   return (
     <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 8) }]}>
-      <View style={styles.bar}>
+      <Glass tint="light" radius={34} style={styles.bar}>
         {state.routes.map((route, i) => {
           const focused = state.index === i;
           const onPress = () => {
@@ -41,20 +42,20 @@ export default function TabBar({ state, navigation }) {
             </Pressable>
           );
         })}
-      </View>
+      </Glass>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { backgroundColor: colors.page, paddingHorizontal: 12, paddingTop: 6 },
+  wrap: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: 12, paddingTop: 6 },
   bar: {
     flexDirection: 'row', backgroundColor: colors.white, borderRadius: 34, borderWidth: 1, borderColor: '#EDE4CC',
     padding: 5, shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 2 }, elevation: 6,
   },
   item: { flex: 1 },
   inner: { alignItems: 'center', justifyContent: 'center', paddingVertical: 7, borderRadius: 28 },
-  innerOn: { backgroundColor: colors.accentSoft },
+  innerOn: { backgroundColor: 'rgba(184, 146, 10, 0.16)' },
   label: { fontSize: 11.5, color: colors.ink, marginTop: 2 },
   labelOn: { color: colors.accent, fontWeight: '700' },
   badge: {

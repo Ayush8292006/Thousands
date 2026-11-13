@@ -28,7 +28,7 @@ export default function AccountScreen({ navigation }) {
   ];
 
   return (
-    <ScrollView style={{ backgroundColor: colors.bg }} contentContainerStyle={{ paddingBottom: 130 }}>
+    <ScrollView style={{ backgroundColor: colors.bg }} contentContainerStyle={{ paddingBottom: 150 }}>
       <View style={[styles.header, { paddingTop: insets.top + 16 }]}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{(user?.name || 'T')[0]}</Text>

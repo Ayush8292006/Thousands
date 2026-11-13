@@ -44,7 +44,7 @@ export default function CartScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       {header}
-      <ScrollView contentContainerStyle={{ paddingBottom: 110 + TAB_BAR_SPACE }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 90 + TAB_BAR_SPACE }}>
         <Pressable style={styles.addr} onPress={() => navigation.navigate('Addresses', { selectMode: true })}>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 13 }}>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   safe: { flexDirection: 'row', alignItems: 'center', padding: 16 },
   safeText: { marginLeft: 8, fontSize: 12, color: colors.muted, flex: 1 },
   bottom: {
-    position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: colors.white, flexDirection: 'row',
+    position: 'absolute', left: 0, right: 0, bottom: TAB_BAR_SPACE, backgroundColor: colors.white, flexDirection: 'row',
     alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
   mrpSmall: { fontSize: 12, color: colors.faint, textDecorationLine: 'line-through' },

@@ -10,7 +10,11 @@ import GridCard from '../components/GridCard';
 import ProductImage from '../components/ProductImage';
 import Reveal from '../components/Reveal';
 import GlossHeader from '../components/GlossHeader';
-import { colors } from '../theme';
+import Glass from '../components/Glass';
+import CalliBanner from '../components/CalliBanner';
+import OfferPopup from '../components/OfferPopup';
+import { calli } from '../config/fonts';
+import { colors, TAB_BAR_SPACE } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
 import { useApp } from '../context/AppContext';
@@ -49,10 +53,13 @@ function DealTimer() {
   );
 }
 
-function SecHead({ title, onAll }) {
+function SecHead({ title, kicker, onAll }) {
   return (
     <View style={styles.secHead}>
-      <Text style={styles.secTitle}>{title}</Text>
+      <View>
+        {kicker ? <Text style={calli(17, colors.gold)}>{kicker}</Text> : null}
+        <Text style={styles.secTitle}>{title}</Text>
+      </View>
       {onAll ? (
         <Pressable style={styles.arrowBtn} onPress={onAll} accessibilityLabel={`See all ${title}`}>
           <Ionicons name="arrow-forward" size={18} color={colors.white} />
@@ -119,7 +126,7 @@ export default function HomeScreen({ navigation }) {
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         stickyHeaderIndices={[1]}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ paddingBottom: TAB_BAR_SPACE + 10 }}
         scrollEventThrottle={16}
         onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: true })}
       >
@@ -144,7 +151,7 @@ export default function HomeScreen({ navigation }) {
         </GlossHeader>
 
         {/* 1: sticky category tabs */}
-        <View style={styles.tabsWrap}>
+        <Glass tint="cream" radius={0} highlight={false} style={styles.tabsWrap}>
           <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
             <Ionicons name="search" size={21} color={colors.ink} />
             <Text style={styles.searchText}>Search for products</Text>
@@ -164,7 +171,7 @@ export default function HomeScreen({ navigation }) {
               );
             })}
           </ScrollView>
-        </View>
+        </Glass>
 
         {/* 2: content (sections reveal on scroll) */}
         <View style={{ backgroundColor: colors.page }} onLayout={(e) => setContentY(e.nativeEvent.layout.y)}>
@@ -173,9 +180,14 @@ export default function HomeScreen({ navigation }) {
           <ShopTiles navigation={navigation} />
 
           <Reveal {...R}>
+            <CalliBanner onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Festive Offers', sort: 'discount' })} />
+          </Reveal>
+
+          <Reveal {...R}>
           <Pressable style={({ pressed }) => [styles.offer, pressed && { opacity: 0.9 }]} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
             <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.accent} /></View>
             <View style={{ flex: 1 }}>
+              <Text style={calli(15, colors.gold)}>महा बचत</Text>
               <Text style={styles.offerTitle}>The Big Thousand Days are live</Text>
               <Text style={styles.offerSub}>Top brands at their lowest prices</Text>
             </View>
@@ -213,9 +225,12 @@ export default function HomeScreen({ navigation }) {
           {deals.length ? (
             <Reveal {...R} style={{ marginTop: 22 }}>
               <View style={styles.secHead}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                  <Text style={styles.secTitle}>Deals of the Day</Text>
-                  <DealTimer />
+                <View>
+                  <Text style={calli(17, colors.gold)}>आज के सौदे</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <Text style={styles.secTitle}>Deals of the Day</Text>
+                    <DealTimer />
+                  </View>
                 </View>
                 <Pressable style={styles.arrowBtn} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Deals of the Day', sort: 'discount' })} accessibilityLabel="See all deals">
                   <Ionicons name="arrow-forward" size={18} color={colors.white} />
@@ -234,7 +249,7 @@ export default function HomeScreen({ navigation }) {
           ) : null}
 
           <View style={{ marginTop: 22 }} onLayout={(e) => setSuggY(e.nativeEvent.layout.y)}>
-            <SecHead title="Suggested For You" onAll={() => navigation.navigate('ProductList', { title: 'Suggested For You', sort: 'rating', category: tab === 'foryou' ? undefined : tab })} />
+            <SecHead title="Suggested For You" kicker="आपके लिए" onAll={() => navigation.navigate('ProductList', { title: 'Suggested For You', sort: 'rating', category: tab === 'foryou' ? undefined : tab })} />
             <View style={styles.grid} onLayout={(e) => setGridY(e.nativeEvent.layout.y)}>
               {suggested.map((p, i) => (
                 <Reveal
@@ -251,6 +266,17 @@ export default function HomeScreen({ navigation }) {
           </View>
         </View>
       </Animated.ScrollView>
+
+      <OfferPopup
+        offer={banners[0] ? {
+          image: banners[0].image,
+          calligraphy: 'धमाका ऑफ़र',
+          title: 'Flat 20% off on your first order',
+          subtitle: 'Extra savings on top brands across fashion, electronics and home. Valid for a limited time.',
+          code: 'THOUSANDS20',
+        } : null}
+        onShop={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Offers for you', sort: 'discount' })}
+      />
     </View>
   );
 }
@@ -272,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14, borderWidth: 1, borderColor: colors.headerLine,
   },
   searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { backgroundColor: colors.headerGradient[2], paddingTop: 2, borderBottomWidth: 1, borderBottomColor: colors.headerLine },
+  tabsWrap: { paddingTop: 2, borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
   tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
   tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   tabIconOn: { backgroundColor: 'rgba(184, 146, 10, 0.12)' },

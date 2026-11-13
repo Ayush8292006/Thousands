@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { colors } from '../theme';
 import { useApp } from '../context/AppContext';
 import TabBar from '../components/TabBar';
+import ScreenEnter from '../components/ScreenEnter';
+import { Platform } from 'react-native';
 
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -27,7 +29,7 @@ const Tab = createBottomTabNavigator();
 
 function Tabs() {
   return (
-    <Tab.Navigator tabBar={(props) => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
+    <Tab.Navigator tabBar={(props) => <TabBar {...props} />} screenOptions={{ headerShown: false, animation: 'fade' }}>
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Categories" component={CategoriesScreen} />
       <Tab.Screen name="Wishlist" component={WishlistScreen} />
@@ -37,12 +39,18 @@ function Tabs() {
   );
 }
 
+const webEnter = Platform.OS === 'web' ? ({ children }) => <ScreenEnter>{children}</ScreenEnter> : undefined;
+
 const stackHeader = {
   headerStyle: { backgroundColor: colors.white },
   headerTintColor: colors.black,
   headerTitleStyle: { fontWeight: '700', fontSize: 18 },
   headerShadowVisible: true,
   headerBackButtonDisplayMode: 'minimal',
+  // Crisp page transitions
+  animation: 'slide_from_right',
+  animationDuration: 260,
+  gestureEnabled: true,
 };
 
 export default function RootNavigator() {
@@ -57,14 +65,14 @@ export default function RootNavigator() {
   }
 
   return (
-    <Stack.Navigator screenOptions={stackHeader}>
+    <Stack.Navigator screenOptions={stackHeader} screenLayout={webEnter}>
       <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false }} />
-      <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade' }} />
+      <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, animation: 'fade_from_bottom', animationDuration: 220 }} />
       <Stack.Screen name="ProductList" component={ProductListScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ title: '' }} />
       <Stack.Screen name="Addresses" component={AddressScreen} options={{ title: 'My Addresses' }} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ title: 'Checkout' }} />
-      <Stack.Screen name="OrderSuccess" component={OrderSuccessScreen} options={{ headerShown: false, gestureEnabled: false }} />
+      <Stack.Screen name="OrderSuccess" component={OrderSuccessScreen} options={{ headerShown: false, gestureEnabled: false, animation: 'fade' }} />
       <Stack.Screen name="Orders" component={OrdersScreen} options={{ title: 'My Orders' }} />
       <Stack.Screen name="OrderDetail" component={OrderDetailScreen} options={{ title: 'Order Details' }} />
       <Stack.Screen name="Invoice" component={InvoiceScreen} options={{ title: 'Tax Invoice' }} />
