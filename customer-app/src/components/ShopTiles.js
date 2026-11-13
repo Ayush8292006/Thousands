@@ -53,7 +53,7 @@ function Tile({ t, onPress }) {
     art = (
       <View style={styles.art}>
         <Image source={{ uri: t.image }} style={StyleSheet.absoluteFill} fadeDuration={0} />
-        <GlossOverlay level="medium" radius={16} />
+        <GlossOverlay level="subtle" radius={16} />
       </View>
     );
   }
@@ -88,7 +88,7 @@ export default memo(ShopTiles);
 const styles = StyleSheet.create({
   wrap: { paddingTop: 12 },
   tile: { width: TILE + 12, alignItems: 'center', marginBottom: 10 },
-  art: { width: TILE, height: TILE, borderRadius: 16, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  art: { borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.35)', width: TILE, height: TILE, borderRadius: 16, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   allBg: { backgroundColor: colors.accentSoft },
   allGrid: { width: 38, flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
   allCell: { width: 17, height: 17, borderRadius: 6, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center' },

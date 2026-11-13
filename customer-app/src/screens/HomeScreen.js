@@ -247,7 +247,7 @@ export default function HomeScreen({ navigation }) {
                 <PressScale key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
                   <View>
                     <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
-                    <GlossOverlay level="medium" radius={14} />
+                    <GlossOverlay level="subtle" radius={14} />
                   </View>
                   <Text style={styles.trioTitle} numberOfLines={1}>{x.title}</Text>
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>

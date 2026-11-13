@@ -33,14 +33,14 @@ export default function Glass({ style, children, tint = 'light', radius = 24, hi
         <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: radius, overflow: 'hidden' }]}>
           {/* short, crisp top reflection (fades out fast — no haze) */}
           <LinearGradient
-            colors={['rgba(255,255,255,0.42)', 'rgba(255,255,255,0.06)', 'rgba(255,255,255,0)']}
+            colors={['rgba(255,255,255,0.26)', 'rgba(255,255,255,0.04)', 'rgba(255,255,255,0)']}
             locations={[0, 0.6, 1]}
             style={styles.topReflection}
           />
           {/* one sharp diagonal light streak */}
           <LinearGradient
-            colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.34)', 'rgba(255,255,255,0)']}
-            locations={[0.36, 0.4, 0.44]}
+            colors={['rgba(255,255,255,0)', 'rgba(255,255,255,0.24)', 'rgba(255,255,255,0)']}
+            locations={[0.37, 0.4, 0.43]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={StyleSheet.absoluteFill}
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 12 },
     elevation: 8,
   },
-  topReflection: { position: 'absolute', top: 0, left: 0, right: 0, height: '32%' },
+  topReflection: { position: 'absolute', top: 0, left: 0, right: 0, height: '22%' },
   goldEdge: { position: 'absolute', left: 0, right: 0, bottom: 0, height: 10 },
-  innerEdge: { margin: 1, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.35)' },
+  innerEdge: { margin: 1, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.45)' },
   specular: { position: 'absolute', top: 1, height: 1, backgroundColor: '#FFFFFF' },
 });

@@ -3,7 +3,6 @@ import { View, Text, FlatList, Pressable, Image, Animated, StyleSheet } from 're
 import { useAppWidth } from '../utils/platform';
 import { colors } from '../theme';
 import { GlossOverlay } from './Gloss';
-import Shine from './Shine';
 
 // Rounded banner carousel with Flipkart-style dash indicator
 export default function HeroCarousel({ banners, onPress, interval = 4000, scrollY }) {
@@ -63,8 +62,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000, scroll
                   <Text style={styles.sub} numberOfLines={1}>{item.subtitle}</Text>
                   <View style={styles.cta}><Text style={styles.ctaText}>{item.cta || 'Shop now'}</Text></View>
                 </View>
-                <GlossOverlay level="high" radius={18} />
-                <Shine intensity={0.22} duration={1500} pause={5000} delay={900} />
+                <GlossOverlay level="subtle" radius={18} />
               </View>
             </Pressable>
           </View>
@@ -80,7 +78,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000, scroll
 const styles = StyleSheet.create({
   card: {
     shadowColor: '#302719', shadowOpacity: 0.18, shadowRadius: 18, shadowOffset: { width: 0, height: 10 }, elevation: 6,
-    borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.5)', borderRadius: 18, overflow: 'hidden', backgroundColor: colors.mist },
+    borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.7)', borderRadius: 18, overflow: 'hidden', backgroundColor: colors.mist },
   imgLayer: { ...StyleSheet.absoluteFillObject },
   scrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(10, 20, 40, 0.38)' },
   content: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, maxWidth: '72%' },

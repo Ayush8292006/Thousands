@@ -4,14 +4,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Shine from './Shine';
 import { colors } from '../theme';
 
-// THOUSANDS glossy design system
-// level: 'high'  → promo banners, primary buttons (strong reflection + gold rim + light sweep)
-//        'medium'→ navigation, interactive cards
-//        'subtle'→ secondary surfaces / backgrounds
+// THOUSANDS glossy design system — crisp, controlled reflections (no large white haze)
+// level: 'high'   → primary buttons, promo strips, active chips (short reflection + thin streak + gold rim)
+//        'medium' → cards, search, interactive surfaces (crisp specular line + luminous inner edge + gold hairline)
+//        'subtle' → images / secondary surfaces (crisp specular line only)
 const LEVELS = {
-  high: { top: 0.42, line: 1, rim: 0.28, height: '36%', streak: 0.3 },
-  medium: { top: 0.28, line: 0.9, rim: 0.14, height: '32%', streak: 0 },
-  subtle: { top: 0.16, line: 0.7, rim: 0, height: '28%', streak: 0 },
+  high: { top: 0.3, height: '26%', line: 1, edge: 0.35, rim: 0.55, streak: 0.22 },
+  medium: { top: 0.1, height: '14%', line: 1, edge: 0.3, rim: 0.4, streak: 0 },
+  subtle: { top: 0, height: 0, line: 0.85, edge: 0, rim: 0, streak: 0 },
 };
 
 // Metallic champagne-gold gradient (polished, not flat)
@@ -23,34 +23,37 @@ export const OLIVE_GLOSS = ['#7C6812', '#625000', '#4C3E00'];
 // Drop-in reflection layer: put as the FIRST child of any rounded surface
 export function GlossOverlay({ level = 'medium', radius = 16, dark = false, sweep = false }) {
   const L = LEVELS[level] || LEVELS.medium;
+  const k = dark ? 0.6 : 1;
   return (
     <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: radius, overflow: 'hidden' }]}>
-      {/* soft white light reflection from the top */}
-      <LinearGradient
-        colors={[`rgba(255,255,255,${dark ? L.top * 0.6 : L.top})`, `rgba(255,255,255,${dark ? 0.03 : 0.05})`, 'rgba(255,255,255,0)']}
-        locations={[0, 0.6, 1]}
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: L.height }}
-      />
-      {/* polished top edge (inner highlight) */}
-      <View style={{ position: 'absolute', top: 0, left: radius * 0.6, right: radius * 0.6, height: 1, backgroundColor: `rgba(255,255,255,${L.line})` }} />
-      {/* sharp diagonal light streak (high gloss only) */}
+      {/* short, controlled top reflection */}
+      {L.top ? (
+        <LinearGradient
+          colors={[`rgba(255,255,255,${L.top * k})`, 'rgba(255,255,255,0)']}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: L.height }}
+        />
+      ) : null}
+      {/* one thin diagonal light streak (high gloss only) */}
       {L.streak ? (
         <LinearGradient
-          colors={['rgba(255,255,255,0)', `rgba(255,255,255,${dark ? L.streak * 0.6 : L.streak})`, 'rgba(255,255,255,0)']}
-          locations={[0.36, 0.4, 0.44]}
+          colors={['rgba(255,255,255,0)', `rgba(255,255,255,${L.streak * k})`, 'rgba(255,255,255,0)']}
+          locations={[0.37, 0.4, 0.43]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={StyleSheet.absoluteFill}
         />
       ) : null}
-      {/* subtle metallic gold reflection at the bottom edge */}
-      {L.rim ? (
-        <LinearGradient
-          colors={['rgba(214,180,92,0)', `rgba(214,180,92,${L.rim})`]}
-          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '18%' }}
-        />
+      {/* luminous inner edge */}
+      {L.edge ? (
+        <View style={[StyleSheet.absoluteFill, { margin: 1, borderRadius: Math.max(0, radius - 1), borderWidth: 1, borderColor: `rgba(255,255,255,${L.edge * k})` }]} />
       ) : null}
-      {sweep ? <Shine intensity={dark ? 0.22 : 0.4} duration={1500} pause={4600} delay={700} /> : null}
+      {/* crisp white specular line along the upper edge */}
+      <View style={{ position: 'absolute', top: 1, left: radius * 0.5, right: radius * 0.5, height: 1, backgroundColor: `rgba(255,255,255,${L.line * k})` }} />
+      {/* fine champagne-gold reflective hairline at the bottom edge */}
+      {L.rim ? (
+        <View style={{ position: 'absolute', bottom: 0, left: radius * 0.5, right: radius * 0.5, height: 1, backgroundColor: `rgba(214,180,92,${L.rim})` }} />
+      ) : null}
+      {sweep ? <Shine intensity={dark ? 0.18 : 0.3} duration={1500} pause={4600} delay={700} /> : null}
     </View>
   );
 }
