@@ -20,7 +20,7 @@ if (isWeb && typeof document !== 'undefined') {
     '[data-glass] { box-shadow: 0 12px 36px rgba(48, 39, 25, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(214, 180, 92, 0.35) !important; }',
     '[data-glass="soft"] { -webkit-backdrop-filter: blur(3px) saturate(150%); backdrop-filter: blur(3px) saturate(150%); }',
     // Bottom navigation: crystal-clear glass with just a little golden shade
-    '[data-glass="clear"] { -webkit-backdrop-filter: blur(1.5px) saturate(140%); backdrop-filter: blur(1.5px) saturate(140%); }',
+    '[data-glass="clear"] { -webkit-backdrop-filter: blur(2.5px) saturate(150%); backdrop-filter: blur(2.5px) saturate(150%); }',
     '[data-glass="nav"] { -webkit-backdrop-filter: blur(6px) saturate(150%); backdrop-filter: blur(6px) saturate(150%); }',
     '[data-glass="popup"] { -webkit-backdrop-filter: blur(8px) saturate(150%); backdrop-filter: blur(8px) saturate(150%); }',
     // Popup / dropdown dimming layer: separate, no blur so the page stays crisp

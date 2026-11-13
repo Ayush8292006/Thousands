@@ -46,7 +46,7 @@ function TabItem({ route, focused, onPress, cartCount }) {
     <Pressable onPress={onPress} style={styles.item} accessibilityRole="button" accessibilityState={{ selected: focused }} accessibilityLabel={route.name}>
       <Animated.View style={{ alignItems: 'center', transform: [{ scale }, { translateY: lift }] }}>
         <View>
-          <Ionicons name={focused ? on : off} size={21} color={focused ? colors.gold : colors.espresso} />
+          <Ionicons name={focused ? on : off} size={21} color={focused ? colors.gold : colors.espresso} style={focused ? null : styles.halo} />
           {route.name === 'Cart' && cartCount > 0 ? (
             <Animated.View style={[styles.badge, { transform: [{ scale: bump }] }]}>
               <Text style={styles.badgeText}>{cartCount > 99 ? '99+' : cartCount}</Text>
@@ -75,7 +75,12 @@ export default function TabBar({ state, navigation }) {
 
   return (
     <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]} pointerEvents="box-none">
-      <Glass tint="rgba(236, 214, 150, 0.14)" blur="clear" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
+      <Glass tint="rgba(255, 249, 232, 0.34)" blur="clear" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
+        <LinearGradient
+          pointerEvents="none"
+          colors={['rgba(255, 253, 246, 0.18)', 'rgba(214, 180, 92, 0.16)']}
+          style={StyleSheet.absoluteFill}
+        />
         {itemW ? (
           <Animated.View pointerEvents="none" style={[styles.indicator, { width: itemW, transform: [{ translateX }] }]}>
             <View style={styles.indicatorInner}>
@@ -112,9 +117,10 @@ const styles = StyleSheet.create({
     flex: 1, borderRadius: 26, backgroundColor: colors.olive, overflow: 'hidden',
     borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.6)',
   },
-  item: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 7 },
-  label: { fontSize: 10.5, color: colors.espresso, marginTop: 2, fontWeight: '700', textShadowColor: 'rgba(255,255,255,0.9)', textShadowRadius: 3, textShadowOffset: { width: 0, height: 0 } },
-  labelOn: { color: colors.cream, fontWeight: '700' },
+  item: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 8 },
+  label: { fontSize: 10.5, color: colors.espresso, marginTop: 2, fontWeight: '700', textShadowColor: 'rgba(255, 253, 246, 1)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 0 } },
+  halo: { textShadowColor: 'rgba(255, 253, 246, 1)', textShadowRadius: 6, textShadowOffset: { width: 0, height: 0 } },
+  labelOn: { color: colors.cream, fontWeight: '700', textShadowColor: 'transparent', textShadowRadius: 0 },
   badge: {
     position: 'absolute', top: -6, right: -12, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4,
     backgroundColor: colors.terracotta, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: colors.cream,
