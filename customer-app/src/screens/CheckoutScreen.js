@@ -114,13 +114,13 @@ export default function CheckoutScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  steps: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, paddingVertical: 14, paddingHorizontal: 24 },
+  steps: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, paddingVertical: 14, paddingHorizontal: 24 },
   step: { alignItems: 'center' },
   stepDot: { width: 22, height: 22, borderRadius: 12, borderWidth: 1.5, borderColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   stepNum: { fontSize: 11, fontWeight: '800' },
   stepText: { fontSize: 11, marginTop: 4, fontWeight: '600' },
   stepLine: { flex: 1, height: 1.5, marginHorizontal: 6, marginBottom: 16 },
-  block: { backgroundColor: colors.white, padding: 16, marginTop: 10 },
+  block: { backgroundColor: colors.card, padding: 16, marginTop: 10 },
   blockHead: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   blockTitle: { fontSize: 15, fontWeight: '800' },
   link: { color: colors.accent, fontWeight: '800' },
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.md, padding: 12, marginTop: 10,
   },
   bottom: {
-    position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: colors.white, flexDirection: 'row',
+    position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: colors.card, flexDirection: 'row',
     alignItems: 'center', paddingHorizontal: 14, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
 });

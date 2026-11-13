@@ -122,15 +122,15 @@ export default function CartScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  header: { backgroundColor: colors.white, paddingHorizontal: 16, paddingBottom: 12 },
+  header: { backgroundColor: colors.card, paddingHorizontal: 16, paddingBottom: 12 },
   headerTitle: { color: colors.black, fontWeight: '700', fontSize: 20 },
-  addr: { backgroundColor: colors.white, padding: 14, flexDirection: 'row', alignItems: 'center' },
+  addr: { backgroundColor: colors.card, padding: 14, flexDirection: 'row', alignItems: 'center' },
   addrLine: { fontSize: 12, color: colors.muted, marginTop: 2 },
   changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
   changeText: { fontWeight: '700', fontSize: 12 },
   freeNote: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accentSoft, padding: 10, paddingHorizontal: 14 },
   freeText: { marginLeft: 8, fontSize: 12, color: colors.ink, fontWeight: '600', flex: 1 },
-  item: { backgroundColor: colors.white, padding: 14, marginTop: 10 },
+  item: { backgroundColor: colors.card, padding: 14, marginTop: 10 },
   title: { fontSize: 14, color: colors.ink, lineHeight: 19 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3 },
   priceRow: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   safe: { flexDirection: 'row', alignItems: 'center', padding: 16 },
   safeText: { marginLeft: 8, fontSize: 12, color: colors.muted, flex: 1 },
   bottom: {
-    position: 'absolute', left: 0, right: 0, bottom: TAB_BAR_SPACE, backgroundColor: colors.white, flexDirection: 'row',
+    position: 'absolute', left: 0, right: 0, bottom: TAB_BAR_SPACE, backgroundColor: colors.card, flexDirection: 'row',
     alignItems: 'center', paddingHorizontal: 14, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
   mrpSmall: { fontSize: 12, color: colors.faint, textDecorationLine: 'line-through' },

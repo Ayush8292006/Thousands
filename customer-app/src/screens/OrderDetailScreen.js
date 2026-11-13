@@ -87,11 +87,11 @@ export default function OrderDetailScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  block: { backgroundColor: colors.white, padding: 16, marginTop: 10 },
+  block: { backgroundColor: colors.card, padding: 16, marginTop: 10 },
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3, lineHeight: 17 },
-  item: { flexDirection: 'row', backgroundColor: colors.white, padding: 16, marginTop: 1 },
-  tDot: { width: 20, height: 20, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.white },
+  item: { flexDirection: 'row', backgroundColor: colors.card, padding: 16, marginTop: 1 },
+  tDot: { width: 20, height: 20, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.card },
   tDotOn: { backgroundColor: colors.success, borderColor: colors.success },
   tLine: { width: 2, flex: 1, backgroundColor: colors.border, marginVertical: 2 },
   tText: { fontSize: 14, color: colors.faint },

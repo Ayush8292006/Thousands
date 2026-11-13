@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, Image } from 'react-native';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { View, Text, TextInput, Pressable, ScrollView, StyleSheet, Image, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import GlossHeader from '../components/GlossHeader';
@@ -26,6 +26,12 @@ export default function SearchScreen({ navigation }) {
   const [q, setQ] = useState('');
   const [editing, setEditing] = useState(false);
   const [hidden, setHidden] = useState([]);
+  const [focus, setFocus] = useState(true);
+  const f = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    Animated.timing(f, { toValue: focus ? 1 : 0, duration: 200, useNativeDriver: false }).start();
+  }, [focus, f]);
+  const focusBorder = f.interpolate({ inputRange: [0, 1], outputRange: [colors.beige, colors.gold] });
 
   const suggestions = useMemo(() => {
     if (!q.trim()) return [];
@@ -44,13 +50,13 @@ export default function SearchScreen({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.card }}>
       <StatusBar style="dark" />
       <GlossHeader style={[styles.bar, { paddingTop: insets.top + 10 }]} shine={false}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
           <Ionicons name="arrow-back" size={24} color={colors.ink} />
         </Pressable>
-        <View style={styles.inputWrap}>
+        <Animated.View style={[styles.inputWrap, { borderColor: focusBorder }]}>
           <Ionicons name="search" size={20} color={colors.ink} />
           <TextInput
             value={q}
@@ -61,6 +67,8 @@ export default function SearchScreen({ navigation }) {
             style={[styles.input, noOutline]}
             returnKeyType="search"
             onSubmitEditing={() => submit()}
+            onFocus={() => setFocus(true)}
+            onBlur={() => setFocus(false)}
           />
           {q ? (
             <Pressable onPress={() => setQ('')} hitSlop={8} accessibilityLabel="Clear">
@@ -69,7 +77,7 @@ export default function SearchScreen({ navigation }) {
           ) : (
             <Ionicons name="mic-outline" size={21} color={colors.ink} />
           )}
-        </View>
+        </Animated.View>
       </GlossHeader>
 
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ paddingBottom: 30 }}>
@@ -155,7 +163,7 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
   bar: { overflow: 'hidden', borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   inputWrap: {
-    flex: 1, height: 50, backgroundColor: colors.white, borderRadius: 25, borderWidth: 1, borderColor: colors.headerLine,
+    flex: 1, height: 50, backgroundColor: colors.card, borderRadius: 25, borderWidth: 1.5,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14, gap: 10,
   },
   input: { flex: 1, fontSize: 16, color: colors.ink },
@@ -164,14 +172,14 @@ const styles = StyleSheet.create({
   edit: { fontSize: 16, fontWeight: '700', color: colors.accent },
   recent: { width: 78 },
   recentImg: {
-    width: 78, height: 78, borderRadius: 16, borderWidth: 1, borderColor: '#DADDE2', backgroundColor: colors.mist,
+    width: 78, height: 78, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, backgroundColor: colors.mist,
     overflow: 'hidden', alignItems: 'center', justifyContent: 'center',
   },
   remove: { position: 'absolute', top: 4, right: 4, width: 20, height: 20, borderRadius: 10, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center' },
   recentText: { fontSize: 13.5, color: colors.ink, marginTop: 6, lineHeight: 18 },
-  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: '#FFF4D6', borderRadius: 22 },
+  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: colors.beige, borderRadius: 22 },
   storesTitle: { fontSize: 20, fontWeight: '800', color: colors.ink, paddingHorizontal: 16, marginBottom: 14 },
-  store: { width: 118, backgroundColor: colors.white, borderRadius: 16, padding: 8, alignItems: 'center' },
+  store: { width: 118, backgroundColor: colors.card, borderRadius: 16, padding: 8, alignItems: 'center' },
   storeImg: { width: 102, height: 102, borderRadius: 12, backgroundColor: colors.mist },
   storeText: { fontSize: 13.5, fontWeight: '700', color: colors.ink, marginTop: 8 },
   trend: { width: 150 },

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { View, Platform } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { View, Platform, Animated, Easing, AccessibilityInfo } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
@@ -9,37 +9,66 @@ import Splash from './src/components/Splash';
 import { loadBrandFonts } from './src/config/fonts';
 import { colors } from './src/theme';
 
+const isWeb = Platform.OS === 'web';
+
 // Web: focus outline hatao + liquid-glass surfaces par asli background blur
-if (Platform.OS === 'web' && typeof document !== 'undefined') {
+if (isWeb && typeof document !== 'undefined') {
   const st = document.createElement('style');
   st.textContent = [
     'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }',
-    '[data-glass="1"] { -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%); }',
+    '[data-glass="1"] { -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); }',
+    'html, body { background: #F8F3E7; overflow-x: hidden; }',
   ].join('\n');
   document.head.appendChild(st);
 }
 
 const navTheme = {
   ...DefaultTheme,
-  colors: { ...DefaultTheme.colors, background: colors.page, primary: colors.accent, card: colors.white, text: colors.black },
+  colors: { ...DefaultTheme.colors, background: colors.page, primary: colors.olive, card: colors.cream, text: colors.espresso, border: colors.border },
 };
 
-const MIN_SPLASH = 1100; // brand moment — itna hi, zyada wait nahi
-const MAX_WAIT = 2500; // font slow ho to bhi app khul jaye
+// Intro timing
+// - First visit (and every cold start on phone): full branded intro, 3.4 s minimum
+// - Refresh within the same browser session: short intro (no full replay)
+// - Reduced motion: short, no scale/slide motion
+// - Never closes before the app is actually ready; never infinite (fonts give up after MAX_WAIT)
+const FULL_INTRO = 3400;
+const SHORT_INTRO = 1200;
+const MAX_WAIT = 6000;
+const SESSION_KEY = 'thousands_intro_seen';
+
+function introSeenThisSession() {
+  if (!isWeb) return false;
+  try { return window.sessionStorage.getItem(SESSION_KEY) === '1'; } catch { return false; }
+}
 
 export default function App() {
   const [fontsDone, setFontsDone] = useState(false);
-  const [minDone, setMinDone] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+  const [minDuration] = useState(() => (introSeenThisSession() ? SHORT_INTRO : FULL_INTRO));
+  const reveal = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     loadBrandFonts().finally(() => setFontsDone(true));
-    const a = setTimeout(() => setFontsDone(true), MAX_WAIT);
-    const b = setTimeout(() => setMinDone(true), MIN_SPLASH);
-    return () => { clearTimeout(a); clearTimeout(b); };
+    const t = setTimeout(() => setFontsDone(true), MAX_WAIT);
+    AccessibilityInfo.isReduceMotionEnabled?.().then((v) => setReducedMotion(!!v)).catch(() => {});
+    return () => clearTimeout(t);
   }, []);
 
-  const hideSplash = useCallback(() => setShowSplash(false), []);
+  // Homepage reveal: soft fade + slight scale-up, starts as the loader hands off
+  const onReveal = useCallback(() => {
+    Animated.timing(reveal, { toValue: 1, duration: reducedMotion ? 150 : 620, easing: Easing.out(Easing.cubic), useNativeDriver: !isWeb }).start();
+  }, [reveal, reducedMotion]);
+
+  const onFinish = useCallback(() => {
+    setShowSplash(false);
+    if (isWeb) {
+      try { window.sessionStorage.setItem(SESSION_KEY, '1'); } catch { /* storage unavailable */ }
+    }
+  }, []);
+
+  const appScale = reveal.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 1 : 0.975, 1] });
 
   const app = (
     <SafeAreaProvider>
@@ -52,22 +81,25 @@ export default function App() {
     </SafeAreaProvider>
   );
 
-  // App splash ke neeche mount hota hai, taaki fade-out ke baad turant ready ho
   const body = (
-    <View style={{ flex: 1 }}>
-      {fontsDone ? app : null}
-      {showSplash ? <Splash done={fontsDone && minDone} onFinish={hideSplash} /> : null}
+    <View style={{ flex: 1, backgroundColor: colors.ivory }}>
+      {fontsDone ? (
+        <Animated.View style={{ flex: 1, opacity: showSplash ? reveal : 1, transform: [{ scale: showSplash ? appScale : 1 }] }}>{app}</Animated.View>
+      ) : null}
+      {showSplash ? (
+        <Splash ready={fontsDone} minDuration={reducedMotion ? SHORT_INTRO : minDuration} reducedMotion={reducedMotion} onReveal={onReveal} onFinish={onFinish} />
+      ) : null}
     </View>
   );
 
-  // Web (Vercel): phone-width frame
-  if (Platform.OS === 'web') {
+  // Web (Vercel): mobile-first frame, centred on tablets / desktop
+  if (isWeb) {
     return (
-      <View style={{ flex: 1, backgroundColor: '#EFE8D8', alignItems: 'center' }}>
+      <View style={{ flex: 1, backgroundColor: '#EFE6D2', alignItems: 'center' }}>
         <View
           style={{
-            flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.page,
-            shadowColor: '#3B2F00', shadowOpacity: 0.12, shadowRadius: 40, shadowOffset: { width: 0, height: 0 },
+            flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.ivory,
+            shadowColor: '#302719', shadowOpacity: 0.14, shadowRadius: 40, shadowOffset: { width: 0, height: 0 },
           }}
         >
           {body}

@@ -43,7 +43,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
           <Glass tint="cream" radius={28} style={styles.card}>
             <ImageBackground source={{ uri: offer.image }} style={styles.banner} imageStyle={{ borderRadius: 22 }}>
               <View style={styles.bannerShade} />
-              <Text style={calli(30, '#FFE7A3')}>{offer.calligraphy}</Text>
+              <Text style={calli(30, colors.cream)}>{offer.calligraphy}</Text>
               <Text style={styles.bannerTitle}>{offer.title}</Text>
             </ImageBackground>
             <Pressable style={styles.close} onPress={() => close()} hitSlop={10} accessibilityLabel="Close">
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: 'absolute', top: 20, right: 20, width: 32, height: 32, borderRadius: 16,
     backgroundColor: 'rgba(255,255,255,0.9)', alignItems: 'center', justifyContent: 'center',
   },
-  sub: { fontSize: 14, color: '#4E4530', textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
+  sub: { fontSize: 14, color: colors.muted, textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
   code: {
     alignItems: 'center', marginTop: 14, paddingVertical: 12, borderRadius: 16, borderWidth: 1.5,
     borderStyle: 'dashed', borderColor: colors.gold, backgroundColor: 'rgba(255,255,255,0.6)',

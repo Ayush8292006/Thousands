@@ -47,7 +47,7 @@ export default function OrdersScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, padding: 14, marginBottom: 10 },
+  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, padding: 14, marginBottom: 10 },
   dot: { width: 8, height: 8, borderRadius: 12, marginRight: 6 },
   status: { fontSize: 13, fontWeight: '800', flex: 1 },
   title: { fontSize: 13, color: colors.ink, marginTop: 4 },

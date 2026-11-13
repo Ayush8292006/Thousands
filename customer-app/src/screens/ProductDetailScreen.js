@@ -68,7 +68,7 @@ export default function ProductDetailScreen({ route, navigation }) {
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         {/* Gallery */}
-        <View style={{ backgroundColor: colors.white }}>
+        <View style={{ backgroundColor: colors.card }}>
           {media === 'photos' ? (
             <ScrollView
               horizontal
@@ -250,7 +250,7 @@ export default function ProductDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   galleryActions: { position: 'absolute', top: 26, right: 26, gap: 10 },
   roundBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border },
+    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border },
   dots: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8 },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.border, marginHorizontal: 3 },
   dotOn: { backgroundColor: colors.black, width: 16 },
@@ -288,6 +288,6 @@ const styles = StyleSheet.create({
   reviewText: { fontSize: 13, color: colors.ink, marginVertical: 6, lineHeight: 18 },
   bottom: {
     position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', gap: 10,
-    backgroundColor: colors.white, paddingHorizontal: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.border,
+    backgroundColor: colors.card, paddingHorizontal: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.border,
   },
 });

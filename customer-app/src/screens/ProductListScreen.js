@@ -96,7 +96,7 @@ export default function ProductListScreen({ route, navigation }) {
   const clearAll = () => { setBrands([]); setMinRating(0); setPrice('all'); setSort('relevance'); setAssured(false); setFast(false); };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.card }}>
       <StatusBar style="dark" />
       <GlossHeader style={[styles.bar, { paddingTop: insets.top + 10 }]} shine={false}>
         <Pressable onPress={() => navigation.goBack()} hitSlop={10} accessibilityLabel="Back">
@@ -161,25 +161,25 @@ export default function ProductListScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   bar: { overflow: 'hidden', borderBottomWidth: 1, borderBottomColor: colors.headerLine, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingBottom: 14 },
   search: {
-    flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.white,
+    flex: 1, height: 48, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: colors.card,
     borderRadius: 14, borderWidth: 1, borderColor: colors.headerLine, paddingHorizontal: 14,
   },
   searchText: { flex: 1, fontSize: 15.5, color: colors.ink },
   badge: {
     position: 'absolute', top: -7, right: -9, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4,
-    backgroundColor: '#E53935', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: colors.header,
+    backgroundColor: colors.terracotta, alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: colors.header,
   },
   badgeText: { color: colors.white, fontSize: 10, fontWeight: '700' },
   pills: { gap: 10, paddingHorizontal: 16, paddingVertical: 14 },
   pill: {
     flexDirection: 'row', alignItems: 'center', gap: 8, height: 44, paddingHorizontal: 14, borderRadius: 14,
-    borderWidth: 1.5, borderColor: '#D3D7DD', backgroundColor: colors.white,
+    borderWidth: 1.5, borderColor: colors.beige, backgroundColor: colors.card,
   },
   pillOn: { borderColor: colors.accent, backgroundColor: colors.accentSoft },
   pillText: { fontSize: 14.5, color: colors.ink },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
-  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20, paddingTop: 10 },
-  handle: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: '#D3D7DD', marginBottom: 8 },
+  sheet: { backgroundColor: colors.card, borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20, paddingTop: 10 },
+  handle: { alignSelf: 'center', width: 40, height: 4, borderRadius: 2, backgroundColor: colors.beige, marginBottom: 8 },
   fHead: { fontSize: 15, fontWeight: '800', color: colors.ink, marginTop: 14, marginBottom: 2 },
   opt: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 11 },
   optText: { fontSize: 14.5, color: colors.ink },

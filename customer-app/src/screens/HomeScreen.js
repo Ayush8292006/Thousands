@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet, Image, Animated, useWindowDimensions } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, Image, Animated, Easing, Platform, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useIsFocused } from '@react-navigation/native';
@@ -16,6 +16,8 @@ import OfferPopup from '../components/OfferPopup';
 import { calli } from '../config/fonts';
 import Shine from '../components/Shine';
 import PressScale from '../components/PressScale';
+import CategoryChip from '../components/CategoryChip';
+import LocationDropdown from '../components/LocationDropdown';
 import { colors, TAB_BAR_SPACE } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
@@ -59,7 +61,7 @@ function SecHead({ title, kicker, onAll }) {
   return (
     <View style={styles.secHead}>
       <View>
-        {kicker ? <Text style={calli(14, colors.gold)}>{kicker}</Text> : null}
+        {kicker ? <Text style={calli(14, colors.olive)}>{kicker}</Text> : null}
         <Text style={styles.secTitle}>{title}</Text>
       </View>
       {onAll ? (
@@ -80,6 +82,15 @@ export default function HomeScreen({ navigation }) {
   const [banners, setBanners] = useState([]);
   const [all, setAll] = useState([]);
   const [tab, setTab] = useState('foryou');
+  const [locOpen, setLocOpen] = useState(false);
+  // Logo entrance + search press feedback
+  const enter = useRef(new Animated.Value(0)).current;
+  const searchPress = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    Animated.timing(enter, { toValue: 1, duration: 700, delay: 150, easing: Easing.out(Easing.cubic), useNativeDriver: Platform.OS !== 'web' }).start();
+  }, [enter]);
+  const logoScale = enter.interpolate({ inputRange: [0, 1], outputRange: [0.85, 1] });
+  const pressSearch = (v) => Animated.spring(searchPress, { toValue: v, friction: 6, tension: 220, useNativeDriver: Platform.OS !== 'web' }).start();
   const scrollY = useRef(new Animated.Value(0)).current;
   const { height: vh } = useWindowDimensions();
   const [contentY, setContentY] = useState(null);
@@ -135,42 +146,49 @@ export default function HomeScreen({ navigation }) {
         {/* 0: top area */}
         <GlossHeader style={[styles.top, { paddingTop: insets.top + 10 }]}>
           <Animated.View style={{ opacity: tilesFade, transform: [{ translateY: tilesShift }] }}>
-            <Glass tint="light" radius={22} style={styles.navCapsule}>
-              <View style={styles.brandBlock}>
-                <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
+            <Glass tint="rgba(255, 253, 246, 0.82)" radius={24} style={styles.navCapsule}>
+              <Animated.View style={[styles.brandBlock, { opacity: enter, transform: [{ scale: logoScale }] }]}>
+                <View style={styles.logoRing}>
+                  <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
+                </View>
                 <Text style={styles.brandName}>{BRAND.name}</Text>
-              </View>
+              </Animated.View>
               <View style={styles.navDivider} />
-              <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
+              <PressScale scaleTo={0.98} style={styles.deliver} onPress={() => setLocOpen(true)} accessibilityLabel="Change delivery address">
+                <View style={styles.pinDot}><Ionicons name="location" size={15} color={colors.olive} /></View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.deliverLabel}>Deliver to</Text>
                   <Text style={styles.deliverStrong} numberOfLines={1}>
                     {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select address'}
                   </Text>
                 </View>
-                <View style={styles.pinDot}><Ionicons name="location" size={14} color={colors.white} /></View>
-              </Pressable>
+                <Ionicons name={locOpen ? 'chevron-up' : 'chevron-down'} size={16} color={colors.olive} />
+              </PressScale>
             </Glass>
           </Animated.View>
         </GlossHeader>
 
         {/* 1: sticky category tabs */}
         <Glass tint="cream" radius={0} highlight={false} style={styles.tabsWrap}>
-          <Glass tint="light" radius={22} style={styles.search}>
-            <Pressable style={styles.searchInner} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
-              <Ionicons name="search" size={18} color={colors.ink} />
+          <Animated.View style={[styles.search, { transform: [{ scale: searchPress }] }]}>
+            <Pressable
+              style={styles.searchInner}
+              onPress={() => navigation.navigate('Search')}
+              onPressIn={() => pressSearch(0.98)}
+              onPressOut={() => pressSearch(1)}
+              accessibilityLabel="Search"
+            >
+              <Ionicons name="search-outline" size={19} color={colors.olive} />
               <Text style={styles.searchText}>Search for products</Text>
-              <Ionicons name="mic-outline" size={18} color={colors.muted} />
+              <View style={styles.searchSep} />
+              <Ionicons name="mic-outline" size={19} color={colors.olive} />
             </Pressable>
-          </Glass>
+          </Animated.View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 12, gap: 8, paddingBottom: 10 }}>
             {tabs.map((t) => {
               const on = tab === t.id;
               return (
-                <Pressable key={t.id} style={[styles.tab, on && styles.tabOn]} onPress={() => setTab(t.id)} accessibilityState={{ selected: on }}>
-                  <Ionicons name={t.icon} size={15} color={on ? colors.white : '#5E5643'} />
-                  <Text style={[styles.tabText, on && styles.tabTextOn]} numberOfLines={1}>{t.name}</Text>
-                </Pressable>
+                <CategoryChip key={t.id} icon={t.icon} label={t.name} active={on} onPress={() => setTab(t.id)} />
               );
             })}
           </ScrollView>
@@ -190,7 +208,7 @@ export default function HomeScreen({ navigation }) {
           <Pressable style={({ pressed }) => [styles.offer, pressed && { opacity: 0.9 }]} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
             <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.accent} /></View>
             <View style={{ flex: 1 }}>
-              <Text style={calli(14, colors.gold)}>Mega savings</Text>
+              <Text style={calli(14, colors.olive)}>Mega savings</Text>
               <Text style={styles.offerTitle}>The Big Thousand Days are live</Text>
               <Text style={styles.offerSub}>Top brands at their lowest prices</Text>
             </View>
@@ -230,7 +248,7 @@ export default function HomeScreen({ navigation }) {
             <Reveal {...R} style={{ marginTop: 18 }}>
               <View style={styles.secHead}>
                 <View>
-                  <Text style={calli(14, colors.gold)}>Today's picks</Text>
+                  <Text style={calli(14, colors.olive)}>Today's picks</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Text style={styles.secTitle}>Deals of the Day</Text>
                     <DealTimer />
@@ -271,6 +289,8 @@ export default function HomeScreen({ navigation }) {
         </View>
       </Animated.ScrollView>
 
+      <LocationDropdown visible={locOpen} onClose={() => setLocOpen(false)} onManage={() => navigation.navigate('Addresses')} top={76} />
+
       <OfferPopup
         offer={banners[0] ? {
           image: banners[0].image,
@@ -287,39 +307,47 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   top: { paddingHorizontal: 14, paddingBottom: 10, overflow: 'hidden' },
-  navCapsule: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, paddingHorizontal: 12 },
-  brandBlock: { alignItems: 'center', minWidth: 70 },
-  brandLogo: { width: 24, height: 26 },
-  brandName: { fontSize: 12, fontWeight: '800', fontStyle: 'italic', color: colors.olive, marginTop: 1 },
-  navDivider: { width: 1, height: 30, backgroundColor: 'rgba(90, 75, 2, 0.15)', marginHorizontal: 12 },
-  deliver: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 },
-  pinDot: { width: 30, height: 30, borderRadius: 15, backgroundColor: colors.olive, alignItems: 'center', justifyContent: 'center' },
-  deliverLabel: { fontSize: 10.5, color: colors.headerMuted },
-  deliverStrong: { fontSize: 13, color: colors.ink, fontWeight: '700', marginTop: 1 },
-  search: { marginHorizontal: 14, marginTop: 8, marginBottom: 10 },
-  searchInner: { flexDirection: 'row', alignItems: 'center', gap: 10, height: 42, paddingHorizontal: 14 },
-  searchText: { flex: 1, fontSize: 14, color: colors.muted },
-  tabsWrap: { borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
-  tab: {
-    flexDirection: 'row', alignItems: 'center', gap: 6, height: 34, paddingHorizontal: 12, borderRadius: 17,
-    backgroundColor: 'rgba(255,255,255,0.7)', borderWidth: 1, borderColor: 'rgba(230, 220, 194, 0.9)',
+  navCapsule: {
+    flexDirection: 'row', alignItems: 'center', paddingVertical: 8, paddingHorizontal: 12, borderColor: 'rgba(214, 180, 92, 0.45)',
+    shadowColor: '#302719', shadowOpacity: 0.08, shadowRadius: 16, shadowOffset: { width: 0, height: 6 }, elevation: 4,
   },
-  tabOn: { backgroundColor: colors.olive, borderColor: colors.olive },
-  tabText: { fontSize: 12.5, color: '#5E5643', fontWeight: '600' },
-  tabTextOn: { color: colors.white, fontWeight: '700' },
+  brandBlock: { alignItems: 'center', minWidth: 72 },
+  logoRing: {
+    width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: colors.cream, borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.7)',
+  },
+  brandLogo: { width: 22, height: 24 },
+  brandName: { fontSize: 11.5, fontWeight: '800', fontStyle: 'italic', color: colors.olive, marginTop: 3, letterSpacing: 0.3 },
+  navDivider: { width: 1, height: 34, backgroundColor: colors.beige, marginHorizontal: 12 },
+  deliver: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  pinDot: {
+    width: 34, height: 34, borderRadius: 17, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(214, 180, 92, 0.25)', borderWidth: 1.5, borderColor: colors.gold,
+  },
+  deliverLabel: { fontSize: 10.5, color: colors.muted, letterSpacing: 0.3 },
+  deliverStrong: { fontSize: 13.5, color: colors.espresso, fontWeight: '700', marginTop: 1 },
+  search: {
+    marginHorizontal: 14, marginTop: 8, marginBottom: 10, borderRadius: 24, backgroundColor: colors.cream,
+    borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.7)',
+    shadowColor: '#625000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 3,
+  },
+  searchInner: { flexDirection: 'row', alignItems: 'center', gap: 10, height: 44, paddingHorizontal: 16 },
+  searchText: { flex: 1, fontSize: 14, color: colors.muted },
+  searchSep: { width: 1, height: 20, backgroundColor: colors.beige },
+  tabsWrap: { borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
   offer: {
     overflow: 'hidden',
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
-    backgroundColor: '#FFF1DA', borderRadius: 18,
+    backgroundColor: colors.beige, borderRadius: 18,
   },
-  offerIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  offerTitle: { fontSize: 13, fontWeight: '800', color: '#4A3200' },
-  offerSub: { fontSize: 11.5, color: '#7A6440', marginTop: 2 },
-  offerBadge: { backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
+  offerIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center' },
+  offerTitle: { fontSize: 13, fontWeight: '800', color: colors.espresso },
+  offerSub: { fontSize: 11.5, color: colors.muted, marginTop: 2 },
+  offerBadge: { backgroundColor: colors.terracotta, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
   offerBadgeText: { color: colors.white, fontSize: 11.5, fontWeight: '700' },
-  looking: { marginHorizontal: 16, marginTop: 16, paddingVertical: 14, backgroundColor: '#FFF4D6', borderRadius: 22 },
+  looking: { marginHorizontal: 16, marginTop: 16, paddingVertical: 14, backgroundColor: colors.beige, borderRadius: 22 },
   lookingTitle: { fontSize: 15.5, fontWeight: '800', color: colors.ink, paddingHorizontal: 14, marginBottom: 10 },
-  lookCard: { backgroundColor: colors.white, borderRadius: 14, padding: 6 },
+  lookCard: { backgroundColor: colors.card, borderRadius: 14, padding: 6 },
   lookSub: { fontSize: 12, color: colors.muted, marginTop: 8 },
   lookPrice: { fontSize: 13.5, fontWeight: '800', color: colors.ink, marginTop: 1 },
   trio: { flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginTop: 16 },
@@ -328,10 +356,10 @@ const styles = StyleSheet.create({
   secHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, marginBottom: 10 },
   secTitle: { fontSize: 17, fontWeight: '800', color: colors.ink },
   arrowBtn: { width: 44, height: 30, borderRadius: 15, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
-  timer: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#FDECEF', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
+  timer: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#F6E3DA', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   timerText: { fontSize: 12, fontWeight: '700', color: colors.sale },
-  dealCard: { width: 112, backgroundColor: colors.white, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 7 },
+  dealCard: { width: 112, backgroundColor: colors.card, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 7 },
   dealName: { fontSize: 12, color: colors.ink, marginTop: 8, textAlign: 'center' },
-  dealOff: { fontSize: 12, fontWeight: '800', color: colors.success, textAlign: 'center', marginTop: 2 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#DADDE2' },
+  dealOff: { fontSize: 12, fontWeight: '800', color: colors.terracotta, textAlign: 'center', marginTop: 2 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: StyleSheet.hairlineWidth, borderColor: colors.beige },
 });

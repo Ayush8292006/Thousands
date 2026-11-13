@@ -8,7 +8,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
   const isPrimary = variant === 'primary';
   const isGold = variant === 'gold';
   const bg = isPrimary ? colors.olive : isGold ? colors.accent : colors.white;
-  const fg = isPrimary || isGold ? colors.white : colors.black;
+  const fg = isPrimary || isGold ? colors.cream : colors.espresso;
   return (
     <Pressable
       onPress={onPress}
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   chip: {
     paddingHorizontal: 14, paddingVertical: 8, borderRadius: radius.pill,
-    borderWidth: 1, borderColor: colors.border, backgroundColor: colors.white, marginRight: 8,
+    borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, marginRight: 8,
   },
   chipActive: { backgroundColor: colors.black, borderColor: colors.black },
   chipText: { fontSize: 13, fontWeight: '600', color: colors.ink },

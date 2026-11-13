@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
   art: { width: TILE, height: TILE, borderRadius: 16, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   allBg: { backgroundColor: colors.accentSoft },
   allGrid: { width: 38, flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  allCell: { width: 17, height: 17, borderRadius: 6, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  offerBg: { backgroundColor: '#FFF1E6' },
-  offerBig: { fontSize: 14, fontWeight: '800', color: '#E2560B' },
-  offerSmall: { fontSize: 9, fontWeight: '700', color: '#E2560B', letterSpacing: 1.2 },
+  allCell: { width: 17, height: 17, borderRadius: 6, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center' },
+  offerBg: { backgroundColor: colors.beige },
+  offerBig: { fontSize: 14, fontWeight: '800', color: colors.terracotta },
+  offerSmall: { fontSize: 9, fontWeight: '700', color: colors.terracotta, letterSpacing: 1.2 },
   label: { fontSize: 11, color: colors.ink, marginTop: 6, maxWidth: TILE + 8, textAlign: 'center' },
 });

@@ -1,36 +1,42 @@
-// Thousands design tokens
-// Identity: logo ka double-line "T" -> double-stroke outlines (search, active
-// states, brand rings). Pure black & white + ek bold ultramarine signal colour.
-// Display type: Plus Jakarta Sans (headings, prices, wordmark). Body: system font.
+// Thousands design tokens — Royal Indian Luxury
 
+// ROYAL INDIAN LUXURY palette
+// Warm Ivory #F8F3E7 · Soft Beige #EDE2C8 · Champagne Gold #D6B45C · Royal Olive #625000
+// Espresso Brown #302719 · Terracotta #A85E43 · Pure Cream #FFFDF6
 export const colors = {
-  header: '#F6F0E1', // champagne ivory — logo ke cream background se match
-  headerGradient: ['#FFFCF2', '#F7EFDA', '#EEE2C3'], // glossy champagne (top → bottom)
-  headerMuted: '#8A7F66', // header par secondary text / icons
-  headerLine: '#E6DCC2', // header ke borders / dividers
-  gold: '#B8920A', // logo gold — active state
-  olive: '#5A4B02', // logo ka dark olive — brand name
-  page: '#FAF7F0', // home content background (warm ivory)
-  black: '#1F1B16', // rich charcoal (primary text / dark surfaces)
-  ink: '#26221B', // charcoal body text
+  ivory: '#F8F3E7', // main background
+  beige: '#EDE2C8', // secondary surfaces / borders
+  gold: '#D6B45C', // champagne gold — premium highlights
+  olive: '#625000', // royal olive — primary buttons & active states
+  espresso: '#302719', // text & headings
+  terracotta: '#A85E43', // offers & discount accents
+  cream: '#FFFDF6', // cards & glass surfaces
+
+  header: '#F8F3E7',
+  headerGradient: ['#FFFDF6', '#F8F3E7', '#F3EAD6'], // very subtle ivory wash
+  headerMuted: '#7D7058',
+  headerLine: '#EDE2C8',
+  page: '#F8F3E7',
+  black: '#302719',
+  ink: '#302719',
   white: '#FFFFFF',
-  bg: '#FAF7F0', // warm ivory inner pages
-  mist: '#F4EEDF', // warm surface (inputs, image backdrops)
-  soft: '#F4EEDF',
-  card: '#FFFFFF',
-  border: '#ECE3CC', // refined warm border
-  muted: '#6E6658', // warm grey
-  faint: '#A59D8C',
-  accent: '#9A7300', // logo gold-brown
-  accentDark: '#7A5A00',
-  accentSoft: '#FBF1CF',
-  sale: '#C8323B',
-  success: '#0F9D58',
-  successSoft: '#E3F5EC',
-  danger: '#D32F2F',
-  yellow: '#FFB800',
-  dealSoft: '#F4F9FF',
-  dealInk: '#172B45',
+  bg: '#F8F3E7',
+  mist: '#F3EBD8',
+  soft: '#F3EBD8',
+  card: '#FFFDF6',
+  border: '#EDE2C8',
+  muted: '#7D7058',
+  faint: '#A99D84',
+  accent: '#625000',
+  accentDark: '#4A3C00',
+  accentSoft: '#EDE2C8',
+  sale: '#A85E43',
+  success: '#3E7B4F',
+  successSoft: '#E6F0E3',
+  danger: '#B3402F',
+  yellow: '#D6B45C',
+  dealSoft: '#F8F3E7',
+  dealInk: '#302719',
 };
 
 // Premium Light Blue Palette (Homepage Aesthetic)
@@ -80,4 +86,4 @@ export const shadow = {
 export const TAB_BAR_SPACE = 96; // floating glass tab bar ke liye content ke neeche jagah
 
 // Soft light-blue and ice-blue backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#FBF1DC', '#F6EAD3', '#FFF4E0', '#F3EDE0', '#F8EFD9', '#FFF7E6', '#F1E9D6', '#F7F1E4'];
+export const pastels = ['#F3EBD8', '#EDE2C8', '#F6EEDC', '#F1E7D1', '#F4ECDA', '#EFE5CD', '#F5EDDB', '#F2E9D4'];

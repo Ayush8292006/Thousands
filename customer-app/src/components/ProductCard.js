@@ -72,14 +72,14 @@ function formatCount(n) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.white, borderRadius: 12, borderWidth: 1, borderColor: colors.border, padding: 8 },
+  card: { backgroundColor: colors.card, borderRadius: 12, borderWidth: 1, borderColor: colors.border, padding: 8 },
   heart: {
     position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 12,
-    backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center',
   },
   assured: {
     position: 'absolute', bottom: 6, left: 6, flexDirection: 'row', alignItems: 'center',
-    backgroundColor: colors.white, borderRadius: 12, paddingHorizontal: 5, paddingVertical: 2,
+    backgroundColor: colors.card, borderRadius: 12, paddingHorizontal: 5, paddingVertical: 2,
   },
   assuredText: { fontSize: 9, fontWeight: '700', color: colors.accent, marginLeft: 2 },
   body: { paddingTop: 8, paddingHorizontal: 2 },

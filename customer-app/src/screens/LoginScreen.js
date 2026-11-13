@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   brand: { color: colors.olive, fontSize: 30, fontWeight: '800', fontStyle: 'italic', marginTop: 2 },
   tag: { color: colors.headerMuted, marginTop: 6, fontSize: 13 },
   sheet: {
-    backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24,
+    backgroundColor: colors.card, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24,
     shadowColor: '#3B2F00', shadowOpacity: 0.1, shadowRadius: 20, shadowOffset: { width: 0, height: -4 }, elevation: 10,
   },
   inputRow: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   cc: { fontSize: 16, fontWeight: '700', marginRight: 4, color: colors.black },
   divider: { width: 1, height: 26, backgroundColor: colors.border, marginHorizontal: 10 },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.45)' },
-  picker: { backgroundColor: colors.white, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20, maxHeight: '75%' },
+  picker: { backgroundColor: colors.card, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20, maxHeight: '75%' },
   searchRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.mist, borderRadius: 12, paddingHorizontal: 12, height: 44, marginBottom: 8 },
   searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: colors.black },
   countryRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 13, borderBottomWidth: 1, borderBottomColor: colors.border },
