@@ -75,7 +75,7 @@ export default function TabBar({ state, navigation }) {
 
   return (
     <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]} pointerEvents="box-none">
-      <Glass tint="rgba(255, 253, 246, 0.76)" blur="nav" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
+      <Glass tint="rgba(236, 214, 150, 0.14)" blur="clear" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
         {itemW ? (
           <Animated.View pointerEvents="none" style={[styles.indicator, { width: itemW, transform: [{ translateX }] }]}>
             <View style={styles.indicatorInner}>
@@ -104,7 +104,7 @@ export default function TabBar({ state, navigation }) {
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: 14, paddingTop: 6 },
   bar: {
-    flexDirection: 'row', padding: PAD, borderColor: 'rgba(255, 255, 255, 0.9)', borderBottomColor: 'rgba(214, 180, 92, 0.6)',
+    flexDirection: 'row', padding: PAD, borderColor: 'rgba(255, 255, 255, 0.95)', borderBottomColor: 'rgba(214, 180, 92, 0.7)',
     shadowColor: '#302719', shadowOpacity: 0.16, shadowRadius: 24, shadowOffset: { width: 0, height: 10 }, elevation: 12,
   },
   indicator: { position: 'absolute', top: PAD, bottom: PAD, left: PAD, paddingHorizontal: 3 },
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.6)',
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 7 },
-  label: { fontSize: 10.5, color: colors.espresso, marginTop: 2, fontWeight: '600' },
+  label: { fontSize: 10.5, color: colors.espresso, marginTop: 2, fontWeight: '700', textShadowColor: 'rgba(255,255,255,0.9)', textShadowRadius: 3, textShadowOffset: { width: 0, height: 0 } },
   labelOn: { color: colors.cream, fontWeight: '700' },
   badge: {
     position: 'absolute', top: -6, right: -12, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4,

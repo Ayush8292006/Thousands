@@ -15,8 +15,8 @@ const TINTS = {
   dark: 'rgba(30, 26, 14, 0.45)',
 };
 
-function withFallback(c) {
-  if (isWeb) return c;
+function withFallback(c, blur) {
+  if (isWeb || blur === 'clear') return c;
   const m = /rgba\(([^)]+)\)/.exec(c || '');
   if (!m) return c;
   const p = m[1].split(',').map((x) => x.trim());
@@ -25,7 +25,7 @@ function withFallback(c) {
 }
 
 export default function Glass({ style, children, tint = 'light', radius = 24, highlight = true, blur = 'soft', ...rest }) {
-  const bg = withFallback(TINTS[tint] || tint);
+  const bg = withFallback(TINTS[tint] || tint, blur);
   const inner = Math.max(0, radius - 1);
   return (
     <View {...rest} dataSet={isWeb ? { glass: blur } : undefined} style={[styles.base, { backgroundColor: bg, borderRadius: radius }, style]}>
