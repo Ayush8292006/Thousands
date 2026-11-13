@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { View, Animated, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme';
@@ -12,14 +12,18 @@ const native = Platform.OS !== 'web';
 function ProductImage({ product, size = 120, style, index = 0, rounded = 14, thumb = true, uri: forced, resizeMode = 'cover' }) {
   const [failed, setFailed] = useState(false);
   const uri = forced || (thumb && index === 0 ? product.thumb : product.images?.[index]) || product.images?.[0];
-  const seen = loaded.has(uri);
-  const v = useRef(new Animated.Value(seen ? 1 : 0)).current;
+  const v = useRef(new Animated.Value(loaded.has(uri) ? 1 : 0)).current;
 
+  const show = (ms) => Animated.timing(v, { toValue: 1, duration: ms, useNativeDriver: native }).start();
   const onLoad = () => {
-    if (loaded.has(uri)) return;
     loaded.add(uri);
-    Animated.timing(v, { toValue: 1, duration: 320, useNativeDriver: native }).start();
+    show(320);
   };
+  // Safety: agar kisi browser me onLoad event miss ho jaye, image phir bhi dikhe
+  useEffect(() => {
+    const t = setTimeout(() => show(200), 1800);
+    return () => clearTimeout(t);
+  }, [uri]); // eslint-disable-line react-hooks/exhaustive-deps
   const scale = v.interpolate({ inputRange: [0, 1], outputRange: [1.04, 1] });
 
   return (

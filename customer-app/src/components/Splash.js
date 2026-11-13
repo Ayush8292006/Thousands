@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Easing, StyleSheet, Platform } from 'react-native';
-import { calli } from '../config/fonts';
 import { BRAND } from '../config/app';
 import { colors } from '../theme';
 
@@ -54,7 +53,7 @@ export default function Splash({ ready, minDuration = 3400, reducedMotion = fals
   }, [ready, introDone, progress, out, onFinish, onReveal, reducedMotion]);
 
   const scale = logo.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 1 : 0.82, 1] });
-  const glowScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.6, 1] });
+  const glowScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1] });
   const rise = text.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 0 : 12, 0] });
   const lineW = progress.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] });
   const outScale = out.interpolate({ inputRange: [0, 1], outputRange: [1.04, 1] });
@@ -65,16 +64,24 @@ export default function Splash({ ready, minDuration = 3400, reducedMotion = fals
       pointerEvents={ready && introDone ? 'none' : 'auto'}
       accessibilityLabel={`Loading ${BRAND.name}, ${pct} percent`}
     >
-      {/* champagne-gold light behind the logo */}
-      <Animated.View style={[styles.glow, { opacity: glow, transform: [{ scale: glowScale }] }]} />
-      <Animated.View style={[styles.glowInner, { opacity: glow }]} />
+      {/* soft champagne-gold light behind the logo */}
+      <Animated.Image
+        source={require('../../assets/glow.png')}
+        style={[styles.glow, { opacity: glow, transform: [{ scale: glowScale }] }]}
+        resizeMode="contain"
+      />
 
-      <Animated.View style={[styles.logoRing, { opacity: logo, transform: [{ scale }] }]}>
+      <Animated.View style={{ alignItems: 'center', opacity: logo, transform: [{ scale }] }}>
         <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
       </Animated.View>
 
       <Animated.View style={{ alignItems: 'center', opacity: text, transform: [{ translateY: rise }] }}>
-        <Text style={[calli(30, colors.olive), { marginTop: 22 }]}>{BRAND.name}</Text>
+        <View style={styles.ornRow}>
+          <View style={styles.ornLine} />
+          <View style={styles.ornDot} />
+          <View style={styles.ornLine} />
+        </View>
+        <Text style={styles.word}>{BRAND.name.toUpperCase()}</Text>
         <Text style={styles.tagline}>{BRAND.tagline}</Text>
       </Animated.View>
 
@@ -90,17 +97,15 @@ export default function Splash({ ready, minDuration = 3400, reducedMotion = fals
 
 const styles = StyleSheet.create({
   fill: { backgroundColor: colors.ivory, alignItems: 'center', justifyContent: 'center', zIndex: 50 },
-  glow: { position: 'absolute', width: 320, height: 320, borderRadius: 160, backgroundColor: 'rgba(214, 180, 92, 0.16)' },
-  glowInner: { position: 'absolute', width: 190, height: 190, borderRadius: 95, backgroundColor: 'rgba(214, 180, 92, 0.18)' },
-  logoRing: {
-    width: 118, height: 118, borderRadius: 59, alignItems: 'center', justifyContent: 'center',
-    backgroundColor: colors.cream, borderWidth: 1.5, borderColor: 'rgba(214, 180, 92, 0.7)',
-    shadowColor: '#625000', shadowOpacity: 0.18, shadowRadius: 24, shadowOffset: { width: 0, height: 10 }, elevation: 10,
-  },
-  logo: { width: 64, height: 68 },
-  tagline: { fontSize: 13, color: colors.muted, marginTop: 4, letterSpacing: 0.3 },
-  bottom: { position: 'absolute', bottom: 84, alignItems: 'center' },
-  track: { width: 168, height: 2, borderRadius: 1, backgroundColor: 'rgba(98, 80, 0, 0.12)', overflow: 'hidden' },
+  glow: { position: 'absolute', width: 520, height: 520, marginTop: -120 },
+  logo: { width: 96, height: 102 },
+  ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 26 },
+  ornLine: { width: 44, height: 1, backgroundColor: colors.gold },
+  ornDot: { width: 6, height: 6, borderRadius: 1, backgroundColor: colors.gold, transform: [{ rotate: '45deg' }] },
+  word: { fontSize: 22, fontWeight: '700', color: colors.espresso, letterSpacing: 9, marginTop: 14, marginLeft: 9 },
+  tagline: { fontSize: 12.5, color: colors.muted, marginTop: 8, letterSpacing: 0.4, fontStyle: 'italic' },
+  bottom: { position: 'absolute', bottom: 72, alignItems: 'center' },
+  track: { width: 150, height: 2, borderRadius: 1, backgroundColor: 'rgba(98, 80, 0, 0.12)', overflow: 'hidden' },
   line: { height: 2, borderRadius: 1, backgroundColor: colors.gold },
-  pct: { marginTop: 10, fontSize: 12, fontWeight: '700', color: colors.olive, letterSpacing: 1.5 },
+  pct: { marginTop: 10, fontSize: 11, fontWeight: '700', color: colors.olive, letterSpacing: 2 },
 });
