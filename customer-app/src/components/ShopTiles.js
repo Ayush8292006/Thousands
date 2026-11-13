@@ -26,7 +26,7 @@ export const SHOP_TILES = [
   { key: 'sports', name: 'Sports', image: U('1591291621164-2c6367723315'), link: { category: 'sports', title: 'Sports' } },
 ];
 
-const TILE = 72;
+const TILE = 58;
 
 function Tile({ t, onPress }) {
   let art;
@@ -35,7 +35,7 @@ function Tile({ t, onPress }) {
       <View style={[styles.art, styles.allBg]}>
         <View style={styles.allGrid}>
           {['shirt', 'phone-portrait', 'home', 'sparkles'].map((ic) => (
-            <View key={ic} style={styles.allCell}><Ionicons name={ic} size={13} color={colors.accent} /></View>
+            <View key={ic} style={styles.allCell}><Ionicons name={ic} size={11} color={colors.accent} /></View>
           ))}
         </View>
       </View>
@@ -79,14 +79,14 @@ function ShopTiles({ navigation }) {
 export default memo(ShopTiles);
 
 const styles = StyleSheet.create({
-  wrap: { paddingTop: 16 },
-  tile: { width: TILE + 12, alignItems: 'center', marginBottom: 14 },
-  art: { width: TILE, height: TILE, borderRadius: 18, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
+  wrap: { paddingTop: 12 },
+  tile: { width: TILE + 12, alignItems: 'center', marginBottom: 10 },
+  art: { width: TILE, height: TILE, borderRadius: 16, backgroundColor: colors.mist, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
   allBg: { backgroundColor: colors.accentSoft },
-  allGrid: { width: 46, flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
-  allCell: { width: 21, height: 21, borderRadius: 6, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
+  allGrid: { width: 38, flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  allCell: { width: 17, height: 17, borderRadius: 6, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
   offerBg: { backgroundColor: '#FFF1E6' },
-  offerBig: { fontSize: 17, fontWeight: '800', color: '#E2560B' },
+  offerBig: { fontSize: 14, fontWeight: '800', color: '#E2560B' },
   offerSmall: { fontSize: 9, fontWeight: '700', color: '#E2560B', letterSpacing: 1.2 },
-  label: { fontSize: 12, color: colors.ink, marginTop: 6, maxWidth: TILE + 8, textAlign: 'center' },
+  label: { fontSize: 11, color: colors.ink, marginTop: 6, maxWidth: TILE + 8, textAlign: 'center' },
 });

@@ -57,7 +57,7 @@ export default function LoginScreen() {
         <View style={styles.logoRing}>
           <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
         </View>
-        <Text style={[calli(30, colors.olive), { marginTop: 16 }]}>स्वागत है</Text>
+        <Text style={[calli(28, colors.olive), { marginTop: 14 }]}>Welcome</Text>
         <Text style={styles.brand}>{BRAND.name}</Text>
         <Text style={styles.tag}>{BRAND.tagline}</Text>
       </LinearGradient>

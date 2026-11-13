@@ -5,7 +5,9 @@ import { calli } from '../config/fonts';
 import { colors } from '../theme';
 import Shine from './Shine';
 
-// Front page ka Indian calligraphy greeting card
+// Front page calligraphy greeting card (Indian hand-painted lettering style)
+const TAGS = ['Festive', 'Gifts', 'Specials'];
+
 export default function CalliBanner({ onPress }) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.wrap, pressed && { transform: [{ scale: 0.985 }] }]}>
@@ -15,20 +17,14 @@ export default function CalliBanner({ onPress }) {
           <Text style={styles.orn}>✦</Text>
           <View style={styles.line} />
         </View>
-        <Text style={[calli(38, colors.olive), styles.center]}>शुभ ख़रीदारी</Text>
-        <Text style={styles.en}>Happy shopping — festive savings on thousands of products</Text>
+        <Text style={[calli(28, colors.olive), styles.center]}>Happy Shopping</Text>
+        <Text style={styles.en}>Festive savings on thousands of products</Text>
         <View style={styles.tags}>
-          {['त्योहार', 'उपहार', 'सौगात'].map((w, i) => (
+          {TAGS.map((w) => (
             <View key={w} style={styles.tag}>
-              <Text style={calli(17, colors.gold)}>{w}</Text>
-              <Text style={styles.tagEn}>{['Festive', 'Gifts', 'Specials'][i]}</Text>
+              <Text style={calli(13, colors.gold)}>{w}</Text>
             </View>
           ))}
-        </View>
-        <View style={[styles.ornRow, { marginTop: 14 }]}>
-          <View style={styles.line} />
-          <Text style={styles.orn}>❖</Text>
-          <View style={styles.line} />
         </View>
         <Shine intensity={0.45} duration={1600} pause={4000} delay={400} />
       </LinearGradient>
@@ -37,17 +33,16 @@ export default function CalliBanner({ onPress }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { marginHorizontal: 16, marginTop: 20 },
-  card: { overflow: 'hidden', borderRadius: 24, paddingVertical: 18, paddingHorizontal: 18, borderWidth: 1, borderColor: '#EAD9A8' },
+  wrap: { marginHorizontal: 16, marginTop: 14 },
+  card: { overflow: 'hidden', borderRadius: 20, paddingVertical: 14, paddingHorizontal: 16, borderWidth: 1, borderColor: '#EAD9A8' },
   center: { textAlign: 'center' },
-  ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 },
+  ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 },
   line: { flex: 1, height: 1, backgroundColor: '#E2CC8C' },
-  orn: { color: colors.gold, fontSize: 14 },
-  en: { fontSize: 13, color: '#6B5E3C', textAlign: 'center', marginTop: 4 },
-  tags: { flexDirection: 'row', justifyContent: 'center', gap: 10, marginTop: 14 },
+  orn: { color: colors.gold, fontSize: 12 },
+  en: { fontSize: 12, color: '#6B5E3C', textAlign: 'center', marginTop: 2 },
+  tags: { flexDirection: 'row', justifyContent: 'center', gap: 8, marginTop: 10 },
   tag: {
-    alignItems: 'center', paddingHorizontal: 14, paddingVertical: 8, borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.7)', borderWidth: 1, borderColor: '#EAD9A8',
+    paddingHorizontal: 12, paddingVertical: 5, borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.75)', borderWidth: 1, borderColor: '#EAD9A8',
   },
-  tagEn: { fontSize: 10.5, color: colors.headerMuted, marginTop: 1, fontWeight: '600' },
 });

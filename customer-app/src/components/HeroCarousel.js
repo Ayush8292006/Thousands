@@ -8,7 +8,7 @@ import Shine from './Shine';
 export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
   const { width } = useAppWidth();
   const cardW = width - 32;
-  const height = Math.round(cardW * 0.48);
+  const height = Math.round(cardW * 0.4);
   const ref = useRef(null);
   const touching = useRef(false);
   const [index, setIndex] = useState(0);
@@ -29,7 +29,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
   if (!banners.length) return <View style={{ height: height + 22 }} />;
 
   return (
-    <View style={{ paddingTop: 12 }}>
+    <View style={{ paddingTop: 10 }}>
       <FlatList
         ref={ref}
         data={banners}
@@ -68,15 +68,15 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 20, overflow: 'hidden', backgroundColor: colors.mist },
+  card: { borderRadius: 18, overflow: 'hidden', backgroundColor: colors.mist },
   scrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(10, 20, 40, 0.38)' },
   content: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, maxWidth: '72%' },
-  kicker: { color: '#FFE27A', fontSize: 11, fontWeight: '800', letterSpacing: 0.6 },
-  title: { color: colors.white, fontSize: 22, fontWeight: '800', lineHeight: 26, marginTop: 4 },
-  sub: { color: 'rgba(255,255,255,0.9)', fontSize: 12.5, marginTop: 4 },
-  cta: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 999, paddingHorizontal: 14, paddingVertical: 7, marginTop: 12 },
-  ctaText: { fontSize: 12.5, fontWeight: '700', color: colors.ink },
-  dots: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 12 },
+  kicker: { color: '#FFE27A', fontSize: 10, fontWeight: '800', letterSpacing: 0.6 },
+  title: { color: colors.white, fontSize: 18, fontWeight: '800', lineHeight: 22, marginTop: 3 },
+  sub: { color: 'rgba(255,255,255,0.9)', fontSize: 11.5, marginTop: 3 },
+  cta: { alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6, marginTop: 9 },
+  ctaText: { fontSize: 11.5, fontWeight: '700', color: colors.ink },
+  dots: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 5, marginTop: 9 },
   dot: { width: 14, height: 4, borderRadius: 2, backgroundColor: '#D5D9DF' },
   dotOn: { width: 34, backgroundColor: colors.ink },
 });

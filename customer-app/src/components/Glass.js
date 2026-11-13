@@ -20,17 +20,19 @@ export default function Glass({ style, children, tint = 'light', radius = 24, hi
       {highlight ? (
         <LinearGradient
           pointerEvents="none"
-          colors={['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0)']}
-          locations={[0, 0.45, 1]}
+          colors={['rgba(255,255,255,0.9)', 'rgba(255,255,255,0.18)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0.12)']}
+          locations={[0, 0.42, 0.75, 1]}
           style={[StyleSheet.absoluteFill, { borderRadius: radius }]}
         />
       ) : null}
+      {highlight ? <View pointerEvents="none" style={[styles.specular, { borderTopLeftRadius: radius, borderTopRightRadius: radius }]} /> : null}
       {children}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  specular: { position: 'absolute', top: 0, left: 8, right: 8, height: 1.5, backgroundColor: 'rgba(255,255,255,0.95)' },
   base: {
     overflow: 'hidden',
     borderWidth: 1,

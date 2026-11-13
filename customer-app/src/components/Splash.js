@@ -39,7 +39,7 @@ export default function Splash({ done, onFinish }) {
           <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
         </Animated.View>
         <Animated.View style={{ alignItems: 'center', opacity: text, transform: [{ translateY: rise }] }}>
-          <Text style={[calli(34, colors.olive), { marginTop: 18 }]}>हज़ारों पसंद</Text>
+          <Text style={[calli(30, colors.olive), { marginTop: 18 }]}>Thousands of choices</Text>
           <Text style={styles.brand}>THOUSANDS</Text>
         </Animated.View>
         <View style={styles.track}>

@@ -32,7 +32,7 @@ export default function TabBar({ state, navigation }) {
             <Pressable key={route.key} onPress={onPress} style={styles.item} accessibilityRole="button" accessibilityState={{ selected: focused }} accessibilityLabel={route.name}>
               <View style={[styles.inner, focused && styles.innerOn]}>
                 <View>
-                  <Ionicons name={focused ? on : off} size={23} color={focused ? colors.accent : colors.ink} />
+                  <Ionicons name={focused ? on : off} size={21} color={focused ? colors.olive : colors.ink} />
                   {route.name === 'Cart' && cartCount > 0 ? (
                     <View style={styles.badge}><Text style={styles.badgeText}>{cartCount > 99 ? '99+' : cartCount}</Text></View>
                   ) : null}
@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
     padding: 5, shadowColor: '#000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 2 }, elevation: 6,
   },
   item: { flex: 1 },
-  inner: { alignItems: 'center', justifyContent: 'center', paddingVertical: 7, borderRadius: 28 },
+  inner: { alignItems: 'center', justifyContent: 'center', paddingVertical: 6, borderRadius: 26 },
   innerOn: { backgroundColor: 'rgba(184, 146, 10, 0.16)' },
-  label: { fontSize: 11.5, color: colors.ink, marginTop: 2 },
-  labelOn: { color: colors.accent, fontWeight: '700' },
+  label: { fontSize: 11, color: colors.ink, marginTop: 2 },
+  labelOn: { color: colors.olive, fontWeight: '700' },
   badge: {
     position: 'absolute', top: -6, right: -12, minWidth: 18, height: 18, borderRadius: 9, paddingHorizontal: 4,
     backgroundColor: '#E53935', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: colors.white,

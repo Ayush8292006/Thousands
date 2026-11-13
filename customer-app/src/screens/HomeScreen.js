@@ -58,12 +58,12 @@ function SecHead({ title, kicker, onAll }) {
   return (
     <View style={styles.secHead}>
       <View>
-        {kicker ? <Text style={calli(17, colors.gold)}>{kicker}</Text> : null}
+        {kicker ? <Text style={calli(14, colors.gold)}>{kicker}</Text> : null}
         <Text style={styles.secTitle}>{title}</Text>
       </View>
       {onAll ? (
         <Pressable style={styles.arrowBtn} onPress={onAll} accessibilityLabel={`See all ${title}`}>
-          <Ionicons name="arrow-forward" size={18} color={colors.white} />
+          <Ionicons name="arrow-forward" size={16} color={colors.white} />
         </Pressable>
       ) : null}
     </View>
@@ -118,7 +118,7 @@ export default function HomeScreen({ navigation }) {
 
   const tabs = [{ id: 'foryou', name: 'For You', icon: 'bag-handle-outline' }, ...cats.map((c) => ({ id: c.id, name: SHORT[c.id] || c.name, icon: c.icon }))];
   const cardW = width / 2;
-  const lookW = 132;
+  const lookW = 104;
   const trioW = (width - 32 - 20) / 3;
 
   return (
@@ -133,41 +133,42 @@ export default function HomeScreen({ navigation }) {
       >
         {/* 0: top area */}
         <GlossHeader style={[styles.top, { paddingTop: insets.top + 10 }]}>
-          <Animated.View style={[styles.brandRow, { opacity: tilesFade, transform: [{ translateY: tilesShift }] }]}>
-            <View style={styles.brandBlock}>
-              <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
-              <Text style={styles.brandName}>{BRAND.name}</Text>
-            </View>
-            <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
-              <Ionicons name="location" size={16} color={colors.gold} />
-              <View style={{ flex: 1 }}>
-                <Text style={styles.deliverLabel}>Deliver to</Text>
-                <Text style={styles.deliverStrong} numberOfLines={1}>
-                  {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select address'}
-                </Text>
+          <Animated.View style={{ opacity: tilesFade, transform: [{ translateY: tilesShift }] }}>
+            <Glass tint="light" radius={22} style={styles.navCapsule}>
+              <View style={styles.brandBlock}>
+                <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
+                <Text style={styles.brandName}>{BRAND.name}</Text>
               </View>
-              <Ionicons name="chevron-down" size={16} color={colors.headerMuted} />
-            </Pressable>
+              <View style={styles.navDivider} />
+              <Pressable style={styles.deliver} onPress={() => navigation.navigate('Addresses')} accessibilityLabel="Change delivery address">
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.deliverLabel}>Deliver to</Text>
+                  <Text style={styles.deliverStrong} numberOfLines={1}>
+                    {selectedAddress ? `${selectedAddress.city} ${selectedAddress.pincode}` : 'Select address'}
+                  </Text>
+                </View>
+                <View style={styles.pinDot}><Ionicons name="location" size={14} color={colors.white} /></View>
+              </Pressable>
+            </Glass>
           </Animated.View>
         </GlossHeader>
 
         {/* 1: sticky category tabs */}
         <Glass tint="cream" radius={0} highlight={false} style={styles.tabsWrap}>
-          <Pressable style={styles.search} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
-            <Ionicons name="search" size={21} color={colors.ink} />
-            <Text style={styles.searchText}>Search for products</Text>
-            <Ionicons name="mic-outline" size={21} color={colors.muted} />
-          </Pressable>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 8 }}>
+          <Glass tint="light" radius={22} style={styles.search}>
+            <Pressable style={styles.searchInner} onPress={() => navigation.navigate('Search')} accessibilityLabel="Search">
+              <Ionicons name="search" size={18} color={colors.ink} />
+              <Text style={styles.searchText}>Search for products</Text>
+              <Ionicons name="mic-outline" size={18} color={colors.muted} />
+            </Pressable>
+          </Glass>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 12, gap: 8, paddingBottom: 10 }}>
             {tabs.map((t) => {
               const on = tab === t.id;
               return (
-                <Pressable key={t.id} style={styles.tab} onPress={() => setTab(t.id)} accessibilityState={{ selected: on }}>
-                  <View style={[styles.tabIcon, on && styles.tabIconOn]}>
-                    <Ionicons name={t.icon} size={22} color={on ? colors.gold : '#5E5643'} />
-                  </View>
+                <Pressable key={t.id} style={[styles.tab, on && styles.tabOn]} onPress={() => setTab(t.id)} accessibilityState={{ selected: on }}>
+                  <Ionicons name={t.icon} size={15} color={on ? colors.white : '#5E5643'} />
                   <Text style={[styles.tabText, on && styles.tabTextOn]} numberOfLines={1}>{t.name}</Text>
-                  <View style={[styles.tabLine, on && styles.tabLineOn]} />
                 </Pressable>
               );
             })}
@@ -188,7 +189,7 @@ export default function HomeScreen({ navigation }) {
           <Pressable style={({ pressed }) => [styles.offer, pressed && { opacity: 0.9 }]} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
             <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.accent} /></View>
             <View style={{ flex: 1 }}>
-              <Text style={calli(15, colors.gold)}>महा बचत</Text>
+              <Text style={calli(14, colors.gold)}>Mega savings</Text>
               <Text style={styles.offerTitle}>The Big Thousand Days are live</Text>
               <Text style={styles.offerSub}>Top brands at their lowest prices</Text>
             </View>
@@ -216,7 +217,7 @@ export default function HomeScreen({ navigation }) {
             <Reveal {...R} style={styles.trio}>
               {trio.map((x) => (
                 <Pressable key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
-                  <ProductImage product={x.p} size={Math.round(trioW * 1.05)} rounded={16} />
+                  <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
                   <Text style={styles.trioTitle} numberOfLines={1}>{x.title}</Text>
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>
                 </Pressable>
@@ -225,23 +226,23 @@ export default function HomeScreen({ navigation }) {
           ) : null}
 
           {deals.length ? (
-            <Reveal {...R} style={{ marginTop: 22 }}>
+            <Reveal {...R} style={{ marginTop: 18 }}>
               <View style={styles.secHead}>
                 <View>
-                  <Text style={calli(17, colors.gold)}>आज के सौदे</Text>
+                  <Text style={calli(14, colors.gold)}>Today's picks</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Text style={styles.secTitle}>Deals of the Day</Text>
                     <DealTimer />
                   </View>
                 </View>
                 <Pressable style={styles.arrowBtn} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Deals of the Day', sort: 'discount' })} accessibilityLabel="See all deals">
-                  <Ionicons name="arrow-forward" size={18} color={colors.white} />
+                  <Ionicons name="arrow-forward" size={16} color={colors.white} />
                 </Pressable>
               </View>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 16 }}>
                 {deals.map((p) => (
                   <Pressable key={p.id} style={styles.dealCard} onPress={() => openProduct(p.id)}>
-                    <ProductImage product={p} size={124} rounded={14} />
+                    <ProductImage product={p} size={96} rounded={12} />
                     <Text style={styles.dealName} numberOfLines={1}>{p.sub || p.brand}</Text>
                     <Text style={styles.dealOff}>Min. {Math.max(10, Math.floor(discountPct(p.mrp, p.price) / 10) * 10)}% Off</Text>
                   </Pressable>
@@ -250,8 +251,8 @@ export default function HomeScreen({ navigation }) {
             </Reveal>
           ) : null}
 
-          <View style={{ marginTop: 22 }} onLayout={(e) => setSuggY(e.nativeEvent.layout.y)}>
-            <SecHead title="Suggested For You" kicker="आपके लिए" onAll={() => navigation.navigate('ProductList', { title: 'Suggested For You', sort: 'rating', category: tab === 'foryou' ? undefined : tab })} />
+          <View style={{ marginTop: 18 }} onLayout={(e) => setSuggY(e.nativeEvent.layout.y)}>
+            <SecHead title="Suggested For You" kicker="Picked for you" onAll={() => navigation.navigate('ProductList', { title: 'Suggested For You', sort: 'rating', category: tab === 'foryou' ? undefined : tab })} />
             <View style={styles.grid} onLayout={(e) => setGridY(e.nativeEvent.layout.y)}>
               {suggested.map((p, i) => (
                 <Reveal
@@ -272,7 +273,7 @@ export default function HomeScreen({ navigation }) {
       <OfferPopup
         offer={banners[0] ? {
           image: banners[0].image,
-          calligraphy: 'धमाका ऑफ़र',
+          calligraphy: 'Mega Offer',
           title: 'Flat 20% off on your first order',
           subtitle: 'Extra savings on top brands across fashion, electronics and home. Valid for a limited time.',
           code: 'THOUSANDS20',
@@ -284,55 +285,52 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  top: { paddingHorizontal: 16, paddingBottom: 10, overflow: 'hidden' },
-  brandRow: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingBottom: 6 },
-  brandBlock: { alignItems: 'center', minWidth: 84 },
-  brandLogo: { width: 34, height: 36 },
-  brandName: { fontSize: 15, fontWeight: '800', fontStyle: 'italic', color: colors.olive, marginTop: 3, letterSpacing: 0.2 },
-  deliver: {
-    flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.white,
-    borderWidth: 1, borderColor: colors.headerLine, borderRadius: 14, paddingHorizontal: 12, paddingVertical: 8,
+  top: { paddingHorizontal: 14, paddingBottom: 10, overflow: 'hidden' },
+  navCapsule: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, paddingHorizontal: 12 },
+  brandBlock: { alignItems: 'center', minWidth: 70 },
+  brandLogo: { width: 24, height: 26 },
+  brandName: { fontSize: 12, fontWeight: '800', fontStyle: 'italic', color: colors.olive, marginTop: 1 },
+  navDivider: { width: 1, height: 30, backgroundColor: 'rgba(90, 75, 2, 0.15)', marginHorizontal: 12 },
+  deliver: { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 },
+  pinDot: { width: 30, height: 30, borderRadius: 15, backgroundColor: colors.olive, alignItems: 'center', justifyContent: 'center' },
+  deliverLabel: { fontSize: 10.5, color: colors.headerMuted },
+  deliverStrong: { fontSize: 13, color: colors.ink, fontWeight: '700', marginTop: 1 },
+  search: { marginHorizontal: 14, marginTop: 8, marginBottom: 10 },
+  searchInner: { flexDirection: 'row', alignItems: 'center', gap: 10, height: 42, paddingHorizontal: 14 },
+  searchText: { flex: 1, fontSize: 14, color: colors.muted },
+  tabsWrap: { borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
+  tab: {
+    flexDirection: 'row', alignItems: 'center', gap: 6, height: 34, paddingHorizontal: 12, borderRadius: 17,
+    backgroundColor: 'rgba(255,255,255,0.7)', borderWidth: 1, borderColor: 'rgba(230, 220, 194, 0.9)',
   },
-  deliverLabel: { fontSize: 11, color: colors.headerMuted },
-  deliverStrong: { fontSize: 13.5, color: colors.ink, fontWeight: '700', marginTop: 1 },
-  search: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, height: 48, marginHorizontal: 16, marginTop: 4, marginBottom: 10,
-    backgroundColor: colors.white, borderRadius: 14, paddingHorizontal: 14, borderWidth: 1, borderColor: colors.headerLine,
-  },
-  searchText: { flex: 1, fontSize: 15, color: colors.muted },
-  tabsWrap: { paddingTop: 2, borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
-  tab: { alignItems: 'center', paddingHorizontal: 9, minWidth: 68 },
-  tabIcon: { width: 44, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  tabIconOn: { backgroundColor: 'rgba(184, 146, 10, 0.12)' },
-  tabText: { fontSize: 12.5, color: '#5E5643', marginTop: 3 },
-  tabTextOn: { fontWeight: '700', color: colors.ink },
-  tabLine: { height: 3, width: '80%', borderRadius: 2, marginTop: 7, backgroundColor: 'transparent' },
-  tabLineOn: { backgroundColor: colors.gold },
+  tabOn: { backgroundColor: colors.olive, borderColor: colors.olive },
+  tabText: { fontSize: 12.5, color: '#5E5643', fontWeight: '600' },
+  tabTextOn: { color: colors.white, fontWeight: '700' },
   offer: {
     overflow: 'hidden',
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
     backgroundColor: '#FFF1DA', borderRadius: 18,
   },
-  offerIcon: { width: 36, height: 36, borderRadius: 12, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
-  offerTitle: { fontSize: 14, fontWeight: '800', color: '#4A3200' },
-  offerSub: { fontSize: 12, color: '#7A6440', marginTop: 2 },
+  offerIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center' },
+  offerTitle: { fontSize: 13, fontWeight: '800', color: '#4A3200' },
+  offerSub: { fontSize: 11.5, color: '#7A6440', marginTop: 2 },
   offerBadge: { backgroundColor: colors.accent, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
   offerBadgeText: { color: colors.white, fontSize: 11.5, fontWeight: '700' },
-  looking: { marginHorizontal: 16, marginTop: 20, paddingVertical: 18, backgroundColor: '#FFF4D6', borderRadius: 22 },
-  lookingTitle: { fontSize: 18, fontWeight: '800', color: colors.ink, paddingHorizontal: 16, marginBottom: 14 },
-  lookCard: { backgroundColor: colors.white, borderRadius: 16, padding: 8 },
-  lookSub: { fontSize: 13, color: colors.muted, marginTop: 8 },
-  lookPrice: { fontSize: 14.5, fontWeight: '800', color: colors.ink, marginTop: 1 },
-  trio: { flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginTop: 22 },
-  trioTitle: { fontSize: 14, fontWeight: '800', color: colors.ink, textAlign: 'center', marginTop: 8 },
-  trioSub: { fontSize: 12.5, color: colors.ink, textAlign: 'center', marginTop: 1 },
-  secHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, marginBottom: 12 },
-  secTitle: { fontSize: 20, fontWeight: '800', color: colors.ink },
-  arrowBtn: { width: 52, height: 34, borderRadius: 17, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
+  looking: { marginHorizontal: 16, marginTop: 16, paddingVertical: 14, backgroundColor: '#FFF4D6', borderRadius: 22 },
+  lookingTitle: { fontSize: 15.5, fontWeight: '800', color: colors.ink, paddingHorizontal: 14, marginBottom: 10 },
+  lookCard: { backgroundColor: colors.white, borderRadius: 14, padding: 6 },
+  lookSub: { fontSize: 12, color: colors.muted, marginTop: 8 },
+  lookPrice: { fontSize: 13.5, fontWeight: '800', color: colors.ink, marginTop: 1 },
+  trio: { flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginTop: 16 },
+  trioTitle: { fontSize: 13, fontWeight: '800', color: colors.ink, textAlign: 'center', marginTop: 8 },
+  trioSub: { fontSize: 11.5, color: colors.ink, textAlign: 'center', marginTop: 1 },
+  secHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, marginBottom: 10 },
+  secTitle: { fontSize: 17, fontWeight: '800', color: colors.ink },
+  arrowBtn: { width: 44, height: 30, borderRadius: 15, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
   timer: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#FDECEF', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   timerText: { fontSize: 12, fontWeight: '700', color: colors.sale },
-  dealCard: { width: 140, backgroundColor: colors.white, borderRadius: 18, borderWidth: 1, borderColor: colors.border, padding: 8 },
-  dealName: { fontSize: 13, color: colors.ink, marginTop: 8, textAlign: 'center' },
-  dealOff: { fontSize: 13, fontWeight: '800', color: colors.success, textAlign: 'center', marginTop: 2 },
+  dealCard: { width: 112, backgroundColor: colors.white, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 7 },
+  dealName: { fontSize: 12, color: colors.ink, marginTop: 8, textAlign: 'center' },
+  dealOff: { fontSize: 12, fontWeight: '800', color: colors.success, textAlign: 'center', marginTop: 2 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#DADDE2' },
 });

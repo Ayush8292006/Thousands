@@ -1,12 +1,12 @@
 import * as Font from 'expo-font';
 
-// Indian calligraphy font: "Yatra One" (Devanagari + Latin, OFL license).
+// Indian calligraphy-style font: "Yatra One" (Mumbai hand-painted signage style, OFL license).
 // Remote se load hota hai (koi npm package nahi chahiye). Fail ho to system font use hota hai.
 export const CALLI = 'YatraOne';
 
 const SOURCES = [
   'https://raw.githubusercontent.com/google/fonts/main/ofl/yatraone/YatraOne-Regular.ttf',
-  'https://cdn.jsdelivr.net/fontsource/fonts/yatra-one@latest/devanagari-400-normal.ttf',
+  'https://cdn.jsdelivr.net/fontsource/fonts/yatra-one@latest/latin-400-normal.ttf',
 ];
 
 let ready = false;
