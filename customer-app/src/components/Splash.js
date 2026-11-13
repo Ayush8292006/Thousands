@@ -1,110 +1,124 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Easing, StyleSheet, Platform } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { BRAND } from '../config/app';
 import { colors } from '../theme';
 
 const native = Platform.OS !== 'web';
+const SERIF = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia, "Times New Roman", serif' });
 
-// THOUSANDS branded loading experience
-// Stage 1: logo reveal (scale + fade) with champagne-gold glow
-// Stage 2: gold progress line + 0–100% counter (synced with real app readiness)
-// Stage 3: smooth fade/scale hand-off to the homepage (App.js handles the page reveal)
+// THOUSANDS branded loading experience — Royal Indian luxury
+// Stage 1: gold mandala blooms + slowly rotates, logo medallion reveals
+// Stage 2: wordmark letters appear one by one, gold progress line + 0–100% counter
+// Stage 3: smooth hand-off to the homepage (App.js reveals the page)
 export default function Splash({ ready, minDuration = 3400, reducedMotion = false, onReveal, onFinish }) {
-  const logo = useRef(new Animated.Value(0)).current;
-  const glow = useRef(new Animated.Value(0)).current;
-  const text = useRef(new Animated.Value(0)).current;
+  const word = BRAND.name.toUpperCase().split('');
+  const bloom = useRef(new Animated.Value(0)).current;
+  const spin = useRef(new Animated.Value(0)).current;
+  const medal = useRef(new Animated.Value(0)).current;
+  const letters = useRef(word.map(() => new Animated.Value(0))).current;
+  const tag = useRef(new Animated.Value(0)).current;
   const progress = useRef(new Animated.Value(0)).current;
   const out = useRef(new Animated.Value(1)).current;
   const [pct, setPct] = useState(0);
   const [introDone, setIntroDone] = useState(false);
 
-  // Percentage counter follows the progress line
   useEffect(() => {
     const id = progress.addListener(({ value }) => setPct(Math.round(value * 100)));
     return () => progress.removeListener(id);
   }, [progress]);
 
-  // Stage 1 + 2: reveal, then fill to 90% across the minimum intro time
   useEffect(() => {
-    const revealMs = reducedMotion ? 0 : 900;
+    const T = (v, d, delay = 0, e = Easing.out(Easing.cubic)) =>
+      Animated.timing(v, { toValue: 1, duration: reducedMotion ? 0 : d, delay: reducedMotion ? 0 : delay, easing: e, useNativeDriver: native });
     Animated.parallel([
-      Animated.timing(logo, { toValue: 1, duration: revealMs, easing: Easing.out(Easing.cubic), useNativeDriver: native }),
-      Animated.timing(glow, { toValue: 1, duration: reducedMotion ? 0 : 1400, easing: Easing.out(Easing.quad), useNativeDriver: native }),
-      Animated.sequence([
-        Animated.delay(reducedMotion ? 0 : 450),
-        Animated.timing(text, { toValue: 1, duration: reducedMotion ? 0 : 600, easing: Easing.out(Easing.cubic), useNativeDriver: native }),
-      ]),
+      T(bloom, 1200),
+      T(medal, 800, 250),
+      Animated.stagger(reducedMotion ? 0 : 70, letters.map((l) => T(l, 420, 900))),
+      T(tag, 600, 1700),
     ]).start();
+    if (!reducedMotion) {
+      Animated.loop(Animated.timing(spin, { toValue: 1, duration: 28000, easing: Easing.linear, useNativeDriver: native })).start();
+    }
     Animated.timing(progress, {
       toValue: 0.9,
       duration: Math.max(600, minDuration - 350),
       easing: Easing.inOut(Easing.quad),
       useNativeDriver: false,
     }).start(() => setIntroDone(true));
-  }, [logo, glow, text, progress, minDuration, reducedMotion]);
+  }, [bloom, medal, letters, tag, spin, progress, minDuration, reducedMotion]);
 
-  // Finish only when BOTH the intro has played and the app is actually ready
+  // Close only when the intro has played AND the app is ready
   useEffect(() => {
     if (!(ready && introDone)) return;
     Animated.timing(progress, { toValue: 1, duration: 300, easing: Easing.out(Easing.quad), useNativeDriver: false }).start(() => {
       if (onReveal) onReveal();
-      Animated.timing(out, { toValue: 0, duration: reducedMotion ? 150 : 520, easing: Easing.inOut(Easing.quad), useNativeDriver: native }).start(onFinish);
+      Animated.timing(out, { toValue: 0, duration: reducedMotion ? 150 : 560, easing: Easing.inOut(Easing.quad), useNativeDriver: native }).start(onFinish);
     });
   }, [ready, introDone, progress, out, onFinish, onReveal, reducedMotion]);
 
-  const scale = logo.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 1 : 0.82, 1] });
-  const glowScale = glow.interpolate({ inputRange: [0, 1], outputRange: [0.7, 1] });
-  const rise = text.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 0 : 12, 0] });
+  const bloomScale = bloom.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 1 : 0.8, 1] });
+  const rotate = spin.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  const medalScale = medal.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 1 : 0.6, 1] });
+  const tagRise = tag.interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 0 : 8, 0] });
   const lineW = progress.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] });
-  const outScale = out.interpolate({ inputRange: [0, 1], outputRange: [1.04, 1] });
+  const outScale = out.interpolate({ inputRange: [0, 1], outputRange: [1.05, 1] });
 
   return (
     <Animated.View
-      style={[StyleSheet.absoluteFill, styles.fill, { opacity: out, transform: [{ scale: outScale }] }]}
+      style={[StyleSheet.absoluteFill, { zIndex: 50, opacity: out, transform: [{ scale: outScale }] }]}
       pointerEvents={ready && introDone ? 'none' : 'auto'}
       accessibilityLabel={`Loading ${BRAND.name}, ${pct} percent`}
     >
-      {/* soft champagne-gold light behind the logo */}
-      <Animated.Image
-        source={require('../../assets/glow.png')}
-        style={[styles.glow, { opacity: glow, transform: [{ scale: glowScale }] }]}
-        resizeMode="contain"
-      />
-
-      <Animated.View style={{ alignItems: 'center', opacity: logo, transform: [{ scale }] }}>
-        <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
-      </Animated.View>
-
-      <Animated.View style={{ alignItems: 'center', opacity: text, transform: [{ translateY: rise }] }}>
-        <View style={styles.ornRow}>
-          <View style={styles.ornLine} />
-          <View style={styles.ornDot} />
-          <View style={styles.ornLine} />
+      <LinearGradient colors={['#F2E8D2', colors.ivory, '#F2E8D2']} style={styles.fill}>
+        <View style={styles.center}>
+          <Animated.Image
+            source={require('../../assets/mandala.png')}
+            style={[styles.mandala, { opacity: bloom, transform: [{ scale: bloomScale }, { rotate }] }]}
+            resizeMode="contain"
+          />
+          <Animated.View style={[styles.medal, { opacity: medal, transform: [{ scale: medalScale }] }]}>
+            <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
+          </Animated.View>
         </View>
-        <Text style={styles.word}>{BRAND.name.toUpperCase()}</Text>
-        <Text style={styles.tagline}>{BRAND.tagline}</Text>
-      </Animated.View>
 
-      <View style={styles.bottom}>
-        <View style={styles.track}>
-          <Animated.View style={[styles.line, { width: lineW }]} />
+        <View style={styles.wordRow}>
+          {word.map((ch, i) => {
+            const rise = letters[i].interpolate({ inputRange: [0, 1], outputRange: [reducedMotion ? 0 : 10, 0] });
+            return (
+              <Animated.Text key={`${ch}${i}`} style={[styles.letter, { opacity: letters[i], transform: [{ translateY: rise }] }]}>
+                {ch}
+              </Animated.Text>
+            );
+          })}
         </View>
-        <Text style={styles.pct}>{pct}%</Text>
-      </View>
+        <Animated.Text style={[styles.tagline, { opacity: tag, transform: [{ translateY: tagRise }] }]}>{BRAND.tagline}</Animated.Text>
+
+        <View style={styles.bottom}>
+          <View style={styles.track}>
+            <Animated.View style={[styles.line, { width: lineW }]} />
+          </View>
+          <Text style={styles.pct}>{pct}%</Text>
+        </View>
+      </LinearGradient>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  fill: { backgroundColor: colors.ivory, alignItems: 'center', justifyContent: 'center', zIndex: 50 },
-  glow: { position: 'absolute', width: 520, height: 520, marginTop: -120 },
-  logo: { width: 96, height: 102 },
-  ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 26 },
-  ornLine: { width: 44, height: 1, backgroundColor: colors.gold },
-  ornDot: { width: 6, height: 6, borderRadius: 1, backgroundColor: colors.gold, transform: [{ rotate: '45deg' }] },
-  word: { fontSize: 22, fontWeight: '700', color: colors.espresso, letterSpacing: 9, marginTop: 14, marginLeft: 9 },
-  tagline: { fontSize: 12.5, color: colors.muted, marginTop: 8, letterSpacing: 0.4, fontStyle: 'italic' },
-  bottom: { position: 'absolute', bottom: 72, alignItems: 'center' },
+  fill: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  center: { width: 330, height: 330, alignItems: 'center', justifyContent: 'center', marginTop: -40 },
+  mandala: { position: 'absolute', width: 330, height: 330 },
+  medal: {
+    width: 116, height: 116, borderRadius: 58, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: colors.cream, borderWidth: 1.5, borderColor: 'rgba(214, 180, 92, 0.85)',
+    shadowColor: '#625000', shadowOpacity: 0.16, shadowRadius: 22, shadowOffset: { width: 0, height: 8 }, elevation: 8,
+  },
+  logo: { width: 60, height: 64 },
+  wordRow: { flexDirection: 'row', marginTop: 26 },
+  letter: { fontFamily: SERIF, fontSize: 24, fontWeight: '700', color: colors.espresso, marginHorizontal: 5 },
+  tagline: { fontFamily: SERIF, fontStyle: 'italic', fontSize: 13.5, color: colors.muted, marginTop: 10 },
+  bottom: { position: 'absolute', bottom: 70, alignItems: 'center' },
   track: { width: 150, height: 2, borderRadius: 1, backgroundColor: 'rgba(98, 80, 0, 0.12)', overflow: 'hidden' },
   line: { height: 2, borderRadius: 1, backgroundColor: colors.gold },
   pct: { marginTop: 10, fontSize: 11, fontWeight: '700', color: colors.olive, letterSpacing: 2 },
