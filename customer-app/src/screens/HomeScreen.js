@@ -247,7 +247,6 @@ export default function HomeScreen({ navigation }) {
                 <PressScale key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
                   <View>
                     <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
-                    <GlossOverlay level="subtle" radius={14} />
                   </View>
                   <Text style={styles.trioTitle} numberOfLines={1}>{x.title}</Text>
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>
@@ -340,7 +339,7 @@ const styles = StyleSheet.create({
   deliverLabel: { fontSize: 10.5, color: colors.muted, letterSpacing: 0.3 },
   deliverStrong: { fontSize: 13.5, color: colors.espresso, fontWeight: '700', marginTop: 1 },
   search: { overflow: 'hidden',
-    marginHorizontal: 14, marginTop: 8, marginBottom: 10, borderRadius: 24, backgroundColor: colors.cream,
+    marginHorizontal: 14, marginTop: 8, marginBottom: 10, borderRadius: 24, backgroundColor: 'rgba(255, 255, 255, 0.88)',
     borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.7)',
     shadowColor: '#625000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 3,
   },

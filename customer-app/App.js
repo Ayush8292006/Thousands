@@ -17,11 +17,14 @@ if (isWeb && typeof document !== 'undefined') {
   st.textContent = [
     'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }',
     // Sharp optical liquid glass: clear translucent surface, very light blur (3px), crisp inset highlights
-    '[data-glass="1"] { -webkit-backdrop-filter: blur(3px) saturate(160%); backdrop-filter: blur(3px) saturate(160%); box-shadow: 0 12px 36px rgba(48, 39, 25, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(214, 180, 92, 0.35) !important; }',
+    '[data-glass] { box-shadow: 0 12px 36px rgba(48, 39, 25, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(214, 180, 92, 0.35) !important; }',
+    '[data-glass="soft"] { -webkit-backdrop-filter: blur(3px) saturate(150%); backdrop-filter: blur(3px) saturate(150%); }',
+    '[data-glass="nav"] { -webkit-backdrop-filter: blur(6px) saturate(150%); backdrop-filter: blur(6px) saturate(150%); }',
+    '[data-glass="popup"] { -webkit-backdrop-filter: blur(8px) saturate(150%); backdrop-filter: blur(8px) saturate(150%); }',
     // Popup / dropdown dimming layer: separate, no blur so the page stays crisp
     '[data-glassdim="1"] { -webkit-backdrop-filter: none; backdrop-filter: none; }',
     // Graceful fallback when backdrop-filter is not supported: stronger tint keeps text readable
-    '@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { [data-glass="1"] { background-color: rgba(255, 253, 246, 0.9) !important; } }',
+    '@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { [data-glass] { background-color: rgba(255, 253, 246, 0.92) !important; } }',
     'html, body { background: #F8F3E7; overflow-x: hidden; }',
   ].join('\n');
   document.head.appendChild(st);

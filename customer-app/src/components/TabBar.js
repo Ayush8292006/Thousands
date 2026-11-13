@@ -75,12 +75,12 @@ export default function TabBar({ state, navigation }) {
 
   return (
     <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]} pointerEvents="box-none">
-      <Glass tint="rgba(255, 253, 246, 0.62)" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
+      <Glass tint="rgba(255, 253, 246, 0.76)" blur="nav" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
         {itemW ? (
           <Animated.View pointerEvents="none" style={[styles.indicator, { width: itemW, transform: [{ translateX }] }]}>
             <View style={styles.indicatorInner}>
               <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} />
-              <GlossOverlay level="high" radius={26} dark />
+              <GlossOverlay level="medium" radius={26} dark />
             </View>
           </Animated.View>
         ) : null}
@@ -104,7 +104,7 @@ export default function TabBar({ state, navigation }) {
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingHorizontal: 14, paddingTop: 6 },
   bar: {
-    flexDirection: 'row', padding: PAD, borderColor: 'rgba(214, 180, 92, 0.55)',
+    flexDirection: 'row', padding: PAD, borderColor: 'rgba(255, 255, 255, 0.9)', borderBottomColor: 'rgba(214, 180, 92, 0.6)',
     shadowColor: '#302719', shadowOpacity: 0.16, shadowRadius: 24, shadowOffset: { width: 0, height: 10 }, elevation: 12,
   },
   indicator: { position: 'absolute', top: PAD, bottom: PAD, left: PAD, paddingHorizontal: 3 },

@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import Glass from './Glass';
 import { calli } from '../config/fonts';
 import { colors } from '../theme';
-import Shine from './Shine';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GlossOverlay, OLIVE_GLOSS } from './Gloss';
 
@@ -44,7 +43,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
       <View style={styles.center} pointerEvents="box-none">
         <Pressable style={StyleSheet.absoluteFill} onPress={() => close()} accessibilityLabel="Close offer" />
         <Animated.View style={{ width: '100%', maxWidth: 380, opacity: anim, transform: [{ scale }] }}>
-          <Glass tint="rgba(255, 253, 246, 0.66)" radius={28} style={styles.card}>
+          <Glass tint="rgba(255, 253, 246, 0.78)" blur="popup" radius={28} style={styles.card}>
             <ImageBackground source={{ uri: offer.image }} style={styles.banner} imageStyle={{ borderRadius: 22 }}>
               <View style={styles.bannerShade} />
               <Text style={calli(30, colors.cream)}>{offer.calligraphy}</Text>
@@ -65,10 +64,9 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
 
             <Pressable style={({ pressed }) => [styles.shop, pressed && { opacity: 0.9 }]} onPress={() => close(onShop)}>
               <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} />
-              <GlossOverlay level="high" radius={25} dark />
+              <GlossOverlay level="medium" radius={25} dark />
               <Text style={styles.shopText}>Shop the offer</Text>
               <Ionicons name="arrow-forward" size={17} color={colors.white} />
-              <Shine intensity={0.3} duration={1200} pause={2600} delay={500} />
             </Pressable>
             <Pressable onPress={() => close()} style={{ alignSelf: 'center', paddingVertical: 10 }}>
               <Text style={styles.later}>Maybe later</Text>
@@ -83,7 +81,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
 const styles = StyleSheet.create({
   dim: { backgroundColor: 'rgba(28, 22, 10, 0.22)' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
-  card: { padding: 12, borderColor: 'rgba(255, 255, 255, 0.75)', borderBottomColor: 'rgba(214, 180, 92, 0.55)' },
+  card: { padding: 12, borderColor: 'rgba(255, 255, 255, 0.9)', borderBottomColor: 'rgba(214, 180, 92, 0.55)' },
   banner: { height: 170, justifyContent: 'flex-end', padding: 16 },
   bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(25, 18, 0, 0.45)', borderRadius: 22 },
   bannerTitle: { color: colors.white, fontSize: 20, fontWeight: '800', marginTop: 2 },
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
   sub: { fontSize: 14, color: colors.espresso, textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
   code: {
     alignItems: 'center', marginTop: 14, paddingVertical: 12, borderRadius: 16, borderWidth: 1.5,
-    borderStyle: 'dashed', borderColor: 'rgba(214, 180, 92, 0.9)', backgroundColor: 'rgba(255,253,246,0.38)', overflow: 'hidden',
+    borderStyle: 'dashed', borderColor: 'rgba(214, 180, 92, 0.9)', backgroundColor: 'rgba(255,253,246,0.82)', overflow: 'hidden',
   },
   codeLabel: { fontSize: 11, color: colors.headerMuted, letterSpacing: 1 },
   codeText: { fontSize: 20, fontWeight: '800', color: colors.olive, letterSpacing: 2, marginTop: 2 },

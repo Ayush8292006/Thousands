@@ -24,11 +24,11 @@ function withFallback(c) {
   return `rgba(${p[0]}, ${p[1]}, ${p[2]}, ${a})`;
 }
 
-export default function Glass({ style, children, tint = 'light', radius = 24, highlight = true, ...rest }) {
+export default function Glass({ style, children, tint = 'light', radius = 24, highlight = true, blur = 'soft', ...rest }) {
   const bg = withFallback(TINTS[tint] || tint);
   const inner = Math.max(0, radius - 1);
   return (
-    <View {...rest} dataSet={isWeb ? { glass: '1' } : undefined} style={[styles.base, { backgroundColor: bg, borderRadius: radius }, style]}>
+    <View {...rest} dataSet={isWeb ? { glass: blur } : undefined} style={[styles.base, { backgroundColor: bg, borderRadius: radius }, style]}>
       {highlight ? (
         <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: radius, overflow: 'hidden' }]}>
           {/* short, crisp top reflection (fades out fast — no haze) */}
