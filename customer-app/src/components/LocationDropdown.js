@@ -29,11 +29,11 @@ export default function LocationDropdown({ visible, onClose, onManage, top = 70 
 
   return (
     <Modal visible transparent animationType="none" onRequestClose={onClose}>
-      <Animated.View style={[StyleSheet.absoluteFill, styles.backdrop, { opacity: a }]}>
+      <Animated.View dataSet={Platform.OS === 'web' ? { glassdim: '1' } : undefined} style={[StyleSheet.absoluteFill, styles.backdrop, { opacity: a }]}>
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityLabel="Close" />
       </Animated.View>
       <Animated.View style={[styles.panelWrap, { top: insets.top + top, opacity: a, transform: [{ translateY }] }]}>
-        <Glass tint="rgba(255, 253, 246, 0.94)" radius={20} style={styles.panel}>
+        <Glass tint="rgba(255, 253, 246, 0.62)" radius={20} style={styles.panel}>
           <Text style={styles.title}>My Addresses</Text>
           {addresses.map((ad) => {
             const on = selectedAddress?.id === ad.id;
@@ -61,7 +61,7 @@ export default function LocationDropdown({ visible, onClose, onManage, top = 70 
 }
 
 const styles = StyleSheet.create({
-  backdrop: { backgroundColor: 'rgba(48, 39, 25, 0.18)' },
+  backdrop: { backgroundColor: 'rgba(48, 39, 25, 0.16)' },
   panelWrap: { position: 'absolute', left: 14, right: 14, alignSelf: 'center', maxWidth: 452 },
   panel: { padding: 12, borderColor: 'rgba(214, 180, 92, 0.5)' },
   title: { fontSize: 13, fontWeight: '800', color: colors.espresso, marginBottom: 8, marginLeft: 4 },

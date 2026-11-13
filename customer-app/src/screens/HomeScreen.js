@@ -148,7 +148,7 @@ export default function HomeScreen({ navigation }) {
         {/* 0: top area */}
         <GlossHeader style={[styles.top, { paddingTop: insets.top + 10 }]}>
           <Animated.View style={{ opacity: tilesFade, transform: [{ translateY: tilesShift }] }}>
-            <Glass tint="rgba(255, 253, 246, 0.82)" radius={24} style={styles.navCapsule}>
+            <Glass tint="rgba(255, 253, 246, 0.55)" radius={24} style={styles.navCapsule}>
               <Animated.View style={[styles.brandBlock, { opacity: enter, transform: [{ scale: logoScale }] }]}>
                 <View style={styles.logoRing}>
                   <Image source={require('../../assets/logo-white.png')} style={styles.brandLogo} resizeMode="contain" />
@@ -171,7 +171,7 @@ export default function HomeScreen({ navigation }) {
         </GlossHeader>
 
         {/* 1: sticky category tabs */}
-        <Glass tint="cream" radius={0} highlight={false} style={styles.tabsWrap}>
+        <Glass tint="rgba(255, 253, 246, 0.6)" radius={0} highlight={false} style={styles.tabsWrap}>
           <Animated.View style={[styles.search, { transform: [{ scale: searchPress }] }]}>
             <GlossOverlay level="medium" radius={24} />
             <Pressable

@@ -39,9 +39,11 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
 
   return (
     <Modal visible={visible} transparent animationType="none" onRequestClose={() => close()}>
-      <Animated.View style={[styles.backdrop, { opacity: anim }]}>
+      {/* separate translucent dim layer (own light blur on web) */}
+      <Animated.View dataSet={Platform.OS === 'web' ? { glassdim: '1' } : undefined} style={[StyleSheet.absoluteFill, styles.dim, { opacity: anim }]} />
+      <View style={styles.center} pointerEvents="box-none">
         <Pressable style={StyleSheet.absoluteFill} onPress={() => close()} accessibilityLabel="Close offer" />
-        <Animated.View style={{ width: '100%', maxWidth: 380, transform: [{ scale }] }}>
+        <Animated.View style={{ width: '100%', maxWidth: 380, opacity: anim, transform: [{ scale }] }}>
           <Glass tint="cream" radius={28} style={styles.card}>
             <ImageBackground source={{ uri: offer.image }} style={styles.banner} imageStyle={{ borderRadius: 22 }}>
               <View style={styles.bannerShade} />
@@ -73,25 +75,26 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
             </Pressable>
           </Glass>
         </Animated.View>
-      </Animated.View>
+      </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(20, 16, 4, 0.45)', alignItems: 'center', justifyContent: 'center', padding: 24 },
-  card: { padding: 12 },
+  dim: { backgroundColor: 'rgba(28, 22, 10, 0.26)' },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
+  card: { padding: 12, borderColor: 'rgba(255, 255, 255, 0.75)', borderBottomColor: 'rgba(214, 180, 92, 0.55)' },
   banner: { height: 170, justifyContent: 'flex-end', padding: 16 },
   bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(25, 18, 0, 0.45)', borderRadius: 22 },
   bannerTitle: { color: colors.white, fontSize: 20, fontWeight: '800', marginTop: 2 },
   close: {
     position: 'absolute', top: 20, right: 20, width: 32, height: 32, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(255,255,255,0.95)',
-    backgroundColor: 'rgba(255,255,255,0.9)', alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.55)', alignItems: 'center', justifyContent: 'center',
   },
-  sub: { fontSize: 14, color: colors.muted, textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
+  sub: { fontSize: 14, color: colors.espresso, textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
   code: {
     alignItems: 'center', marginTop: 14, paddingVertical: 12, borderRadius: 16, borderWidth: 1.5,
-    borderStyle: 'dashed', borderColor: colors.gold, backgroundColor: 'rgba(255,253,246,0.85)', overflow: 'hidden',
+    borderStyle: 'dashed', borderColor: 'rgba(214, 180, 92, 0.9)', backgroundColor: 'rgba(255,253,246,0.38)', overflow: 'hidden',
   },
   codeLabel: { fontSize: 11, color: colors.headerMuted, letterSpacing: 1 },
   codeText: { fontSize: 20, fontWeight: '800', color: colors.olive, letterSpacing: 2, marginTop: 2 },

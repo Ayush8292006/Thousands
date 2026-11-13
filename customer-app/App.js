@@ -16,7 +16,12 @@ if (isWeb && typeof document !== 'undefined') {
   const st = document.createElement('style');
   st.textContent = [
     'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }',
-    '[data-glass="1"] { -webkit-backdrop-filter: blur(24px) saturate(170%); backdrop-filter: blur(24px) saturate(170%); }',
+    // Real liquid glass: translucent surface + backdrop blur + inner highlight + soft layered shadow
+    '[data-glass="1"] { -webkit-backdrop-filter: blur(25px) saturate(180%); backdrop-filter: blur(25px) saturate(180%); box-shadow: 0 20px 60px rgba(48, 39, 25, 0.16), inset 0 1px 2px rgba(255, 255, 255, 0.85) !important; }',
+    // Popup / dropdown dimming layer: separate, light blur so the page stays recognisable
+    '[data-glassdim="1"] { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }',
+    // Graceful fallback when backdrop-filter is not supported: stronger tint keeps text readable
+    '@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { [data-glass="1"] { background-color: rgba(255, 253, 246, 0.9) !important; } }',
     'html, body { background: #F8F3E7; overflow-x: hidden; }',
   ].join('\n');
   document.head.appendChild(st);
@@ -28,12 +33,12 @@ const navTheme = {
 };
 
 // Intro timing
-// - First visit (and every cold start on phone): full branded intro, 3.4 s minimum
+// - First visit (and every cold start on phone): branded intro, ~2.4 s minimum
 // - Refresh within the same browser session: short intro (no full replay)
 // - Reduced motion: short, no scale/slide motion
 // - Never closes before the app is actually ready; never infinite (fonts give up after MAX_WAIT)
-const FULL_INTRO = 3400;
-const SHORT_INTRO = 1200;
+const FULL_INTRO = 2400;
+const SHORT_INTRO = 900;
 const MAX_WAIT = 6000;
 const SESSION_KEY = 'thousands_intro_seen';
 
