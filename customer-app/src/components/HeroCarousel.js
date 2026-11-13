@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, FlatList, Pressable, ImageBackground, StyleSheet } from 'react-native';
 import { useAppWidth } from '../utils/platform';
 import { colors } from '../theme';
+import Shine from './Shine';
 
 // Rounded banner carousel with Flipkart-style dash indicator
 export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
@@ -53,6 +54,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
                   <Text style={styles.sub} numberOfLines={1}>{item.subtitle}</Text>
                   <View style={styles.cta}><Text style={styles.ctaText}>{item.cta || 'Shop now'}</Text></View>
                 </View>
+                <Shine intensity={0.2} duration={1500} pause={5000} delay={900} />
               </ImageBackground>
             </Pressable>
           </View>

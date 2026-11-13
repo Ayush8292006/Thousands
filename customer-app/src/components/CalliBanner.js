@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { calli } from '../config/fonts';
 import { colors } from '../theme';
+import Shine from './Shine';
 
 // Front page ka Indian calligraphy greeting card
 export default function CalliBanner({ onPress }) {
@@ -29,6 +30,7 @@ export default function CalliBanner({ onPress }) {
           <Text style={styles.orn}>❖</Text>
           <View style={styles.line} />
         </View>
+        <Shine intensity={0.45} duration={1600} pause={4000} delay={400} />
       </LinearGradient>
     </Pressable>
   );
@@ -36,7 +38,7 @@ export default function CalliBanner({ onPress }) {
 
 const styles = StyleSheet.create({
   wrap: { marginHorizontal: 16, marginTop: 20 },
-  card: { borderRadius: 24, paddingVertical: 18, paddingHorizontal: 18, borderWidth: 1, borderColor: '#EAD9A8' },
+  card: { overflow: 'hidden', borderRadius: 24, paddingVertical: 18, paddingHorizontal: 18, borderWidth: 1, borderColor: '#EAD9A8' },
   center: { textAlign: 'center' },
   ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 },
   line: { flex: 1, height: 1, backgroundColor: '#E2CC8C' },

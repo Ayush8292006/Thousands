@@ -9,6 +9,9 @@ import { Button } from '../components/ui';
 import { BRAND } from '../config/app';
 import { sendOtp, verifyOtp } from '../services/api';
 import { useApp } from '../context/AppContext';
+import { LinearGradient } from 'expo-linear-gradient';
+import Shine from '../components/Shine';
+import { calli } from '../config/fonts';
 
 export default function LoginScreen() {
   const insets = useSafeAreaInsets();
@@ -43,12 +46,21 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colors.black }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <View style={[styles.hero, { paddingTop: insets.top + 40 }]}>
-        <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
-        <Text style={styles.brand}>{BRAND.name.toLowerCase()}</Text>
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colors.headerGradient[2] }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <LinearGradient colors={colors.headerGradient} style={[styles.hero, { paddingTop: insets.top + 40 }]}>
+        <LinearGradient
+          pointerEvents="none"
+          colors={['rgba(255,255,255,0.8)', 'rgba(255,255,255,0)']}
+          style={styles.gloss}
+        />
+        <Shine intensity={0.35} duration={1600} pause={4200} delay={600} />
+        <View style={styles.logoRing}>
+          <Image source={require('../../assets/logo-white.png')} style={styles.logo} resizeMode="contain" />
+        </View>
+        <Text style={[calli(30, colors.olive), { marginTop: 16 }]}>स्वागत है</Text>
+        <Text style={styles.brand}>{BRAND.name}</Text>
         <Text style={styles.tag}>{BRAND.tagline}</Text>
-      </View>
+      </LinearGradient>
 
       <View style={[styles.sheet, { paddingBottom: insets.bottom + 24 }]}>
         {step === 'phone' ? (
@@ -154,11 +166,19 @@ export default function LoginScreen() {
 
 
 const styles = StyleSheet.create({
-  hero: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  logo: { width: 84, height: 96 },
-  brand: { color: colors.white, fontSize: 40, fontWeight: '700', marginTop: 18 },
-  tag: { color: colors.faint, marginTop: 8, fontSize: 13 },
-  sheet: { backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 },
+  hero: { flex: 1, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' },
+  gloss: { position: 'absolute', top: 0, left: 0, right: 0, height: '50%' },
+  logoRing: {
+    width: 112, height: 112, borderRadius: 34, alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.65)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.95)',
+  },
+  logo: { width: 64, height: 70 },
+  brand: { color: colors.olive, fontSize: 30, fontWeight: '800', fontStyle: 'italic', marginTop: 2 },
+  tag: { color: colors.headerMuted, marginTop: 6, fontSize: 13 },
+  sheet: {
+    backgroundColor: colors.white, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24,
+    shadowColor: '#3B2F00', shadowOpacity: 0.1, shadowRadius: 20, shadowOffset: { width: 0, height: -4 }, elevation: 10,
+  },
   inputRow: {
     marginTop: 22, height: 54, borderRadius: radius.md, backgroundColor: colors.mist,
     flexDirection: 'row', alignItems: 'center', paddingHorizontal: 14,

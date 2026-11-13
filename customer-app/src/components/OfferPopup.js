@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Glass from './Glass';
 import { calli } from '../config/fonts';
 import { colors } from '../theme';
+import Shine from './Shine';
 
 const native = Platform.OS !== 'web';
 let shownThisSession = false; // ek session mein sirf ek baar
@@ -59,6 +60,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
             <Pressable style={({ pressed }) => [styles.shop, pressed && { opacity: 0.9 }]} onPress={() => close(onShop)}>
               <Text style={styles.shopText}>Shop the offer</Text>
               <Ionicons name="arrow-forward" size={17} color={colors.white} />
+              <Shine intensity={0.3} duration={1200} pause={2600} delay={500} />
             </Pressable>
             <Pressable onPress={() => close()} style={{ alignSelf: 'center', paddingVertical: 10 }}>
               <Text style={styles.later}>Maybe later</Text>
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   codeTap: { fontSize: 11.5, color: colors.gold, fontWeight: '700', marginTop: 2 },
   shop: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, height: 50, borderRadius: 25,
-    backgroundColor: colors.olive, marginTop: 14,
+    backgroundColor: colors.olive, marginTop: 14, overflow: 'hidden',
   },
   shopText: { color: colors.white, fontSize: 15.5, fontWeight: '800' },
   later: { fontSize: 13.5, color: colors.headerMuted, fontWeight: '600' },

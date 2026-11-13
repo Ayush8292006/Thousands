@@ -2,11 +2,12 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, font, fonts } from '../theme';
+import Shine from './Shine';
 
 export function Button({ title, onPress, variant = 'primary', icon, loading, disabled, style }) {
   const isPrimary = variant === 'primary';
   const isGold = variant === 'gold';
-  const bg = isPrimary ? colors.black : isGold ? colors.accent : colors.white;
+  const bg = isPrimary ? colors.olive : isGold ? colors.accent : colors.white;
   const fg = isPrimary || isGold ? colors.white : colors.black;
   return (
     <Pressable
@@ -15,7 +16,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
       style={({ pressed }) => [
         styles.btn,
         { backgroundColor: bg, opacity: disabled ? 0.4 : pressed ? 0.85 : 1 },
-        variant === 'outline' && { borderWidth: 1.5, borderColor: colors.black },
+        variant === 'outline' && { borderWidth: 1.5, borderColor: colors.olive },
         style,
       ]}
     >
@@ -25,6 +26,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
         <>
           {icon ? <Ionicons name={icon} size={18} color={fg} style={{ marginRight: 8 }} /> : null}
           <Text style={[styles.btnText, { color: fg }]}>{title}</Text>
+          {(isPrimary || isGold) && !disabled ? <Shine intensity={0.22} pause={4200} /> : null}
         </>
       )}
     </Pressable>
@@ -90,7 +92,7 @@ export function Row({ children, style }) {
 }
 
 const styles = StyleSheet.create({
-  btn: {
+  btn: { overflow: 'hidden',
     height: 48,
     borderRadius: 12,
     alignItems: 'center',

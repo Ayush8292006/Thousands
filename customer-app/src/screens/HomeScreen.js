@@ -14,6 +14,7 @@ import Glass from '../components/Glass';
 import CalliBanner from '../components/CalliBanner';
 import OfferPopup from '../components/OfferPopup';
 import { calli } from '../config/fonts';
+import Shine from '../components/Shine';
 import { colors, TAB_BAR_SPACE } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
@@ -104,7 +105,7 @@ export default function HomeScreen({ navigation }) {
   );
   const recent = recentlyViewed.map(getProductById).filter(Boolean);
   const lookingFor = (recent.length ? recent : suggested).slice(0, 8);
-  const firstName = (user?.name || '').trim().split(' ')[0];
+  const firstName = /thousands/i.test(user?.name || '') ? '' : (user?.name || '').trim().split(' ')[0];
 
   const trio = useMemo(() => {
     const pick = (c) => all.find((p) => p.category === c);
@@ -192,6 +193,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.offerSub}>Top brands at their lowest prices</Text>
             </View>
             <View style={styles.offerBadge}><Text style={styles.offerBadgeText}>Up to 80% off</Text></View>
+            <Shine intensity={0.4} duration={1400} pause={4600} delay={1500} />
           </Pressable>
           </Reveal>
 
@@ -307,6 +309,7 @@ const styles = StyleSheet.create({
   tabLine: { height: 3, width: '80%', borderRadius: 2, marginTop: 7, backgroundColor: 'transparent' },
   tabLineOn: { backgroundColor: colors.gold },
   offer: {
+    overflow: 'hidden',
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
     backgroundColor: '#FFF1DA', borderRadius: 18,
   },
