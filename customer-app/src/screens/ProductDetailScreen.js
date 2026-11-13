@@ -250,9 +250,7 @@ export default function ProductDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   galleryActions: { position: 'absolute', top: 26, right: 26, gap: 10 },
   roundBtn: {
-    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center',
-
-  },
+    width: 40, height: 40, borderRadius: 20, backgroundColor: colors.white, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.border },
   dots: { flexDirection: 'row', justifyContent: 'center', marginBottom: 8 },
   dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.border, marginHorizontal: 3 },
   dotOn: { backgroundColor: colors.black, width: 16 },

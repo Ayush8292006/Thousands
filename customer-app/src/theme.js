@@ -11,20 +11,20 @@ export const colors = {
   gold: '#B8920A', // logo gold — active state
   olive: '#5A4B02', // logo ka dark olive — brand name
   page: '#FAF7F0', // home content background (warm ivory)
-  black: '#000000',
-  ink: '#16171A',
+  black: '#1F1B16', // rich charcoal (primary text / dark surfaces)
+  ink: '#26221B', // charcoal body text
   white: '#FFFFFF',
-  bg: '#FFF8E7', // cream inner pages (client palette)
-  mist: '#F2F3F5', // surfaces, image backdrops
-  soft: '#F2F3F5',
+  bg: '#FAF7F0', // warm ivory inner pages
+  mist: '#F4EEDF', // warm surface (inputs, image backdrops)
+  soft: '#F4EEDF',
   card: '#FFFFFF',
-  border: '#EDE4CC',
-  muted: '#6B6F76',
-  faint: '#A0A4AB',
+  border: '#ECE3CC', // refined warm border
+  muted: '#6E6658', // warm grey
+  faint: '#A59D8C',
   accent: '#9A7300', // logo gold-brown
   accentDark: '#7A5A00',
   accentSoft: '#FBF1CF',
-  sale: '#E11D48', // discount
+  sale: '#C8323B',
   success: '#0F9D58',
   successSoft: '#E3F5EC',
   danger: '#D32F2F',
@@ -71,10 +71,13 @@ export const font = {
   kicker: { fontSize: 13, fontWeight: '600', color: colors.accent },
 };
 
-// Design flat hai — shadow sirf compatibility ke liye.
-export const shadow = {};
+// Refined soft shadows (warm tint)
+export const shadow = {
+  card: { shadowColor: '#5A4B02', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 4 }, elevation: 2 },
+  float: { shadowColor: '#3B2F00', shadowOpacity: 0.12, shadowRadius: 20, shadowOffset: { width: 0, height: 8 }, elevation: 6 },
+};
 
 export const TAB_BAR_SPACE = 96; // floating glass tab bar ke liye content ke neeche jagah
 
 // Soft light-blue and ice-blue backgrounds for category tiles and brand circles (HomeScreen)
-export const pastels = ['#E8F1FF', '#FFF1E6', '#E9F8EF', '#FDECF1', '#F1EBFF', '#FFF8D6', '#E6F7F8', '#F3F4F6'];
+export const pastels = ['#FBF1DC', '#F6EAD3', '#FFF4E0', '#F3EDE0', '#F8EFD9', '#FFF7E6', '#F1E9D6', '#F7F1E4'];

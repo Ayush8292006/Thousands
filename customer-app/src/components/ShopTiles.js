@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme';
+import PressScale from './PressScale';
 
 // Flipkart-style "arch" category tiles — 2 rows, horizontal scroll.
 // Production mein ye list backend (home layout API) se aayegi.
@@ -51,10 +52,10 @@ function Tile({ t, onPress }) {
     art = <Image source={{ uri: t.image }} style={styles.art} fadeDuration={0} />;
   }
   return (
-    <Pressable style={styles.tile} onPress={onPress} accessibilityLabel={t.name}>
+    <PressScale scaleTo={0.94} style={styles.tile} onPress={onPress} accessibilityLabel={t.name}>
       {art}
       <Text style={styles.label} numberOfLines={1}>{t.name}</Text>
-    </Pressable>
+    </PressScale>
   );
 }
 

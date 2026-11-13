@@ -63,8 +63,15 @@ export default function App() {
   // Web (Vercel): phone-width frame
   if (Platform.OS === 'web') {
     return (
-      <View style={{ flex: 1, backgroundColor: '#E9E4D6', alignItems: 'center' }}>
-        <View style={{ flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.page }}>{body}</View>
+      <View style={{ flex: 1, backgroundColor: '#EFE8D8', alignItems: 'center' }}>
+        <View
+          style={{
+            flex: 1, width: '100%', maxWidth: 480, overflow: 'hidden', backgroundColor: colors.page,
+            shadowColor: '#3B2F00', shadowOpacity: 0.12, shadowRadius: 40, shadowOffset: { width: 0, height: 0 },
+          }}
+        >
+          {body}
+        </View>
       </View>
     );
   }

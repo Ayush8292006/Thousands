@@ -15,6 +15,7 @@ import CalliBanner from '../components/CalliBanner';
 import OfferPopup from '../components/OfferPopup';
 import { calli } from '../config/fonts';
 import Shine from '../components/Shine';
+import PressScale from '../components/PressScale';
 import { colors, TAB_BAR_SPACE } from '../theme';
 import { getBanners, getCategories, getProducts, getProductById } from '../services/api';
 import { discountPct, formatPrice } from '../utils/format';
@@ -177,7 +178,7 @@ export default function HomeScreen({ navigation }) {
 
         {/* 2: content (sections reveal on scroll) */}
         <View style={{ backgroundColor: colors.page }} onLayout={(e) => setContentY(e.nativeEvent.layout.y)}>
-          <HeroCarousel banners={banners} onPress={(b) => openCat(b.link.category, b.title.replace('\n', ' '))} />
+          <HeroCarousel scrollY={scrollY} banners={banners} onPress={(b) => openCat(b.link.category, b.title.replace('\n', ' '))} />
 
           <ShopTiles navigation={navigation} />
 
@@ -203,11 +204,11 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.lookingTitle}>{firstName ? `${firstName}, still looking for these?` : 'Still looking for these?'}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 14 }}>
                 {lookingFor.map((p) => (
-                  <Pressable key={p.id} style={[styles.lookCard, { width: lookW }]} onPress={() => openProduct(p.id)}>
+                  <PressScale key={p.id} style={[styles.lookCard, { width: lookW }]} onPress={() => openProduct(p.id)}>
                     <ProductImage product={p} size={lookW - 16} rounded={10} />
                     <Text style={styles.lookSub} numberOfLines={1}>{p.sub}</Text>
                     <Text style={styles.lookPrice}>{formatPrice(p.price)}</Text>
-                  </Pressable>
+                  </PressScale>
                 ))}
               </ScrollView>
             </Reveal>
@@ -216,11 +217,11 @@ export default function HomeScreen({ navigation }) {
           {trio.length ? (
             <Reveal {...R} style={styles.trio}>
               {trio.map((x) => (
-                <Pressable key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
+                <PressScale key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
                   <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
                   <Text style={styles.trioTitle} numberOfLines={1}>{x.title}</Text>
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>
-                </Pressable>
+                </PressScale>
               ))}
             </Reveal>
           ) : null}
@@ -241,11 +242,11 @@ export default function HomeScreen({ navigation }) {
               </View>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 16 }}>
                 {deals.map((p) => (
-                  <Pressable key={p.id} style={styles.dealCard} onPress={() => openProduct(p.id)}>
+                  <PressScale key={p.id} style={styles.dealCard} onPress={() => openProduct(p.id)}>
                     <ProductImage product={p} size={96} rounded={12} />
                     <Text style={styles.dealName} numberOfLines={1}>{p.sub || p.brand}</Text>
                     <Text style={styles.dealOff}>Min. {Math.max(10, Math.floor(discountPct(p.mrp, p.price) / 10) * 10)}% Off</Text>
-                  </Pressable>
+                  </PressScale>
                 ))}
               </ScrollView>
             </Reveal>

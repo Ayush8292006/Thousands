@@ -73,16 +73,16 @@ function Contact({ icon, title, sub, onPress }) {
 
 const styles = StyleSheet.create({
   head: { fontSize: 12, fontWeight: '800', color: colors.muted, letterSpacing: 0.6, margin: 4, marginBottom: 8 },
-  contact: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: radius.md, padding: 14, marginBottom: 8 },
+  contact: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: radius.md, padding: 14, marginBottom: 8, borderWidth: 1, borderColor: colors.border },
   cIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   sub: { fontSize: 12, color: colors.muted, marginTop: 2 },
-  faqBox: { backgroundColor: colors.white, borderRadius: radius.md },
+  faqBox: { backgroundColor: colors.white, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
   faq: { padding: 14, borderBottomWidth: 1, borderBottomColor: colors.border },
   q: { flex: 1, fontWeight: '700', fontSize: 14 },
   a: { marginTop: 8, color: colors.muted, fontSize: 13, lineHeight: 19 },
   seller: { backgroundColor: colors.black, borderRadius: radius.lg, padding: 20, marginTop: 18, alignItems: 'center' },
   sellerTitle: { color: colors.white, fontSize: 18, fontWeight: '900', marginTop: 8 },
   sellerSub: { color: colors.faint, fontSize: 13, textAlign: 'center', marginTop: 6, lineHeight: 19 },
-  sellerBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: radius.pill, paddingHorizontal: 16, paddingVertical: 10, marginTop: 16, alignSelf: 'stretch', justifyContent: 'center' },
+  sellerBtn: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.white, borderRadius: radius.pill, paddingHorizontal: 16, paddingVertical: 10, marginTop: 16, alignSelf: 'stretch', justifyContent: 'center', borderWidth: 1, borderColor: colors.border },
   sellerBtnText: { marginLeft: 8, fontWeight: '700', fontSize: 13 },
 });

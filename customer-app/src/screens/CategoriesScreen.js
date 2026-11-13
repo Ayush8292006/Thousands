@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: radius.lg },
   bannerKicker: { color: colors.accent, fontSize: 10, fontWeight: '900', letterSpacing: 1.6 },
   bannerTitle: { color: colors.white, fontSize: 22, fontWeight: '700' },
-  bannerBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4, marginTop: 6 },
+  bannerBtn: { flexDirection: 'row', alignItems: 'center', gap: 4, alignSelf: 'flex-start', backgroundColor: colors.white, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4, marginTop: 6, borderWidth: 1, borderColor: colors.border },
   bannerBtnText: { fontSize: 11, fontWeight: '800' },
   secTitle: { fontSize: 17, fontWeight: '700', color: colors.black, marginTop: 20, marginBottom: 10 },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },

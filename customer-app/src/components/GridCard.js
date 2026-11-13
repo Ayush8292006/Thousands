@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import ProductImage from './ProductImage';
 import Stars from './Stars';
+import PressScale from './PressScale';
 import { colors } from '../theme';
 import { discountPct, formatPrice } from '../utils/format';
 import { DELIVERY } from '../config/app';
@@ -19,7 +20,7 @@ export function deliveryLabel(days = DELIVERY.days) {
 function GridCard({ product: p, width, liked, onToggleLike, onOpen, index = 0 }) {
   const off = discountPct(p.mrp, p.price);
   return (
-    <Pressable style={[styles.card, { width }, index % 2 === 0 && styles.left]} onPress={() => onOpen(p.id)} accessibilityLabel={p.title}>
+    <PressScale scaleTo={0.98} style={[styles.card, { width }, index % 2 === 0 && styles.left]} onPress={() => onOpen(p.id)} accessibilityLabel={p.title}>
       <View style={styles.imgWrap}>
         <ProductImage product={p} size={Math.round(width * 0.7)} rounded={12} resizeMode="cover" />
         <Pressable style={styles.like} onPress={() => onToggleLike(p.id)} hitSlop={8} accessibilityLabel="Wishlist">
@@ -49,7 +50,7 @@ function GridCard({ product: p, width, liked, onToggleLike, onOpen, index = 0 })
       <Text style={styles.delivery}>
         Delivery by <Text style={{ fontWeight: '700', color: colors.ink }}>{deliveryLabel()}</Text>
       </Text>
-    </Pressable>
+    </PressScale>
   );
 }
 

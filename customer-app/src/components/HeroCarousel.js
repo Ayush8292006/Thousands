@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, FlatList, Pressable, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Pressable, Image, Animated, StyleSheet } from 'react-native';
 import { useAppWidth } from '../utils/platform';
 import { colors } from '../theme';
 import Shine from './Shine';
 
 // Rounded banner carousel with Flipkart-style dash indicator
-export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
+export default function HeroCarousel({ banners, onPress, interval = 4000, scrollY }) {
   const { width } = useAppWidth();
   const cardW = width - 32;
   const height = Math.round(cardW * 0.4);
@@ -25,6 +25,11 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
     }, interval);
     return () => clearInterval(t);
   }, [banners.length, interval, width]);
+
+  // Subtle parallax: page scroll par image thoda dheere chalti hai
+  const parallax = scrollY
+    ? scrollY.interpolate({ inputRange: [-100, 0, 400], outputRange: [-14, 0, 46], extrapolate: 'clamp' })
+    : 0;
 
   if (!banners.length) return <View style={{ height: height + 22 }} />;
 
@@ -46,7 +51,10 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
         renderItem={({ item }) => (
           <View style={{ width, paddingHorizontal: 16 }}>
             <Pressable onPress={() => onPress(item)} style={[styles.card, { height }]} accessibilityLabel={item.title.replace('\n', ' ')}>
-              <ImageBackground source={{ uri: item.image }} style={StyleSheet.absoluteFill} resizeMode="cover">
+              <Animated.View style={[styles.imgLayer, { transform: [{ translateY: parallax }, { scale: 1.12 }] }]}>
+                <Image source={{ uri: item.image }} style={StyleSheet.absoluteFill} resizeMode="cover" fadeDuration={0} />
+              </Animated.View>
+              <View style={StyleSheet.absoluteFill}>
                 <View style={styles.scrim} />
                 <View style={styles.content}>
                   {item.kicker ? <Text style={styles.kicker}>{item.kicker}</Text> : null}
@@ -55,7 +63,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
                   <View style={styles.cta}><Text style={styles.ctaText}>{item.cta || 'Shop now'}</Text></View>
                 </View>
                 <Shine intensity={0.2} duration={1500} pause={5000} delay={900} />
-              </ImageBackground>
+              </View>
             </Pressable>
           </View>
         )}
@@ -69,6 +77,7 @@ export default function HeroCarousel({ banners, onPress, interval = 4000 }) {
 
 const styles = StyleSheet.create({
   card: { borderRadius: 18, overflow: 'hidden', backgroundColor: colors.mist },
+  imgLayer: { ...StyleSheet.absoluteFillObject },
   scrim: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(10, 20, 40, 0.38)' },
   content: { flex: 1, justifyContent: 'center', paddingHorizontal: 20, maxWidth: '72%' },
   kicker: { color: '#FFE27A', fontSize: 10, fontWeight: '800', letterSpacing: 0.6 },

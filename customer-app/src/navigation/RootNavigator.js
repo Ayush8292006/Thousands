@@ -42,10 +42,11 @@ function Tabs() {
 const webEnter = Platform.OS === 'web' ? ({ children }) => <ScreenEnter>{children}</ScreenEnter> : undefined;
 
 const stackHeader = {
-  headerStyle: { backgroundColor: colors.white },
-  headerTintColor: colors.black,
-  headerTitleStyle: { fontWeight: '700', fontSize: 18 },
-  headerShadowVisible: true,
+  headerStyle: { backgroundColor: colors.headerGradient[1] },
+  headerTintColor: colors.olive,
+  headerTitleStyle: { fontWeight: '800', fontSize: 17, color: colors.ink },
+  headerShadowVisible: false,
+  contentStyle: { backgroundColor: colors.bg },
   headerBackButtonDisplayMode: 'minimal',
   // Crisp page transitions
   animation: 'slide_from_right',
