@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useApp } from '../context/AppContext';
 import { colors, radius } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { BRAND } from '../config/app';
 import { notify } from '../utils/platform';
 
@@ -46,6 +47,7 @@ export default function AccountScreen({ navigation }) {
       <View style={styles.tiles}>
         {tiles.map((t) => (
           <Pressable key={t.label} style={styles.tile} onPress={t.onPress}>
+            <GlossOverlay level="medium" radius={16} />
             <Ionicons name={t.icon} size={22} color={colors.black} />
             <Text style={styles.tileText}>{t.label}</Text>
             {t.badge ? <Text style={styles.tileBadge}>{t.badge}</Text> : null}
@@ -54,6 +56,7 @@ export default function AccountScreen({ navigation }) {
       </View>
 
       <View style={styles.list}>
+        <GlossOverlay level="medium" radius={16} />
         {rows.map((r, i) => (
           <Pressable key={r.label} style={[styles.row, i === rows.length - 1 && { borderBottomWidth: 0 }]} onPress={r.onPress}>
             <Ionicons name={r.icon} size={20} color={colors.ink} />
@@ -65,6 +68,7 @@ export default function AccountScreen({ navigation }) {
       </View>
 
       <Pressable style={styles.logout} onPress={() => setUser(null)}>
+        <GlossOverlay level="medium" radius={16} />
         <Ionicons name="log-out-outline" size={20} color={colors.danger} />
         <Text style={styles.logoutText}>Log out</Text>
       </Pressable>
@@ -82,14 +86,14 @@ const styles = StyleSheet.create({
   plus: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.gold, backgroundColor: 'rgba(255,255,255,0.7)', borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 4 },
   plusText: { color: colors.accent, fontSize: 11, fontWeight: '800', marginLeft: 4 },
   tiles: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 12, marginTop: -30, gap: 10 },
-  tile: { width: '48%', flexGrow: 1, backgroundColor: colors.card, borderRadius: radius.md, padding: 14, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border },
+  tile: { width: '48%', flexGrow: 1, backgroundColor: colors.card, borderRadius: radius.md, padding: 14, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   tileText: { marginLeft: 10, fontWeight: '700', flex: 1 },
   tileBadge: { fontSize: 12, fontWeight: '800', color: colors.muted },
-  list: { backgroundColor: colors.card, marginTop: 14, marginHorizontal: 12, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
+  list: { backgroundColor: colors.card, marginTop: 14, marginHorizontal: 12, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   row: { flexDirection: 'row', alignItems: 'center', padding: 16, borderBottomWidth: 1, borderBottomColor: colors.border },
   rowText: { flex: 1, marginLeft: 12, fontSize: 14 },
   rowValue: { fontSize: 12, color: colors.muted, marginRight: 6 },
-  logout: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.card, margin: 12, marginTop: 14, borderRadius: radius.md, padding: 14, borderWidth: 1, borderColor: colors.border },
+  logout: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: colors.card, margin: 12, marginTop: 14, borderRadius: radius.md, padding: 14, borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   logoutText: { marginLeft: 8, color: colors.danger, fontWeight: '800' },
   ver: { textAlign: 'center', fontSize: 11, color: colors.faint },
 });

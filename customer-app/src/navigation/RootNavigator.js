@@ -5,7 +5,8 @@ import { colors } from '../theme';
 import { useApp } from '../context/AppContext';
 import TabBar from '../components/TabBar';
 import ScreenEnter from '../components/ScreenEnter';
-import { Platform } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
+import GlossHeader from '../components/GlossHeader';
 
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -46,6 +47,13 @@ const stackHeader = {
   headerTintColor: colors.olive,
   headerTitleStyle: { fontWeight: '800', fontSize: 17, color: colors.ink },
   headerShadowVisible: false,
+  // Glossy ivory header on every page (reflection + champagne-gold hairline)
+  headerBackground: () => (
+    <View style={StyleSheet.absoluteFill}>
+      <GlossHeader style={StyleSheet.absoluteFill} shine={false} />
+      <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 1, backgroundColor: 'rgba(214, 180, 92, 0.45)' }} />
+    </View>
+  ),
   contentStyle: { backgroundColor: colors.bg },
   headerBackButtonDisplayMode: 'minimal',
   // Crisp page transitions

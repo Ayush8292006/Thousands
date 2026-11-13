@@ -8,6 +8,7 @@ import QtyStepper from '../components/QtyStepper';
 import PriceDetails from '../components/PriceDetails';
 import { Button, EmptyState } from '../components/ui';
 import { colors, radius , fonts, TAB_BAR_SPACE } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { formatPrice, discountPct, formatDate, addDays } from '../utils/format';
 import { DELIVERY } from '../config/app';
 
@@ -46,6 +47,7 @@ export default function CartScreen({ navigation }) {
       {header}
       <ScrollView contentContainerStyle={{ paddingBottom: 90 + TAB_BAR_SPACE }}>
         <Pressable style={styles.addr} onPress={() => navigation.navigate('Addresses', { selectMode: true })}>
+          <GlossOverlay level="medium" radius={16} />
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 13 }}>
               Deliver to: <Text style={{ fontWeight: '800' }}>{selectedAddress.name}, {selectedAddress.pincode}</Text>
@@ -71,6 +73,7 @@ export default function CartScreen({ navigation }) {
           const off = discountPct(p.mrp, p.price);
           return (
             <View key={item.key} style={styles.item}>
+              <GlossOverlay level="medium" radius={16} />
               <View style={{ flexDirection: 'row' }}>
                 <Pressable style={{ width: 90 }} onPress={() => navigation.navigate('ProductDetail', { id: p.id })}>
                   <ProductImage product={p} size={90} rounded={10} />
@@ -103,7 +106,7 @@ export default function CartScreen({ navigation }) {
           );
         })}
 
-        <PriceDetails totals={totals} style={{ marginTop: 10, borderRadius: 0 }} />
+        <PriceDetails totals={totals} style={{ marginTop: 10, marginHorizontal: 12, borderRadius: 16 }} />
         <View style={styles.safe}>
           <Ionicons name="shield-checkmark-outline" size={18} color={colors.muted} />
           <Text style={styles.safeText}>Safe and secure payments. Easy returns. 100% authentic products.</Text>
@@ -124,13 +127,13 @@ export default function CartScreen({ navigation }) {
 const styles = StyleSheet.create({
   header: { backgroundColor: colors.card, paddingHorizontal: 16, paddingBottom: 12 },
   headerTitle: { color: colors.black, fontWeight: '700', fontSize: 20 },
-  addr: { backgroundColor: colors.card, padding: 14, flexDirection: 'row', alignItems: 'center' },
+  addr: { backgroundColor: colors.card, padding: 14, flexDirection: 'row', alignItems: 'center', marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   addrLine: { fontSize: 12, color: colors.muted, marginTop: 2 },
   changeBtn: { borderWidth: 1, borderColor: colors.border, borderRadius: radius.sm, paddingHorizontal: 12, paddingVertical: 6, marginLeft: 10 },
   changeText: { fontWeight: '700', fontSize: 12 },
   freeNote: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.accentSoft, padding: 10, paddingHorizontal: 14 },
   freeText: { marginLeft: 8, fontSize: 12, color: colors.ink, fontWeight: '600', flex: 1 },
-  item: { backgroundColor: colors.card, padding: 14, marginTop: 10 },
+  item: { backgroundColor: colors.card, padding: 14, marginTop: 10, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   title: { fontSize: 14, color: colors.ink, lineHeight: 19 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3 },
   priceRow: { flexDirection: 'row', alignItems: 'center', marginTop: 6 },

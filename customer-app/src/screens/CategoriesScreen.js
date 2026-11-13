@@ -3,6 +3,7 @@ import { View, Text, Pressable, ScrollView, StyleSheet, Image, ImageBackground }
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius , fonts, TAB_BAR_SPACE } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { getCategories, getProducts } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
@@ -53,6 +54,7 @@ export default function CategoriesScreen({ navigation }) {
               <Pressable onPress={() => navigation.navigate('ProductList', { category: active.id, title: active.name })}>
                 <ImageBackground source={{ uri: active.image }} style={styles.banner} imageStyle={{ borderRadius: radius.lg }}>
                   <View style={styles.bannerShade} />
+                  <GlossOverlay level="high" radius={16} />
                   <Text style={styles.bannerTitle}>{active.name}</Text>
                   <View style={styles.bannerBtn}>
                     <Text style={styles.bannerBtnText}>View all</Text>
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
   sideRing: { width: 52, height: 52, borderRadius: 26, borderWidth: 2, borderColor: 'transparent', padding: 2 },
   sideImg: { width: '100%', height: '100%', borderRadius: 24, backgroundColor: colors.soft },
   sideText: { fontSize: 10, marginTop: 5, color: colors.muted, textAlign: 'center', fontWeight: '600' },
-  banner: { height: 90, justifyContent: 'flex-end', padding: 14 },
+  banner: { height: 90, justifyContent: 'flex-end', padding: 14, borderRadius: 16, overflow: 'hidden' },
   bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: radius.lg },
   bannerKicker: { color: colors.accent, fontSize: 10, fontWeight: '900', letterSpacing: 1.6 },
   bannerTitle: { color: colors.white, fontSize: 22, fontWeight: '700' },

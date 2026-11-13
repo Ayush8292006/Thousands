@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { View, Text, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../theme';
+import { GlossOverlay } from './Gloss';
 import PressScale from './PressScale';
 
 // Flipkart-style "arch" category tiles — 2 rows, horizontal scroll.
@@ -49,7 +50,12 @@ function Tile({ t, onPress }) {
       </View>
     );
   } else {
-    art = <Image source={{ uri: t.image }} style={styles.art} fadeDuration={0} />;
+    art = (
+      <View style={styles.art}>
+        <Image source={{ uri: t.image }} style={StyleSheet.absoluteFill} fadeDuration={0} />
+        <GlossOverlay level="medium" radius={16} />
+      </View>
+    );
   }
   return (
     <PressScale scaleTo={0.94} style={styles.tile} onPress={onPress} accessibilityLabel={t.name}>

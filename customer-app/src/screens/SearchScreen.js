@@ -6,6 +6,7 @@ import GlossHeader from '../components/GlossHeader';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { noOutline } from '../utils/platform';
 import { colors } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { useApp } from '../context/AppContext';
 import { products, categories } from '../data/catalog';
 import ProductImage from '../components/ProductImage';
@@ -115,6 +116,7 @@ export default function SearchScreen({ navigation }) {
                     return (
                       <Pressable key={r} style={styles.recent} onPress={() => (editing ? null : submit(r))}>
                         <View style={styles.recentImg}>
+                          <GlossOverlay level="subtle" radius={16} />
                           {img ? <Image source={{ uri: img }} style={StyleSheet.absoluteFill} fadeDuration={0} /> : <Ionicons name="time-outline" size={26} color={colors.muted} />}
                           {editing ? (
                             <Pressable style={styles.remove} onPress={() => setHidden([...hidden, r])} hitSlop={6} accessibilityLabel={`Remove ${r}`}>
@@ -131,10 +133,12 @@ export default function SearchScreen({ navigation }) {
             ) : null}
 
             <View style={styles.stores}>
+              <GlossOverlay level="medium" radius={22} />
               <Text style={styles.storesTitle}>Recommended Stores</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 14 }}>
                 {categories.map((c) => (
                   <Pressable key={c.id} style={styles.store} onPress={() => navigation.replace('ProductList', { category: c.id, title: c.name })}>
+                    <GlossOverlay level="medium" radius={16} />
                     <Image source={{ uri: c.image }} style={styles.storeImg} fadeDuration={0} />
                     <Text style={styles.storeText} numberOfLines={1}>{c.name}</Text>
                   </Pressable>
@@ -177,9 +181,9 @@ const styles = StyleSheet.create({
   },
   remove: { position: 'absolute', top: 4, right: 4, width: 20, height: 20, borderRadius: 10, backgroundColor: 'rgba(0,0,0,0.6)', alignItems: 'center', justifyContent: 'center' },
   recentText: { fontSize: 13.5, color: colors.ink, marginTop: 6, lineHeight: 18 },
-  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: colors.beige, borderRadius: 22 },
+  stores: { marginHorizontal: 16, marginTop: 26, paddingVertical: 18, backgroundColor: colors.beige, borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.45)' },
   storesTitle: { fontSize: 20, fontWeight: '800', color: colors.ink, paddingHorizontal: 16, marginBottom: 14 },
-  store: { width: 118, backgroundColor: colors.card, borderRadius: 16, padding: 8, alignItems: 'center' },
+  store: { width: 118, backgroundColor: colors.card, borderRadius: 16, padding: 8, alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: colors.beige },
   storeImg: { width: 102, height: 102, borderRadius: 12, backgroundColor: colors.mist },
   storeText: { fontSize: 13.5, fontWeight: '700', color: colors.ink, marginTop: 8 },
   trend: { width: 150 },

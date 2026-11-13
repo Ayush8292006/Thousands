@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { SUPPORT, BRAND } from '../config/app';
 
 const FAQS = [
@@ -26,6 +27,7 @@ export default function SupportScreen({ route }) {
 
           <Text style={[styles.head, { marginTop: 18 }]}>FAQs</Text>
           <View style={styles.faqBox}>
+            <GlossOverlay level="medium" radius={16} />
             {FAQS.map(([q, a], i) => (
               <Pressable key={q} style={[styles.faq, i === FAQS.length - 1 && { borderBottomWidth: 0 }]} onPress={() => setOpen(open === i ? null : i)}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -61,6 +63,7 @@ export default function SupportScreen({ route }) {
 function Contact({ icon, title, sub, onPress }) {
   return (
     <Pressable style={styles.contact} onPress={onPress}>
+      <GlossOverlay level="medium" radius={16} />
       <View style={styles.cIcon}><Ionicons name={icon} size={20} color={colors.white} /></View>
       <View style={{ flex: 1, marginLeft: 12 }}>
         <Text style={{ fontWeight: '800' }}>{title}</Text>
@@ -73,10 +76,10 @@ function Contact({ icon, title, sub, onPress }) {
 
 const styles = StyleSheet.create({
   head: { fontSize: 12, fontWeight: '800', color: colors.muted, letterSpacing: 0.6, margin: 4, marginBottom: 8 },
-  contact: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, borderRadius: radius.md, padding: 14, marginBottom: 8, borderWidth: 1, borderColor: colors.border },
+  contact: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, borderRadius: radius.md, padding: 14, marginBottom: 8, borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   cIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   sub: { fontSize: 12, color: colors.muted, marginTop: 2 },
-  faqBox: { backgroundColor: colors.card, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
+  faqBox: { backgroundColor: colors.card, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   faq: { padding: 14, borderBottomWidth: 1, borderBottomColor: colors.border },
   q: { flex: 1, fontWeight: '700', fontSize: 14 },
   a: { marginTop: 8, color: colors.muted, fontSize: 13, lineHeight: 19 },

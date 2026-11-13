@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, Animated, Easing, StyleSheet, Platform, useWindowDimensions } from 'react-native';
 import Glass from './Glass';
+import Shine from './Shine';
 import { BRAND } from '../config/app';
 import { colors } from '../theme';
 
@@ -99,6 +100,7 @@ export default function Splash({ ready, minDuration = 3400, reducedMotion = fals
             <Text style={styles.name}>{BRAND.name}</Text>
             <Text style={styles.tagline}>{BRAND.tagline}</Text>
           </Animated.View>
+          <Shine intensity={0.45} duration={1600} pause={1800} delay={900} />
           <View style={styles.progressBox}>
             <View style={styles.track}>
               <Animated.View style={[styles.line, { width: lineW }]} />

@@ -3,12 +3,14 @@ import { View, Text, Pressable, StyleSheet, ActivityIndicator } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { colors, radius, font, fonts } from '../theme';
 import Shine from './Shine';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GlossOverlay, OLIVE_GLOSS, METAL_GOLD, METAL_GOLD_LOC } from './Gloss';
 
 export function Button({ title, onPress, variant = 'primary', icon, loading, disabled, style }) {
   const isPrimary = variant === 'primary';
   const isGold = variant === 'gold';
-  const bg = isPrimary ? colors.olive : isGold ? colors.accent : colors.white;
-  const fg = isPrimary || isGold ? colors.cream : colors.espresso;
+  const bg = isPrimary ? colors.olive : isGold ? colors.gold : colors.cream;
+  const fg = isPrimary ? colors.cream : colors.espresso;
   return (
     <Pressable
       onPress={onPress}
@@ -20,13 +22,17 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
         style,
       ]}
     >
+      {isPrimary ? <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} /> : null}
+      {isGold ? <LinearGradient colors={METAL_GOLD} locations={METAL_GOLD_LOC} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} /> : null}
+      {/* high gloss for important buttons, subtle for outline */}
+      <GlossOverlay level={isPrimary || isGold ? 'high' : 'subtle'} radius={14} dark={isPrimary} />
       {loading ? (
         <ActivityIndicator color={fg} />
       ) : (
         <>
           {icon ? <Ionicons name={icon} size={18} color={fg} style={{ marginRight: 8 }} /> : null}
           <Text style={[styles.btnText, { color: fg }]}>{title}</Text>
-          {(isPrimary || isGold) && !disabled ? <Shine intensity={0.22} pause={4200} /> : null}
+          {(isPrimary || isGold) && !disabled ? <Shine intensity={0.26} pause={4200} /> : null}
         </>
       )}
     </Pressable>
@@ -36,6 +42,7 @@ export function Button({ title, onPress, variant = 'primary', icon, loading, dis
 export function RatingChip({ value, small }) {
   return (
     <View style={[styles.rating, small && { paddingHorizontal: 5, paddingVertical: 1 }]}>
+      <GlossOverlay level="medium" radius={12} dark />
       <Text style={[styles.ratingText, small && { fontSize: 10 }]}>{value.toFixed(1)}</Text>
       <Ionicons name="star" size={small ? 9 : 11} color={colors.white} style={{ marginLeft: 2 }} />
     </View>
@@ -59,7 +66,12 @@ export function SectionHeader({ title, action, onAction, subtitle }) {
 }
 
 export function Card({ children, style }) {
-  return <View style={[styles.card, style]}>{children}</View>;
+  return (
+    <View style={[styles.card, style]}>
+      <GlossOverlay level="medium" radius={16} />
+      {children}
+    </View>
+  );
 }
 
 export function Divider({ style }) {
@@ -82,7 +94,9 @@ export function EmptyState({ icon, title, subtitle, actionTitle, onAction }) {
 export function Chip({ label, active, onPress }) {
   return (
     <Pressable onPress={onPress} style={[styles.chip, active && styles.chipActive]}>
-      <Text style={[styles.chipText, active && { color: colors.white }]}>{label}</Text>
+      {active ? <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} /> : null}
+      <GlossOverlay level={active ? 'high' : 'subtle'} radius={18} dark={active} />
+      <Text style={[styles.chipText, active && { color: colors.cream }]}>{label}</Text>
     </Pressable>
   );
 }
@@ -94,7 +108,8 @@ export function Row({ children, style }) {
 const styles = StyleSheet.create({
   btn: { overflow: 'hidden',
     height: 48,
-    borderRadius: 12,
+    borderRadius: 14,
+    shadowColor: '#302719', shadowOpacity: 0.16, shadowRadius: 12, shadowOffset: { width: 0, height: 6 }, elevation: 4,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -106,6 +121,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.success,
     borderRadius: 12,
+    overflow: 'hidden',
     paddingHorizontal: 6,
     paddingVertical: 2,
     alignSelf: 'flex-start',
@@ -113,10 +129,13 @@ const styles = StyleSheet.create({
   ratingText: { color: colors.white, fontSize: 11, fontWeight: '700' },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 12 },
   sectionAction: {
-    width: 30, height: 30, borderRadius: 12, backgroundColor: colors.black,
+    width: 30, height: 30, borderRadius: 15, backgroundColor: colors.olive,
     alignItems: 'center', justifyContent: 'center',
   },
-  card: { backgroundColor: colors.card, borderRadius: radius.lg, padding: 16 },
+  card: {
+    backgroundColor: colors.card, borderRadius: 16, padding: 16, borderWidth: 1, borderColor: colors.beige,
+    shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2,
+  },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
   emptyIcon: {
     width: 96, height: 96, borderRadius: 48, backgroundColor: colors.soft,
@@ -124,8 +143,8 @@ const styles = StyleSheet.create({
   },
   chip: {
     paddingHorizontal: 14, paddingVertical: 8, borderRadius: radius.pill,
-    borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, marginRight: 8,
+    borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, marginRight: 8, overflow: 'hidden',
   },
-  chipActive: { backgroundColor: colors.black, borderColor: colors.black },
+  chipActive: { backgroundColor: colors.olive, borderColor: colors.gold },
   chipText: { fontSize: 13, fontWeight: '600', color: colors.ink },
 });

@@ -5,6 +5,7 @@ import { useApp } from '../context/AppContext';
 import { Button, Chip } from '../components/ui';
 import { noOutline } from '../utils/platform';
 import { colors, radius } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 
 const empty = { name: '', phone: '', pincode: '', state: '', city: '', house: '', area: '', type: 'Home' };
 
@@ -66,12 +67,13 @@ export default function AddressScreen({ navigation, route }) {
           return (
             <Pressable
               key={a.id}
-              style={[styles.card, on && { borderColor: colors.black }]}
+              style={[styles.card, on && { borderColor: colors.gold }]}
               onPress={() => {
                 setSelectedAddressId(a.id);
                 if (selectMode) navigation.goBack();
               }}
             >
+              <GlossOverlay level="medium" radius={16} />
               <Ionicons name={on ? 'radio-button-on' : 'radio-button-off'} size={20} color={colors.black} style={{ marginTop: 2 }} />
               <View style={{ flex: 1, marginLeft: 10 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -110,8 +112,7 @@ const styles = StyleSheet.create({
   count: { fontSize: 12, fontWeight: '800', color: colors.muted, letterSpacing: 0.6, padding: 16, paddingBottom: 8 },
   card: {
     flexDirection: 'row', backgroundColor: colors.card, marginHorizontal: 12, marginBottom: 10, padding: 14,
-    borderRadius: radius.md, borderWidth: 1.5, borderColor: 'transparent',
-  },
+    borderRadius: radius.md, borderWidth: 1.5, borderColor: 'transparent', overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   tag: { backgroundColor: colors.soft, borderRadius: 12, paddingHorizontal: 6, paddingVertical: 2, marginLeft: 8 },
   tagText: { fontSize: 9, fontWeight: '800', color: colors.muted },
   line: { fontSize: 13, color: colors.muted, marginTop: 3 },

@@ -7,6 +7,7 @@ import PriceDetails from '../components/PriceDetails';
 import ProductImage from '../components/ProductImage';
 import { Button, EmptyState } from '../components/ui';
 import { colors, radius } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { formatPrice } from '../utils/format';
 
 const METHODS = [
@@ -37,6 +38,7 @@ export default function CheckoutScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.bg }}>
       <View style={styles.steps}>
+        <GlossOverlay level="medium" radius={16} />
         {['Address', 'Summary', 'Payment'].map((s, i) => (
           <React.Fragment key={s}>
             <View style={styles.step}>
@@ -52,6 +54,7 @@ export default function CheckoutScreen({ navigation }) {
 
       <ScrollView contentContainerStyle={{ paddingBottom: 110 }}>
         <View style={styles.block}>
+          <GlossOverlay level="medium" radius={16} />
           <View style={styles.blockHead}>
             <Text style={styles.blockTitle}>Deliver to</Text>
             <Pressable onPress={() => navigation.navigate('Addresses', { selectMode: true })}>
@@ -64,6 +67,7 @@ export default function CheckoutScreen({ navigation }) {
         </View>
 
         <View style={styles.block}>
+          <GlossOverlay level="medium" radius={16} />
           <Text style={[styles.blockTitle, { marginBottom: 10 }]}>Order summary ({totals.count})</Text>
           {cart.map((i) => (
             <View key={i.key} style={styles.item}>
@@ -78,6 +82,7 @@ export default function CheckoutScreen({ navigation }) {
         </View>
 
         <View style={styles.block}>
+          <GlossOverlay level="medium" radius={16} />
           <Text style={[styles.blockTitle, { marginBottom: 6 }]}>Payment method</Text>
           {METHODS.map((m) => {
             const on = method === m.id;
@@ -94,7 +99,7 @@ export default function CheckoutScreen({ navigation }) {
           })}
         </View>
 
-        <PriceDetails totals={totals} style={{ marginTop: 10, borderRadius: 0 }} />
+        <PriceDetails totals={totals} style={{ marginTop: 10, marginHorizontal: 12, borderRadius: 16 }} />
       </ScrollView>
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + 10 }]}>
@@ -114,13 +119,13 @@ export default function CheckoutScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  steps: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, paddingVertical: 14, paddingHorizontal: 24 },
+  steps: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, paddingVertical: 14, paddingHorizontal: 24, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   step: { alignItems: 'center' },
   stepDot: { width: 22, height: 22, borderRadius: 12, borderWidth: 1.5, borderColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   stepNum: { fontSize: 11, fontWeight: '800' },
   stepText: { fontSize: 11, marginTop: 4, fontWeight: '600' },
   stepLine: { flex: 1, height: 1.5, marginHorizontal: 6, marginBottom: 16 },
-  block: { backgroundColor: colors.card, padding: 16, marginTop: 10 },
+  block: { backgroundColor: colors.card, padding: 16, marginTop: 10, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   blockHead: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
   blockTitle: { fontSize: 15, fontWeight: '800' },
   link: { color: colors.accent, fontWeight: '800' },

@@ -16,6 +16,8 @@ import OfferPopup from '../components/OfferPopup';
 import { calli } from '../config/fonts';
 import Shine from '../components/Shine';
 import PressScale from '../components/PressScale';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GlossOverlay, METAL_GOLD, METAL_GOLD_LOC } from '../components/Gloss';
 import CategoryChip from '../components/CategoryChip';
 import LocationDropdown from '../components/LocationDropdown';
 import { colors, TAB_BAR_SPACE } from '../theme';
@@ -171,6 +173,7 @@ export default function HomeScreen({ navigation }) {
         {/* 1: sticky category tabs */}
         <Glass tint="cream" radius={0} highlight={false} style={styles.tabsWrap}>
           <Animated.View style={[styles.search, { transform: [{ scale: searchPress }] }]}>
+            <GlossOverlay level="medium" radius={24} />
             <Pressable
               style={styles.searchInner}
               onPress={() => navigation.navigate('Search')}
@@ -206,13 +209,18 @@ export default function HomeScreen({ navigation }) {
 
           <Reveal {...R}>
           <Pressable style={({ pressed }) => [styles.offer, pressed && { opacity: 0.9 }]} onPress={() => navigation.navigate('ProductList', { tag: 'deal', title: 'Big Thousand Days' })}>
-            <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.accent} /></View>
+            <LinearGradient colors={METAL_GOLD} locations={METAL_GOLD_LOC} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={StyleSheet.absoluteFill} />
+            <GlossOverlay level="high" radius={18} />
+            <View style={styles.offerIcon}><Ionicons name="pricetags" size={16} color={colors.olive} /></View>
             <View style={{ flex: 1 }}>
               <Text style={calli(14, colors.olive)}>Mega savings</Text>
               <Text style={styles.offerTitle}>The Big Thousand Days are live</Text>
               <Text style={styles.offerSub}>Top brands at their lowest prices</Text>
             </View>
-            <View style={styles.offerBadge}><Text style={styles.offerBadgeText}>Up to 80% off</Text></View>
+            <View style={styles.offerBadge}>
+              <GlossOverlay level="high" radius={14} dark />
+              <Text style={styles.offerBadgeText}>Up to 80% off</Text>
+            </View>
             <Shine intensity={0.4} duration={1400} pause={4600} delay={1500} />
           </Pressable>
           </Reveal>
@@ -223,6 +231,7 @@ export default function HomeScreen({ navigation }) {
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 14 }}>
                 {lookingFor.map((p) => (
                   <PressScale key={p.id} style={[styles.lookCard, { width: lookW }]} onPress={() => openProduct(p.id)}>
+                    <GlossOverlay level="medium" radius={14} />
                     <ProductImage product={p} size={lookW - 16} rounded={10} />
                     <Text style={styles.lookSub} numberOfLines={1}>{p.sub}</Text>
                     <Text style={styles.lookPrice}>{formatPrice(p.price)}</Text>
@@ -236,7 +245,10 @@ export default function HomeScreen({ navigation }) {
             <Reveal {...R} style={styles.trio}>
               {trio.map((x) => (
                 <PressScale key={x.key} style={{ width: trioW }} onPress={() => openCat(x.cat, x.sub)}>
-                  <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
+                  <View>
+                    <ProductImage product={x.p} size={Math.round(trioW * 0.85)} rounded={14} />
+                    <GlossOverlay level="medium" radius={14} />
+                  </View>
                   <Text style={styles.trioTitle} numberOfLines={1}>{x.title}</Text>
                   <Text style={styles.trioSub} numberOfLines={1}>{x.sub}</Text>
                 </PressScale>
@@ -261,6 +273,7 @@ export default function HomeScreen({ navigation }) {
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 16 }}>
                 {deals.map((p) => (
                   <PressScale key={p.id} style={styles.dealCard} onPress={() => openProduct(p.id)}>
+                    <GlossOverlay level="medium" radius={16} />
                     <ProductImage product={p} size={96} rounded={12} />
                     <Text style={styles.dealName} numberOfLines={1}>{p.sub || p.brand}</Text>
                     <Text style={styles.dealOff}>Min. {Math.max(10, Math.floor(discountPct(p.mrp, p.price) / 10) * 10)}% Off</Text>
@@ -326,7 +339,7 @@ const styles = StyleSheet.create({
   },
   deliverLabel: { fontSize: 10.5, color: colors.muted, letterSpacing: 0.3 },
   deliverStrong: { fontSize: 13.5, color: colors.espresso, fontWeight: '700', marginTop: 1 },
-  search: {
+  search: { overflow: 'hidden',
     marginHorizontal: 14, marginTop: 8, marginBottom: 10, borderRadius: 24, backgroundColor: colors.cream,
     borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.7)',
     shadowColor: '#625000', shadowOpacity: 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 3,
@@ -335,19 +348,18 @@ const styles = StyleSheet.create({
   searchText: { flex: 1, fontSize: 14, color: colors.muted },
   searchSep: { width: 1, height: 20, backgroundColor: colors.beige },
   tabsWrap: { borderWidth: 0, borderBottomWidth: 1, borderBottomColor: 'rgba(230, 220, 194, 0.9)', shadowOpacity: 0.06, elevation: 2 },
-  offer: {
-    overflow: 'hidden',
+  offer: { overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.9)', shadowColor: '#625000', shadowOpacity: 0.18, shadowRadius: 16, shadowOffset: { width: 0, height: 8 }, elevation: 5,
     flexDirection: 'row', alignItems: 'center', gap: 12, marginHorizontal: 16, marginTop: 4, padding: 14,
     backgroundColor: colors.beige, borderRadius: 18,
   },
-  offerIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center' },
+  offerIcon: { width: 32, height: 32, borderRadius: 12, backgroundColor: 'rgba(255,253,246,0.85)', alignItems: 'center', justifyContent: 'center' },
   offerTitle: { fontSize: 13, fontWeight: '800', color: colors.espresso },
-  offerSub: { fontSize: 11.5, color: colors.muted, marginTop: 2 },
-  offerBadge: { backgroundColor: colors.terracotta, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
+  offerSub: { fontSize: 11.5, color: '#5A4A28', marginTop: 2 },
+  offerBadge: { overflow: 'hidden', backgroundColor: colors.terracotta, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6 },
   offerBadgeText: { color: colors.white, fontSize: 11.5, fontWeight: '700' },
   looking: { marginHorizontal: 16, marginTop: 16, paddingVertical: 14, backgroundColor: colors.beige, borderRadius: 22 },
   lookingTitle: { fontSize: 15.5, fontWeight: '800', color: colors.ink, paddingHorizontal: 14, marginBottom: 10 },
-  lookCard: { backgroundColor: colors.card, borderRadius: 14, padding: 6 },
+  lookCard: { overflow: 'hidden', borderWidth: 1, borderColor: colors.beige, shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 2, backgroundColor: colors.card, borderRadius: 14, padding: 6 },
   lookSub: { fontSize: 12, color: colors.muted, marginTop: 8 },
   lookPrice: { fontSize: 13.5, fontWeight: '800', color: colors.ink, marginTop: 1 },
   trio: { flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginTop: 16 },
@@ -358,7 +370,7 @@ const styles = StyleSheet.create({
   arrowBtn: { width: 44, height: 30, borderRadius: 15, backgroundColor: colors.ink, alignItems: 'center', justifyContent: 'center' },
   timer: { flexDirection: 'row', alignItems: 'center', gap: 4, backgroundColor: '#F6E3DA', borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
   timerText: { fontSize: 12, fontWeight: '700', color: colors.sale },
-  dealCard: { width: 112, backgroundColor: colors.card, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 7 },
+  dealCard: { overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 2, width: 112, backgroundColor: colors.card, borderRadius: 16, borderWidth: 1, borderColor: colors.border, padding: 7 },
   dealName: { fontSize: 12, color: colors.ink, marginTop: 8, textAlign: 'center' },
   dealOff: { fontSize: 12, fontWeight: '800', color: colors.terracotta, textAlign: 'center', marginTop: 2 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', borderTopWidth: StyleSheet.hairlineWidth, borderColor: colors.beige },

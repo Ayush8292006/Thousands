@@ -6,6 +6,7 @@ import ProductImage from '../components/ProductImage';
 import PriceDetails from '../components/PriceDetails';
 import { Button } from '../components/ui';
 import { colors } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { formatDate, formatPrice, addDays } from '../utils/format';
 import { confirmAction } from '../utils/platform';
 
@@ -21,12 +22,14 @@ export default function OrderDetailScreen({ route, navigation }) {
   return (
     <ScrollView style={{ backgroundColor: colors.bg }} contentContainerStyle={{ paddingBottom: 30 }}>
       <View style={styles.block}>
+        <GlossOverlay level="medium" radius={16} />
         <Text style={styles.meta}>Order ID · {o.id}</Text>
         <Text style={styles.meta}>Placed on {formatDate(o.placedAt)} · Paid via {o.payment}</Text>
       </View>
 
       {o.items.map((i) => (
         <Pressable key={i.key} style={styles.item} onPress={() => navigation.navigate('ProductDetail', { id: i.product.id })}>
+          <GlossOverlay level="medium" radius={16} />
           <View style={{ flex: 1, marginRight: 12 }}>
             <Text style={{ fontSize: 14 }} numberOfLines={2}>{i.product.title}</Text>
             <Text style={styles.meta}>{i.variant ? `${i.variant} · ` : ''}Qty {i.qty} · Seller: {i.product.sellerName}</Text>
@@ -38,6 +41,7 @@ export default function OrderDetailScreen({ route, navigation }) {
 
       {/* Tracking */}
       <View style={styles.block}>
+        <GlossOverlay level="medium" radius={16} />
         <Text style={styles.blockTitle}>Order tracking</Text>
         {o.cancelled ? (
           <View style={styles.cancelBox}>
@@ -69,13 +73,14 @@ export default function OrderDetailScreen({ route, navigation }) {
       </View>
 
       <View style={styles.block}>
+        <GlossOverlay level="medium" radius={16} />
         <Text style={styles.blockTitle}>Shipping address</Text>
         <Text style={{ fontWeight: '700' }}>{o.address.name}</Text>
         <Text style={styles.meta}>{o.address.house}, {o.address.area}, {o.address.city}, {o.address.state} — {o.address.pincode}</Text>
         <Text style={styles.meta}>{o.address.phone}</Text>
       </View>
 
-      <PriceDetails totals={o.totals} style={{ marginTop: 10, borderRadius: 0 }} />
+      <PriceDetails totals={o.totals} style={{ marginTop: 10, marginHorizontal: 12, borderRadius: 16 }} />
 
       <View style={{ padding: 16, gap: 10 }}>
         <Button title="Download Invoice" icon="document-text-outline" onPress={() => navigation.navigate('Invoice', { id: o.id })} />
@@ -87,10 +92,10 @@ export default function OrderDetailScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  block: { backgroundColor: colors.card, padding: 16, marginTop: 10 },
+  block: { backgroundColor: colors.card, padding: 16, marginTop: 10, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12 },
   meta: { fontSize: 12, color: colors.muted, marginTop: 3, lineHeight: 17 },
-  item: { flexDirection: 'row', backgroundColor: colors.card, padding: 16, marginTop: 1 },
+  item: { flexDirection: 'row', backgroundColor: colors.card, padding: 16, marginTop: 8, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   tDot: { width: 20, height: 20, borderRadius: 12, borderWidth: 1.5, borderColor: colors.border, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.card },
   tDotOn: { backgroundColor: colors.success, borderColor: colors.success },
   tLine: { width: 2, flex: 1, backgroundColor: colors.border, marginVertical: 2 },

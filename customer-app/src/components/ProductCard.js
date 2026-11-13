@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import ProductImage from './ProductImage';
 import { colors, fonts } from '../theme';
+import { GlossOverlay } from './Gloss';
 import { formatPrice, discountPct } from '../utils/format';
 import { useApp } from '../context/AppContext';
 
@@ -22,6 +23,7 @@ export default function ProductCard({ product, width, imageSize = 125, style }) 
       style={({ pressed }) => [styles.card, width ? { width } : { flex: 1 }, pressed && { opacity: 0.9 }, style]}
       accessibilityLabel={`${product.title}, ${formatPrice(product.price)}`}
     >
+      <GlossOverlay level="medium" radius={14} />
       <View>
         <ProductImage product={product} size={imageSize} rounded={8} />
         <Pressable hitSlop={10} onPress={() => toggleWishlist(product.id)} style={styles.heart} accessibilityLabel="Wishlist">
@@ -72,7 +74,10 @@ function formatCount(n) {
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.card, borderRadius: 12, borderWidth: 1, borderColor: colors.border, padding: 8 },
+  card: {
+    backgroundColor: colors.card, borderRadius: 14, borderWidth: 1, borderColor: colors.border, padding: 8, overflow: 'hidden',
+    shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 2,
+  },
   heart: {
     position: 'absolute', top: 6, right: 6, width: 28, height: 28, borderRadius: 12,
     backgroundColor: colors.card, alignItems: 'center', justifyContent: 'center',

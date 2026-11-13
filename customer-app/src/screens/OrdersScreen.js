@@ -5,6 +5,7 @@ import { useApp, ORDER_STEPS } from '../context/AppContext';
 import ProductImage from '../components/ProductImage';
 import { EmptyState } from '../components/ui';
 import { colors } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { formatDate, formatPrice } from '../utils/format';
 
 export function orderStatus(o) {
@@ -27,6 +28,7 @@ export default function OrdersScreen({ navigation }) {
         const first = o.items[0];
         return (
           <Pressable style={styles.card} onPress={() => navigation.navigate('OrderDetail', { id: o.id })}>
+            <GlossOverlay level="medium" radius={16} />
             <View style={{ width: 70 }}><ProductImage product={first.product} size={70} rounded={10} /></View>
             <View style={{ flex: 1, marginLeft: 12 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -47,7 +49,7 @@ export default function OrdersScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, padding: 14, marginBottom: 10 },
+  card: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, padding: 14, marginBottom: 10, marginHorizontal: 12, borderRadius: 16, borderWidth: 1, borderColor: colors.beige, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   dot: { width: 8, height: 8, borderRadius: 12, marginRight: 6 },
   status: { fontSize: 13, fontWeight: '800', flex: 1 },
   title: { fontSize: 13, color: colors.ink, marginTop: 4 },

@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 import { Button } from '../components/ui';
 import { colors } from '../theme';
+import { GlossOverlay } from '../components/Gloss';
 import { formatMoney, formatDate } from '../utils/format';
 import { region } from '../config/tax';
 import { BRAND, SUPPORT } from '../config/app';
@@ -34,6 +35,7 @@ export default function InvoiceScreen({ route }) {
         }));
         return (
           <View key={sid} style={styles.paper}>
+            <GlossOverlay level="medium" radius={16} />
             <View style={styles.top}>
               <View style={styles.logoBox}>
                 <Image source={require('../../assets/logo-white.png')} style={{ width: 22, height: 24 }} resizeMode="contain" />
@@ -133,7 +135,7 @@ function SumRow({ k, v }) {
 }
 
 const styles = StyleSheet.create({
-  paper: { backgroundColor: colors.card, borderRadius: 12, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
+  paper: { backgroundColor: colors.card, borderRadius: 12, padding: 16, marginBottom: 12, borderWidth: 1, borderColor: colors.border, overflow: 'hidden', shadowColor: '#302719', shadowOpacity: 0.07, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 2 },
   top: { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 2, borderBottomColor: colors.black, paddingBottom: 12 },
   logoBox: { width: 38, height: 38, borderRadius: 8, backgroundColor: colors.black, alignItems: 'center', justifyContent: 'center' },
   brand: { fontWeight: '900', letterSpacing: 3, fontSize: 15 },

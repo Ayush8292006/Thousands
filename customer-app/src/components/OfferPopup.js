@@ -5,6 +5,8 @@ import Glass from './Glass';
 import { calli } from '../config/fonts';
 import { colors } from '../theme';
 import Shine from './Shine';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GlossOverlay, OLIVE_GLOSS } from './Gloss';
 
 const native = Platform.OS !== 'web';
 let shownThisSession = false; // ek session mein sirf ek baar
@@ -47,17 +49,21 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
               <Text style={styles.bannerTitle}>{offer.title}</Text>
             </ImageBackground>
             <Pressable style={styles.close} onPress={() => close()} hitSlop={10} accessibilityLabel="Close">
+              <GlossOverlay level="high" radius={16} />
               <Ionicons name="close" size={18} color={colors.ink} />
             </Pressable>
 
             <Text style={styles.sub}>{offer.subtitle}</Text>
             <Pressable style={styles.code} onPress={() => setCopied(true)} accessibilityLabel={`Coupon code ${offer.code}`}>
+              <GlossOverlay level="medium" radius={16} />
               <Text style={styles.codeLabel}>Use code</Text>
               <Text style={styles.codeText}>{offer.code}</Text>
               <Text style={styles.codeTap}>{copied ? 'Applied at checkout' : 'Tap to apply'}</Text>
             </Pressable>
 
             <Pressable style={({ pressed }) => [styles.shop, pressed && { opacity: 0.9 }]} onPress={() => close(onShop)}>
+              <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} />
+              <GlossOverlay level="high" radius={25} dark />
               <Text style={styles.shopText}>Shop the offer</Text>
               <Ionicons name="arrow-forward" size={17} color={colors.white} />
               <Shine intensity={0.3} duration={1200} pause={2600} delay={500} />
@@ -79,13 +85,13 @@ const styles = StyleSheet.create({
   bannerShade: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(25, 18, 0, 0.45)', borderRadius: 22 },
   bannerTitle: { color: colors.white, fontSize: 20, fontWeight: '800', marginTop: 2 },
   close: {
-    position: 'absolute', top: 20, right: 20, width: 32, height: 32, borderRadius: 16,
+    position: 'absolute', top: 20, right: 20, width: 32, height: 32, borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(255,255,255,0.95)',
     backgroundColor: 'rgba(255,255,255,0.9)', alignItems: 'center', justifyContent: 'center',
   },
   sub: { fontSize: 14, color: colors.muted, textAlign: 'center', marginTop: 14, paddingHorizontal: 8, lineHeight: 20 },
   code: {
     alignItems: 'center', marginTop: 14, paddingVertical: 12, borderRadius: 16, borderWidth: 1.5,
-    borderStyle: 'dashed', borderColor: colors.gold, backgroundColor: 'rgba(255,255,255,0.6)',
+    borderStyle: 'dashed', borderColor: colors.gold, backgroundColor: 'rgba(255,253,246,0.85)', overflow: 'hidden',
   },
   codeLabel: { fontSize: 11, color: colors.headerMuted, letterSpacing: 1 },
   codeText: { fontSize: 20, fontWeight: '800', color: colors.olive, letterSpacing: 2, marginTop: 2 },

@@ -6,6 +6,7 @@ import Stars from './Stars';
 import PressScale from './PressScale';
 import HeartButton from './HeartButton';
 import { colors } from '../theme';
+import { GlossOverlay } from './Gloss';
 import { discountPct, formatPrice } from '../utils/format';
 import { DELIVERY } from '../config/app';
 
@@ -24,6 +25,7 @@ function GridCard({ product: p, width, liked, onToggleLike, onOpen, index = 0 })
     <PressScale scaleTo={0.98} style={[styles.card, { width }, index % 2 === 0 && styles.left]} onPress={() => onOpen(p.id)} accessibilityLabel={p.title}>
       <View style={styles.imgWrap}>
         <ProductImage product={p} size={Math.round(width * 0.7)} rounded={12} resizeMode="cover" />
+        <GlossOverlay level="subtle" radius={12} />
         <HeartButton liked={liked} onToggle={() => onToggleLike(p.id)} style={styles.like} />
       </View>
       <Text style={styles.title} numberOfLines={2}>{p.title}</Text>
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
   left: { borderRightWidth: StyleSheet.hairlineWidth },
   imgWrap: { marginBottom: 8 },
   like: {
+    shadowColor: '#302719', shadowOpacity: 0.12, shadowRadius: 6, shadowOffset: { width: 0, height: 2 }, elevation: 2,
     position: 'absolute', top: 6, right: 6, width: 30, height: 30, borderRadius: 15, backgroundColor: colors.card,
     alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: colors.beige,
   },

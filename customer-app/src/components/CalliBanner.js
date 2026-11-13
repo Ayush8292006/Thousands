@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { calli } from '../config/fonts';
 import { colors } from '../theme';
+import { GlossOverlay } from './Gloss';
 import Shine from './Shine';
 
 // Front page calligraphy greeting card (Indian hand-painted lettering style)
@@ -26,6 +27,7 @@ export default function CalliBanner({ onPress }) {
             </View>
           ))}
         </View>
+        <GlossOverlay level="high" radius={20} />
         <Shine intensity={0.45} duration={1600} pause={4000} delay={400} />
       </LinearGradient>
     </Pressable>
@@ -33,7 +35,7 @@ export default function CalliBanner({ onPress }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { marginHorizontal: 16, marginTop: 14 },
+  wrap: { marginHorizontal: 16, marginTop: 14, borderRadius: 20, shadowColor: '#625000', shadowOpacity: 0.14, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 5 },
   card: { overflow: 'hidden', borderRadius: 20, paddingVertical: 14, paddingHorizontal: 16, borderWidth: 1, borderColor: colors.beige },
   center: { textAlign: 'center' },
   ornRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 },

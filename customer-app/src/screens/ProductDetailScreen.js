@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   off: { color: colors.sale, fontSize: 18, fontWeight: '800', marginRight: 8 },
   mrp: { color: colors.faint, textDecorationLine: 'line-through', fontSize: 15, marginRight: 8 },
   price: { fontSize: 28, fontWeight: '700', color: colors.black, },
-  block: { marginHorizontal: 0, marginTop: 10, borderRadius: 0 },
+  block: { marginHorizontal: 12, marginTop: 12, borderRadius: 16 },
   blockTitle: { fontSize: 15, fontWeight: '800', marginBottom: 12, color: colors.black },
   offer: { flexDirection: 'row', marginBottom: 8 },
   offerText: { flex: 1, marginLeft: 8, fontSize: 13, color: colors.ink, lineHeight: 18 },

@@ -5,6 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '../theme';
 import { useApp } from '../context/AppContext';
 import Glass from './Glass';
+import { LinearGradient } from 'expo-linear-gradient';
+import { GlossOverlay, OLIVE_GLOSS } from './Gloss';
 
 // Apple-inspired Liquid Glass bottom navigation:
 // floating ivory glass pill, champagne-gold border, sliding royal-olive active indicator.
@@ -76,7 +78,10 @@ export default function TabBar({ state, navigation }) {
       <Glass tint="rgba(255, 253, 246, 0.78)" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
         {itemW ? (
           <Animated.View pointerEvents="none" style={[styles.indicator, { width: itemW, transform: [{ translateX }] }]}>
-            <View style={styles.indicatorInner} />
+            <View style={styles.indicatorInner}>
+              <LinearGradient colors={OLIVE_GLOSS} style={StyleSheet.absoluteFill} />
+              <GlossOverlay level="high" radius={26} dark />
+            </View>
           </Animated.View>
         ) : null}
         {state.routes.map((route, i) => (
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
   },
   indicator: { position: 'absolute', top: PAD, bottom: PAD, left: PAD, paddingHorizontal: 3 },
   indicatorInner: {
-    flex: 1, borderRadius: 26, backgroundColor: colors.olive,
+    flex: 1, borderRadius: 26, backgroundColor: colors.olive, overflow: 'hidden',
     borderWidth: 1, borderColor: 'rgba(214, 180, 92, 0.6)',
   },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 7 },
