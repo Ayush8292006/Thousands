@@ -75,7 +75,7 @@ export default function TabBar({ state, navigation }) {
 
   return (
     <View style={[styles.wrap, { paddingBottom: Math.max(insets.bottom, 10) }]} pointerEvents="box-none">
-      <Glass tint="rgba(255, 253, 246, 0.5)" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
+      <Glass tint="rgba(255, 253, 246, 0.62)" radius={32} style={styles.bar} onLayout={(e) => setW(e.nativeEvent.layout.width)}>
         {itemW ? (
           <Animated.View pointerEvents="none" style={[styles.indicator, { width: itemW, transform: [{ translateX }] }]}>
             <View style={styles.indicatorInner}>

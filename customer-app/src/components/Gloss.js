@@ -9,9 +9,9 @@ import { colors } from '../theme';
 //        'medium'→ navigation, interactive cards
 //        'subtle'→ secondary surfaces / backgrounds
 const LEVELS = {
-  high: { top: 0.75, line: 0.95, rim: 0.35, height: '58%' },
-  medium: { top: 0.5, line: 0.85, rim: 0.18, height: '50%' },
-  subtle: { top: 0.28, line: 0.7, rim: 0, height: '42%' },
+  high: { top: 0.42, line: 1, rim: 0.28, height: '36%', streak: 0.3 },
+  medium: { top: 0.28, line: 0.9, rim: 0.14, height: '32%', streak: 0 },
+  subtle: { top: 0.16, line: 0.7, rim: 0, height: '28%', streak: 0 },
 };
 
 // Metallic champagne-gold gradient (polished, not flat)
@@ -27,16 +27,27 @@ export function GlossOverlay({ level = 'medium', radius = 16, dark = false, swee
     <View pointerEvents="none" style={[StyleSheet.absoluteFill, { borderRadius: radius, overflow: 'hidden' }]}>
       {/* soft white light reflection from the top */}
       <LinearGradient
-        colors={[`rgba(255,255,255,${dark ? L.top * 0.55 : L.top})`, 'rgba(255,255,255,0)']}
+        colors={[`rgba(255,255,255,${dark ? L.top * 0.6 : L.top})`, `rgba(255,255,255,${dark ? 0.03 : 0.05})`, 'rgba(255,255,255,0)']}
+        locations={[0, 0.6, 1]}
         style={{ position: 'absolute', top: 0, left: 0, right: 0, height: L.height }}
       />
       {/* polished top edge (inner highlight) */}
       <View style={{ position: 'absolute', top: 0, left: radius * 0.6, right: radius * 0.6, height: 1, backgroundColor: `rgba(255,255,255,${L.line})` }} />
+      {/* sharp diagonal light streak (high gloss only) */}
+      {L.streak ? (
+        <LinearGradient
+          colors={['rgba(255,255,255,0)', `rgba(255,255,255,${dark ? L.streak * 0.6 : L.streak})`, 'rgba(255,255,255,0)']}
+          locations={[0.36, 0.4, 0.44]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
+      ) : null}
       {/* subtle metallic gold reflection at the bottom edge */}
       {L.rim ? (
         <LinearGradient
           colors={['rgba(214,180,92,0)', `rgba(214,180,92,${L.rim})`]}
-          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '30%' }}
+          style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '18%' }}
         />
       ) : null}
       {sweep ? <Shine intensity={dark ? 0.22 : 0.4} duration={1500} pause={4600} delay={700} /> : null}

@@ -33,7 +33,7 @@ export default function LocationDropdown({ visible, onClose, onManage, top = 70 
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} accessibilityLabel="Close" />
       </Animated.View>
       <Animated.View style={[styles.panelWrap, { top: insets.top + top, opacity: a, transform: [{ translateY }] }]}>
-        <Glass tint="rgba(255, 253, 246, 0.62)" radius={20} style={styles.panel}>
+        <Glass tint="rgba(255, 253, 246, 0.78)" radius={20} style={styles.panel}>
           <Text style={styles.title}>My Addresses</Text>
           {addresses.map((ad) => {
             const on = selectedAddress?.id === ad.id;

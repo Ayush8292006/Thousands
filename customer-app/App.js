@@ -16,10 +16,10 @@ if (isWeb && typeof document !== 'undefined') {
   const st = document.createElement('style');
   st.textContent = [
     'input, textarea, input:focus, textarea:focus, input:focus-visible, textarea:focus-visible { outline: none !important; outline-width: 0 !important; box-shadow: none !important; border-color: transparent !important; }',
-    // Real liquid glass: translucent surface + backdrop blur + inner highlight + soft layered shadow
-    '[data-glass="1"] { -webkit-backdrop-filter: blur(25px) saturate(180%); backdrop-filter: blur(25px) saturate(180%); box-shadow: 0 20px 60px rgba(48, 39, 25, 0.16), inset 0 1px 2px rgba(255, 255, 255, 0.85) !important; }',
-    // Popup / dropdown dimming layer: separate, light blur so the page stays recognisable
-    '[data-glassdim="1"] { -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }',
+    // Sharp optical liquid glass: clear translucent surface, very light blur (3px), crisp inset highlights
+    '[data-glass="1"] { -webkit-backdrop-filter: blur(3px) saturate(160%); backdrop-filter: blur(3px) saturate(160%); box-shadow: 0 12px 36px rgba(48, 39, 25, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(214, 180, 92, 0.35) !important; }',
+    // Popup / dropdown dimming layer: separate, no blur so the page stays crisp
+    '[data-glassdim="1"] { -webkit-backdrop-filter: none; backdrop-filter: none; }',
     // Graceful fallback when backdrop-filter is not supported: stronger tint keeps text readable
     '@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { [data-glass="1"] { background-color: rgba(255, 253, 246, 0.9) !important; } }',
     'html, body { background: #F8F3E7; overflow-x: hidden; }',

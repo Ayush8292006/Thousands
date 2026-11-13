@@ -44,7 +44,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
       <View style={styles.center} pointerEvents="box-none">
         <Pressable style={StyleSheet.absoluteFill} onPress={() => close()} accessibilityLabel="Close offer" />
         <Animated.View style={{ width: '100%', maxWidth: 380, opacity: anim, transform: [{ scale }] }}>
-          <Glass tint="cream" radius={28} style={styles.card}>
+          <Glass tint="rgba(255, 253, 246, 0.66)" radius={28} style={styles.card}>
             <ImageBackground source={{ uri: offer.image }} style={styles.banner} imageStyle={{ borderRadius: 22 }}>
               <View style={styles.bannerShade} />
               <Text style={calli(30, colors.cream)}>{offer.calligraphy}</Text>
@@ -81,7 +81,7 @@ export default function OfferPopup({ offer, onShop, delay = 900 }) {
 }
 
 const styles = StyleSheet.create({
-  dim: { backgroundColor: 'rgba(28, 22, 10, 0.26)' },
+  dim: { backgroundColor: 'rgba(28, 22, 10, 0.22)' },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
   card: { padding: 12, borderColor: 'rgba(255, 255, 255, 0.75)', borderBottomColor: 'rgba(214, 180, 92, 0.55)' },
   banner: { height: 170, justifyContent: 'flex-end', padding: 16 },
